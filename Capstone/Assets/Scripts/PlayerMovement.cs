@@ -65,6 +65,7 @@ public class PlayerMovement : MonoBehaviour {
 		//Move the player according to the inputs made
 		rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
 		Debug.Log (jump);
+
 	}
 
 	void Grounded(){
