@@ -9,7 +9,8 @@ public class PlayerMovement : MonoBehaviour {
 	Rigidbody2D rb; 
 	BoxCollider2D box; 
 
-	bool grounded; 
+	bool grounded;
+
 
 	public float accel;
 	public float maxAccel;
@@ -22,12 +23,14 @@ public class PlayerMovement : MonoBehaviour {
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
 		box = GetComponent<BoxCollider2D>();
+
 	}
 
 	void Update(){
 		if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && !jump) {
 			jump = true;	
 		}
+
 	}
 
 	// Update is called once per frame
@@ -64,7 +67,6 @@ public class PlayerMovement : MonoBehaviour {
 
 		//Move the player according to the inputs made
 		rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
-		Debug.Log (jump);
 
 	}
 
