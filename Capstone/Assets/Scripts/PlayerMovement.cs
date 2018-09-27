@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour {
 			vel.x = 0;
 		}
 
-		if (jump && grounded) {
+		if (jump) {//&& grounded) {
 			vel.y = jumpVel;
 		}
 

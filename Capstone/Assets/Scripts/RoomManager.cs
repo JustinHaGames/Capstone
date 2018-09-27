@@ -10,7 +10,7 @@ public class RoomManager : MonoBehaviour {
 	public static int column = 0; 
 
 	private Vector2[,] roomPosition = new Vector2[3,3];
-	Vector2 roomSize = new Vector2(20,10);
+	Vector2 roomSize = new Vector2(20,12);
 
 	// Use this for initialization
 	void Start () {
