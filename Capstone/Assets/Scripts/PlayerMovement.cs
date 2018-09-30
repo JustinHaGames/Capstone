@@ -19,6 +19,9 @@ public class PlayerMovement : MonoBehaviour {
 	bool jump; 
 	public float jumpVel;
 
+	public float boundaryL; 
+	public float boundaryR;
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
@@ -59,11 +62,18 @@ public class PlayerMovement : MonoBehaviour {
 			vel.x = 0;
 		}
 
-		if (jump) {//&& grounded) {
+		if (jump && grounded) {
 			vel.y = jumpVel;
 		}
 
 		jump = false; 
+
+		//If player is trying to go out of bounds
+		if (transform.position.x <= boundaryL) {
+			transform.position = new Vector3 (boundaryL, transform.position.y, transform.position.z); 
+		} else if (transform.position.x >= boundaryR) {
+			transform.position = new Vector3 (boundaryR, transform.position.y, transform.position.z); 
+		}
 
 		//Move the player according to the inputs made
 		rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);

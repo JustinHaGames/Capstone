@@ -33,13 +33,5 @@ public class GameManager : MonoBehaviour {
 			alphaNum = 0f; 
 		}
 
-		if (Input.GetKeyDown (KeyCode.R)) {
-			if (fadeIn) {
-				fadeIn = false;
-			} else {
-				fadeIn = true;
-			}
-		}
-
 	}
 }
