@@ -19,6 +19,9 @@ public class PlayerMovement : MonoBehaviour {
 	bool jump; 
 	public float jumpVel;
 
+	bool climbing; 
+	public float climbVel; 
+
 	public float boundaryL; 
 	public float boundaryR;
 
@@ -30,7 +33,7 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void Update(){
-		if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && !jump) {
+		if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z)) && !jump) {
 			jump = true;	
 		}
 
@@ -75,6 +78,14 @@ public class PlayerMovement : MonoBehaviour {
 			transform.position = new Vector3 (boundaryR, transform.position.y, transform.position.z); 
 		}
 
+		if (climbing) {
+			if (Input.GetKey (KeyCode.UpArrow)) {
+				vel.y = climbVel;
+			} else {
+				vel.y = 0;
+			}
+		}
+
 		//Move the player according to the inputs made
 		rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
 
@@ -89,7 +100,23 @@ public class PlayerMovement : MonoBehaviour {
 		if (grounded) {
 			vel.y = 0; 
 		} else {
-			vel.y += gravity;
+			if (!climbing) {
+				vel.y += gravity;
+			}
 		}
+	}
+
+	void OnTriggerEnter2D(Collider2D coll){
+
+		if (coll.gameObject.tag == "Ladder") {
+			climbing = true; 
+		} 
+
+	}
+
+	void OnTriggerExit2D(Collider2D coll){
+		if (coll.gameObject.tag == "Ladder") {
+			climbing = false; 
+		} 
 	}
 }
