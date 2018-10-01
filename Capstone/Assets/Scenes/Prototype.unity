@@ -146,8 +146,8 @@ MonoBehaviour:
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
   m_Priority: 10
-  m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 1702275713}
+  m_LookAt: {fileID: 1702275713}
+  m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 40
     OrthographicSize: 5.56

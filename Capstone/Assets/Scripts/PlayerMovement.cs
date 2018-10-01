@@ -78,12 +78,22 @@ public class PlayerMovement : MonoBehaviour {
 			transform.position = new Vector3 (boundaryR, transform.position.y, transform.position.z); 
 		}
 
+		// Climb up and down the ladder
 		if (climbing) {
-			if (Input.GetKey (KeyCode.UpArrow)) {
+
+			bool up = Input.GetKey (KeyCode.UpArrow);
+			bool down = Input.GetKey (KeyCode.DownArrow);
+
+			if (up) {
 				vel.y = climbVel;
-			} else {
+			} else if (down) {
+				vel.y = -climbVel;
+			}
+
+			if (!up && !down) {
 				vel.y = 0;
 			}
+
 		}
 
 		//Move the player according to the inputs made
