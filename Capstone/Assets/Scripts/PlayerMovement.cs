@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour {
 
 	bool grounded;
 
-
 	public float accel;
 	public float maxAccel;
 
@@ -25,10 +24,21 @@ public class PlayerMovement : MonoBehaviour {
 	public float boundaryL; 
 	public float boundaryR;
 
+	public Transform room;
+
+	bool lastR; 
+	bool lastL; 
+
+	public GameObject hitboxRight;
+	public GameObject hitboxLeft; 
+
+	bool canAttack;
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
 		box = GetComponent<BoxCollider2D>();
+
+		canAttack = true;
 
 	}
 
@@ -52,9 +62,13 @@ public class PlayerMovement : MonoBehaviour {
 		//If right or left if pressed, accel in that direction
 		if (right) {
 			vel.x += accel;
+			lastR = true; 
+			lastL = false; 
 		}
 		if (left) {
 			vel.x -= accel;
+			lastL = true; 
+			lastR = false; 
 		}
 
 		//Limit the player's max velocity
@@ -96,7 +110,33 @@ public class PlayerMovement : MonoBehaviour {
 
 		}
 
+
+//		RaycastHit hit;
+//
+//		if (Input.GetKey(KeyCode.X)){
+//			if (lastR) {
+//				if (Physics.Raycast (transform.position, Vector3.right, out hit))
+//					hit.transform.SendMessage ("HitByRay");
+//			} else if (lastL) {
+//				if (Physics.Raycast (transform.position, Vector3.left, out hit))
+//					hit.transform.SendMessage ("HitByRay");
+//			}
+//			Debug.DrawRay(transform.position, Vector3.right * 20, Color.green);
+//		}
 		//Move the player according to the inputs made
+
+		if (Input.GetKeyDown(KeyCode.X) && lastR && canAttack == true) {
+			hitboxRight.SetActive (true);
+			canAttack = false;
+			StartCoroutine (HitboxActive ());
+		}
+
+		if (Input.GetKeyDown(KeyCode.X) && lastL && canAttack == true) {
+			hitboxLeft.SetActive (true);
+			canAttack = false;
+			StartCoroutine (HitboxActive ());
+		}
+
 		rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
 
 	}
@@ -116,6 +156,16 @@ public class PlayerMovement : MonoBehaviour {
 		}
 	}
 
+	void OnCollisionEnter2D (Collision2D coll){
+
+		if (coll.gameObject.tag == "Enemy") {
+
+			transform.position = new Vector3 (-7f, -3f, transform.position.z);
+
+		}
+
+	}
+
 	void OnTriggerEnter2D(Collider2D coll){
 
 		if (coll.gameObject.tag == "Ladder") {
@@ -128,5 +178,14 @@ public class PlayerMovement : MonoBehaviour {
 		if (coll.gameObject.tag == "Ladder") {
 			climbing = false; 
 		} 
+	}
+
+	IEnumerator HitboxActive(){
+		for (int i = 0; i < 8; i++) {
+			yield return new WaitForFixedUpdate();
+		}
+		hitboxRight.SetActive (false);
+		hitboxLeft.SetActive (false);
+		canAttack = true;
 	}
 }
