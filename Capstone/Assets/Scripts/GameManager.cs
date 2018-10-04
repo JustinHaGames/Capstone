@@ -24,9 +24,9 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (fadeIn && alphaNum > 0f) {
-			alphaNum -= 1 * Time.deltaTime;
+			alphaNum -= .5f * Time.deltaTime;
 		} else if (!fadeIn && alphaNum < 1f) {
-			alphaNum += 1 * Time.deltaTime;
+			alphaNum += .5f * Time.deltaTime;
 		}
 
 		if (alphaNum >= 1f) {

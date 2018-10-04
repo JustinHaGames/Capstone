@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	Rigidbody2D rb; 
 	BoxCollider2D box; 
+	SpriteRenderer sprite; 
 
 	bool grounded;
 
@@ -37,6 +38,7 @@ public class PlayerMovement : MonoBehaviour {
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
 		box = GetComponent<BoxCollider2D>();
+		sprite = GetComponent<SpriteRenderer> ();
 
 		canAttack = true;
 
@@ -64,18 +66,23 @@ public class PlayerMovement : MonoBehaviour {
 			vel.x += accel;
 			lastR = true; 
 			lastL = false; 
+			sprite.flipX = false;
+
 		}
 		if (left) {
 			vel.x -= accel;
 			lastL = true; 
 			lastR = false; 
+			if (!right) {
+				sprite.flipX = true;
+			}
 		}
 
 		//Limit the player's max velocity
 		vel.x = Mathf.Max (Mathf.Min (vel.x, maxAccel), -maxAccel);
 
 		//If you don't move right or left, then don't move
-		if (!right && !left) {
+		if ((!right && !left) || (right && left)) {
 			vel.x = 0;
 		}
 
