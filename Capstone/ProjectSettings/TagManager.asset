@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Lightning
   - Portal
+  - Railing
   layers:
   - Default
   - TransparentFX
