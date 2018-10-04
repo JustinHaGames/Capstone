@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour {
 	public float alphaNum; 
 	public bool fadeIn;
 
+	public bool switchScene; 
 	// Use this for initialization
 	void Start () {
 		alphaNum = 1f;
@@ -33,5 +35,16 @@ public class GameManager : MonoBehaviour {
 			alphaNum = 0f; 
 		}
 
+		if (switchScene) {
+			StartCoroutine (SceneChange ());
+		}
+
+	}
+
+	IEnumerator SceneChange(){
+		for (int i = 0; i < 20; i++) {
+			yield return new WaitForFixedUpdate();
+		}
+		SceneManager.LoadScene (1);
 	}
 }
