@@ -30,10 +30,9 @@ public class PlayerMovement : MonoBehaviour {
 	bool lastR; 
 	bool lastL; 
 
-	public GameObject hitboxRight;
-	public GameObject hitboxLeft; 
-
 	bool canAttack;
+
+	public GameObject bullet; 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
@@ -41,6 +40,9 @@ public class PlayerMovement : MonoBehaviour {
 		sprite = GetComponent<SpriteRenderer> ();
 
 		canAttack = true;
+
+		lastR = true;
+		lastL = false;
 
 	}
 
@@ -117,31 +119,20 @@ public class PlayerMovement : MonoBehaviour {
 
 		}
 
-
-//		RaycastHit hit;
-//
-//		if (Input.GetKey(KeyCode.X)){
-//			if (lastR) {
-//				if (Physics.Raycast (transform.position, Vector3.right, out hit))
-//					hit.transform.SendMessage ("HitByRay");
-//			} else if (lastL) {
-//				if (Physics.Raycast (transform.position, Vector3.left, out hit))
-//					hit.transform.SendMessage ("HitByRay");
-//			}
-//			Debug.DrawRay(transform.position, Vector3.right * 20, Color.green);
-//		}
-		//Move the player according to the inputs made
-
+		//Shoot the lightning bullet in the given direction
 		if (Input.GetKeyDown(KeyCode.X) && lastR && canAttack == true) {
-			hitboxRight.SetActive (true);
+			
+			Instantiate (bullet, transform.position, Quaternion.identity);
 			canAttack = false;
-			StartCoroutine (HitboxActive ());
+			StartCoroutine (HitDelay ());
 		}
 
 		if (Input.GetKeyDown(KeyCode.X) && lastL && canAttack == true) {
-			hitboxLeft.SetActive (true);
+			
+			LightningBullet temp = Instantiate (bullet, transform.position, Quaternion.identity).GetComponent<LightningBullet>() ;
+			temp.speed *= -1;
 			canAttack = false;
-			StartCoroutine (HitboxActive ());
+			StartCoroutine (HitDelay ());
 		}
 
 		rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
@@ -192,12 +183,10 @@ public class PlayerMovement : MonoBehaviour {
 		} 
 	}
 
-	IEnumerator HitboxActive(){
-		for (int i = 0; i < 8; i++) {
+	IEnumerator HitDelay(){
+		for (int i = 0; i < 20; i++) {
 			yield return new WaitForFixedUpdate();
 		}
-		hitboxRight.SetActive (false);
-		hitboxLeft.SetActive (false);
 		canAttack = true;
 	}
 }
