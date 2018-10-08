@@ -82,6 +82,7 @@ public class RealityPlayerMovement : MonoBehaviour {
 		if (imagining) {
 			Instantiate (comicPlayer, new Vector3 (transform.position.x + 8f, transform.position.y, transform.position.z), Quaternion.identity);
 			imagining = false; 
+			GameManager.instance.playerSwitch = true; 
 		}
 
 	}

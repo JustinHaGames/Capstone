@@ -13,12 +13,13 @@ public class GameManager : MonoBehaviour {
 	public bool fadeIn;
 
 	public bool switchScene; 
+
+	public bool playerSwitch;
 	// Use this for initialization
 	void Start () {
 		alphaNum = 1f;
 		fadeIn = true;
 		instance = this; 
-
 	}
 	
 	// Update is called once per frame
