@@ -144,7 +144,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		//If superJump unlocked, allow players to do super jump
-		if (GameManager.instance.superJumpUpgrade) {
+		if (GameManager.superJumpUpgrade) {
 			if (Input.GetKey (KeyCode.DownArrow)) {
 				superJumpCounter += 1 * Time.deltaTime; 
 			}

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212757946373289816}
   - component: {fileID: 61664477654797070}
   m_Layer: 0
-  m_Name: Left Railing
+  m_Name: Railing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

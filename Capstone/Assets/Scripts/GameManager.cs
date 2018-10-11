@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour {
 
 	public bool playerSwitch;
 
-	public bool superJumpUpgrade; 
+	public static bool superJumpUpgrade; 
 
 	public int sceneID;
 

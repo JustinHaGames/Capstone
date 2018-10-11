@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Reality.unity
     guid: 224eca735a39047b6a5249a52aa2a6eb
+  - enabled: 1
+    path: Assets/Scenes/Comic2.unity
+    guid: c6fb005bce9444e87b4aedf03a4a2f82
