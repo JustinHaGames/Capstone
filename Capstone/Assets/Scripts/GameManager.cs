@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour {
 
 	//After a short delay, change to a different scene
 	IEnumerator SceneChange(){
-		for (int i = 0; i < 30; i++) {
+		for (int i = 0; i < 60; i++) {
 			yield return new WaitForFixedUpdate();
 		}
 		SceneManager.LoadScene (sceneID += 1);
