@@ -15,8 +15,13 @@ public class GameManager : MonoBehaviour {
 	public bool switchScene; 
 
 	public bool playerSwitch;
+
+	public bool superJumpUpgrade; 
+
+	public int sceneID;
+
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		alphaNum = 1f;
 		fadeIn = true;
 		instance = this; 
@@ -24,6 +29,7 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//Always fade in to a new scene
 		if (fadeIn && alphaNum > 0f) {
 			alphaNum -= .5f * Time.deltaTime;
 		} else if (!fadeIn && alphaNum < 1f) {
@@ -36,16 +42,25 @@ public class GameManager : MonoBehaviour {
 			alphaNum = 0f; 
 		}
 
+		//Call the scene change coroutine when switchScene is called
 		if (switchScene) {
 			StartCoroutine (SceneChange ());
 		}
 
+		//Get the current scene you are on
+		sceneID = SceneManager.GetActiveScene ().buildIndex;
+
+		if (sceneID == 1) {
+			superJumpUpgrade = true; 
+		}
+
 	}
 
+	//After a short delay, change to a different scene
 	IEnumerator SceneChange(){
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 30; i++) {
 			yield return new WaitForFixedUpdate();
 		}
-		SceneManager.LoadScene (1);
+		SceneManager.LoadScene (sceneID += 1);
 	}
 }

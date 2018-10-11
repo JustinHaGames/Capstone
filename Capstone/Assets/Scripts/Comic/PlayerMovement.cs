@@ -31,6 +31,13 @@ public class PlayerMovement : MonoBehaviour {
 	bool canAttack;
 
 	public GameObject bullet; 
+
+	float superJumpCounter; 
+	bool superJump; 
+	public float superJumpVel; 
+
+	Color defaultColor;
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
@@ -41,6 +48,9 @@ public class PlayerMovement : MonoBehaviour {
 
 		lastR = true;
 		lastL = false;
+
+		//save the initial color of the player
+		defaultColor = GetComponent<SpriteRenderer>().color;
 
 	}
 
@@ -133,6 +143,26 @@ public class PlayerMovement : MonoBehaviour {
 			StartCoroutine (HitDelay ());
 		}
 
+		//If superJump unlocked, allow players to do super jump
+		if (GameManager.instance.superJumpUpgrade) {
+			if (Input.GetKey (KeyCode.DownArrow)) {
+				superJumpCounter += 1 * Time.deltaTime; 
+			}
+
+			if (superJumpCounter >= 3) {
+				superJump = true; 
+				Flashing ();
+			}
+
+			if (superJump && Input.GetKeyDown (KeyCode.Z)) {
+				vel.y = superJumpVel;
+				superJumpCounter = 0; 
+				sprite.color = defaultColor;
+				superJump = false; 
+			}
+
+		}
+
 		rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
 
 	}
@@ -181,10 +211,27 @@ public class PlayerMovement : MonoBehaviour {
 		} 
 	}
 
+	float flashcounter;
+
+	void Flashing(){
+		flashcounter += 1; 
+
+		if (flashcounter <= 10) {
+			sprite.color = Color.yellow;
+		} else {
+			sprite.color = defaultColor;
+		}
+
+		if (flashcounter >= 20) {
+			flashcounter = 0; 
+		}
+	}
+
 	IEnumerator HitDelay(){
 		for (int i = 0; i < 20; i++) {
 			yield return new WaitForFixedUpdate();
 		}
 		canAttack = true;
 	}
+		
 }
