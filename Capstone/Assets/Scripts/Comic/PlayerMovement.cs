@@ -25,8 +25,6 @@ public class PlayerMovement : MonoBehaviour {
 	public float boundaryL; 
 	public float boundaryR;
 
-	public Transform room;
-
 	bool lastR; 
 	bool lastL; 
 

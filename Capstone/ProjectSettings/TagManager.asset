@@ -9,6 +9,7 @@ TagManager:
   - Lightning
   - Portal
   - Railing
+  - RoomManager
   layers:
   - Default
   - TransparentFX

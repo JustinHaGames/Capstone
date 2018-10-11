@@ -6,7 +6,11 @@ public class LightningBullet : MonoBehaviour {
 
 	float count = 0; 
 
-	public float speed; 
+	public float speed;  
+
+	public float duration; 
+
+	GameObject room; 
 
 	// Use this for initialization
 	void Start () {
@@ -19,9 +23,12 @@ public class LightningBullet : MonoBehaviour {
 
 		count += 1 * Time.deltaTime;
 
-		if (count > 5f) {
+		if (count >= duration) {
 			Destroy (gameObject);
 		}
+
+		room = GameObject.FindGameObjectWithTag ("RoomManager");
+
 	}
 
 	void OnCollisionEnter2D(Collision2D coll){
