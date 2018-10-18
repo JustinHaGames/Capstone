@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour {
 	public int sceneID;
 
 	// Use this for initialization
-	void Awake () {
+	void Start () {
 		alphaNum = 1f;
 		fadeIn = true;
 		instance = this; 
@@ -31,9 +31,9 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		//Always fade in to a new scene
 		if (fadeIn && alphaNum > 0f) {
-			alphaNum -= .5f * Time.deltaTime;
+			alphaNum -= .25f * Time.deltaTime;
 		} else if (!fadeIn && alphaNum < 1f) {
-			alphaNum += .5f * Time.deltaTime;
+			alphaNum += .25f * Time.deltaTime;
 		}
 
 		if (alphaNum >= 1f) {
@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour {
 
 	//After a short delay, change to a different scene
 	IEnumerator SceneChange(){
-		for (int i = 0; i < 60; i++) {
+		for (int i = 0; i < 80; i++) {
 			yield return new WaitForFixedUpdate();
 		}
 		SceneManager.LoadScene (sceneID += 1);
