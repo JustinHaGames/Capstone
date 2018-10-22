@@ -8,22 +8,27 @@ public class InspirationManager : MonoBehaviour {
 
 	public AudioClip winner; 
 
+	public AudioClip clap; 
+
 	public static bool gotTrophy; 
 
 	public static bool activateScene; 
 
-	public static bool exit; 
-
 	public static bool standUp; 
 
-	float exitTimer; 
+	float clapTimer; 
 
 	bool playAudio;
+
+	bool clapped; 
+
+
 
 	// Use this for initialization
 	void Start () {
 		audio = GetComponent<AudioSource> (); 
 		playAudio = true; 
+		clapped = false; 
 	}
 	
 	// Update is called once per frame
@@ -41,10 +46,14 @@ public class InspirationManager : MonoBehaviour {
 
 		}
 
-		if (gotTrophy) {
-			exitTimer += 1 * Time.deltaTime;
-			if (exitTimer >= 4f) {
-				exit = true; 
+		if (gotTrophy) { 
+			clapTimer += 1 * Time.deltaTime;
+			if (clapTimer >= 1f) {
+				standUp = true; 
+			}
+			if (!clapped) {
+				audio.PlayOneShot (clap);
+				clapped = true; 
 			}
 		}
 

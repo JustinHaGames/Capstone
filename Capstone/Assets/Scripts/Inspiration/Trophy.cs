@@ -34,13 +34,5 @@ public class Trophy : MonoBehaviour {
 				}
 			}
 		}
-
-		if (InspirationManager.exit) {
-			transform.Translate (Vector3.right * Time.deltaTime);
-		}
-
-		if (transform.position.x >= 10f) {
-			Destroy (gameObject);
-		}
 	}
 }
