@@ -22,7 +22,7 @@ public class MonarchMovement : MonoBehaviour {
 			ascend = true; 
 
 
-			if (timer < 6f) {
+			if (timer < 7f) {
 				transform.Translate (Vector3.up * Time.deltaTime);
 
 			}else{
@@ -34,7 +34,7 @@ public class MonarchMovement : MonoBehaviour {
 		}
 
 		if (GameManager.instance.monarchFlying) {
-			transform.position = new Vector3(Mathf.PingPong (Time.time * 2f, 17f) +72f, transform.position.y + (Mathf.Sin (Time.time) * .04f), transform.position.z);
+			transform.position = new Vector3(Mathf.PingPong (Time.time * 2f, 17f) +72f, transform.position.y + (Mathf.Sin (Time.time) * .03f), transform.position.z);
 			if (timer >= 40f) {
 				GameManager.instance.switchScene = true;
 				GameManager.instance.fadeIn = false; 
