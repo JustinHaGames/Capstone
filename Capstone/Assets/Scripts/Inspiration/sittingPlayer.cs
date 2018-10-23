@@ -17,7 +17,7 @@ public class sittingPlayer : MonoBehaviour {
 
 		if (InspirationManager.standUp) {
 			timer += 1 * Time.deltaTime;
-			if (timer >= 3f) {
+			if (timer >= 5f) {
 				Instantiate (standingPlayer, transform.position, Quaternion.identity);
 				Destroy (gameObject);
 			}
