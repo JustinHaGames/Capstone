@@ -127,20 +127,34 @@ public class PlayerMovement : MonoBehaviour {
 
 		}
 
-		//Shoot the lightning bullet in the given direction
-		if (Input.GetKeyDown(KeyCode.X) && lastR && canAttack == true) {
-			
-			Instantiate (bullet, transform.position, Quaternion.identity);
-			canAttack = false;
-			StartCoroutine (HitDelay ());
+		if (GameManager.instance.sceneID == 2) {
+			if (transform.position.x >= 70f) {
+				GameManager.instance.monarchComeAlive = true; 
+				GameManager.instance.playFlying = true; 
+				boundaryL = 70f;
+				if (GameManager.instance.monarchFlying == false) {
+					vel.x = 0; 
+					vel.y = 0; 
+				}
+			}
 		}
 
-		if (Input.GetKeyDown(KeyCode.X) && lastL && canAttack == true) {
+		if (GameManager.instance.sceneID >= 3) {
+			//Shoot the lightning bullet in the given direction
+			if (Input.GetKeyDown (KeyCode.X) && lastR && canAttack == true) {
 			
-			LightningBullet temp = Instantiate (bullet, transform.position, Quaternion.identity).GetComponent<LightningBullet>() ;
-			temp.speed *= -1;
-			canAttack = false;
-			StartCoroutine (HitDelay ());
+				Instantiate (bullet, transform.position, Quaternion.identity);
+				canAttack = false;
+				StartCoroutine (HitDelay ());
+			}
+
+			if (Input.GetKeyDown (KeyCode.X) && lastL && canAttack == true) {
+			
+				LightningBullet temp = Instantiate (bullet, transform.position, Quaternion.identity).GetComponent<LightningBullet> ();
+				temp.speed *= -1;
+				canAttack = false;
+				StartCoroutine (HitDelay ());
+			}
 		}
 
 		//If superJump unlocked, allow players to do super jump

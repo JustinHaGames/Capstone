@@ -18,13 +18,25 @@ public class GameManager : MonoBehaviour {
 
 	public static bool superJumpUpgrade; 
 
+	public bool monarchComeAlive; 
+	public bool monarchFlying; 
+
 	public int sceneID;
+
+	AudioSource audio; 
+
+	public AudioClip flying; 
+
+	public bool playFlying; 
 
 	// Use this for initialization
 	void Start () {
 		alphaNum = 1f;
 		fadeIn = true;
 		instance = this; 
+
+		audio = GetComponent<AudioSource> ();
+
 	}
 	
 	// Update is called once per frame
@@ -53,6 +65,15 @@ public class GameManager : MonoBehaviour {
 		if (sceneID == 1) {
 			superJumpUpgrade = true; 
 		}
+
+		if (sceneID == 2) {
+			if (playFlying) {
+				if (!audio.isPlaying) {
+					audio.Play ();
+				}
+			}
+		}
+			
 
 	}
 

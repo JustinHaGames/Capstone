@@ -46,6 +46,7 @@ public class WalkingHome : MonoBehaviour {
 		if (transform.position.x <= -51f) {
 			GameManager.instance.switchScene = true;
 			GameManager.instance.fadeIn = false; 
+			vel.x = 0; 
 		}
 
 
