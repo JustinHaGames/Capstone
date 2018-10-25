@@ -16,8 +16,11 @@ public class PlayerMovement : MonoBehaviour {
 	public float maxAccel;
 
 	public float gravity; 
+	bool canJump;
 	bool jump; 
+	public float baseJumpVel; 
 	public float jumpVel;
+	int jumpCounter; 
 
 	bool climbing; 
 	public float climbVel; 
@@ -55,8 +58,10 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void Update(){
-		if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z)) && !jump) {
-			jump = true;	
+		if (canJump) {
+			if ((Input.GetKeyDown (KeyCode.Space) || Input.GetKeyDown (KeyCode.Z)) && !jump) {
+				jump = true;	
+			}
 		}
 
 	}
@@ -96,11 +101,41 @@ public class PlayerMovement : MonoBehaviour {
 			vel.x = 0;
 		}
 
-		if (jump && grounded) {
-			vel.y = jumpVel;
+		if (jump) {
+			
+			Debug.Log (jumpCounter);
+			if ((Input.GetKey (KeyCode.Space) || Input.GetKey (KeyCode.Z))) {
+				switch (jumpCounter) {
+				case 0:
+					jumpVel = jumpVel; 
+					break;
+				case 1:
+					jumpVel += 1;
+					break; 
+				case 2: 
+					
+					break;
+				case 3:
+					break; 
+				case 4:
+					break; 
+				case 5: 
+					jumpVel += 3;
+					break;
+				case 6: 
+					jump = false;
+					break;
+				}
+				jumpCounter++; 
+				vel.y = jumpVel; 
+
+			}
 		}
 
-		jump = false; 
+		if ((Input.GetKeyUp (KeyCode.Space) || Input.GetKeyUp (KeyCode.Z))) {
+			jump = false; 
+			jumpCounter = 0;
+		}
 
 		//If player is trying to go out of bounds
 		if (transform.position.x <= boundaryL) {
@@ -189,7 +224,11 @@ public class PlayerMovement : MonoBehaviour {
 
 		if (grounded) {
 			vel.y = 0; 
+			canJump = true;
+			jumpCounter = 0; 
+			jumpVel = baseJumpVel; 
 		} else {
+			canJump = false;
 			if (!climbing) {
 				vel.y += gravity;
 			}
