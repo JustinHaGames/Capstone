@@ -101,9 +101,8 @@ public class PlayerMovement : MonoBehaviour {
 			vel.x = 0;
 		}
 
+		//Jump and check if the button is still being held to vary jumps
 		if (jump) {
-			
-			Debug.Log (jumpCounter);
 			if ((Input.GetKey (KeyCode.Space) || Input.GetKey (KeyCode.Z))) {
 				switch (jumpCounter) {
 				case 0:
@@ -132,6 +131,7 @@ public class PlayerMovement : MonoBehaviour {
 			}
 		}
 
+		//When you let go of the jump buttons, make jump false and fall
 		if ((Input.GetKeyUp (KeyCode.Space) || Input.GetKeyUp (KeyCode.Z))) {
 			jump = false; 
 			jumpCounter = 0;
@@ -211,6 +211,10 @@ public class PlayerMovement : MonoBehaviour {
 			}
 
 		}
+
+		//Box kicking test
+		RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * 2f);
+		Debug.DrawRay(transform.position, Vector2.right * 2f, Color.red);
 
 		rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
 
