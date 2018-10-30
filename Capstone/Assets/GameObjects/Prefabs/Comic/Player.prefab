@@ -102,12 +102,13 @@ MonoBehaviour:
   accel: 2
   maxAccel: 6
   gravity: -0.35
-  jumpVel: 10
+  baseJumpVel: 5
+  jumpVel: 5
   climbVel: 3
   boundaryL: -9.5
   boundaryR: 49.5
   bullet: {fileID: 1335053491873462, guid: ed893bdc040ae483ea3c66cd070cdafb, type: 2}
-  superJumpVel: 23
+  superJumpVel: 50
 --- !u!212 &212577685041477818
 SpriteRenderer:
   m_ObjectHideFlags: 1
