@@ -231,6 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   accel: 1
   maxAccel: 3
+  sceneChangeSpot: -51
 --- !u!4 &276236902 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4040507023394082, guid: 6a766d2633c2445b08cd4f6bae2cc228,
@@ -498,7 +499,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1278218725}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.00000047683716, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1895084880}
@@ -825,7 +826,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2141870242}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.6533337, y: 3.0480223, z: -10}
+  m_LocalPosition: {x: -5.6533337, y: 3.0480218, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1278218726}

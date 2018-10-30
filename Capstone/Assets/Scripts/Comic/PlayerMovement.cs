@@ -162,7 +162,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		}
 
-		if (GameManager.instance.sceneID == 2) {
+		if (GameManager.instance.sceneID == 3) {
 			if (transform.position.x >= 70f) {
 				GameManager.instance.monarchComeAlive = true; 
 				GameManager.instance.playFlying = true; 

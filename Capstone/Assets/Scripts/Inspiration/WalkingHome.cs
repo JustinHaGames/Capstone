@@ -8,17 +8,20 @@ public class WalkingHome : MonoBehaviour {
 
 	Rigidbody2D rb; 
 	BoxCollider2D box; 
+	SpriteRenderer sprite; 
 
 	bool grounded;
 
 	public float accel;
 	public float maxAccel;
 
+	public float sceneChangeSpot; 
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
 		box = GetComponent<BoxCollider2D>();
+		sprite = GetComponent<SpriteRenderer> ();
 	}
 
 	void Update(){
@@ -43,10 +46,13 @@ public class WalkingHome : MonoBehaviour {
 				vel.x = 0;
 			}
 			
-		if (transform.position.x <= -51f) {
+		if (transform.position.x <= sceneChangeSpot) {
 			GameManager.instance.switchScene = true;
 			GameManager.instance.fadeIn = false; 
 			vel.x = 0; 
+			if (GameManager.instance.sceneID == 2) {
+				sprite.enabled = false; 
+			}
 		}
 
 

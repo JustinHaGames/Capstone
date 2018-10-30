@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/WalkHome.unity
     guid: 9e69e19719573405ea06c02c4f822ea6
   - enabled: 1
+    path: Assets/Scenes/GoingToSleep.unity
+    guid: 91b7e438f857e44c095a2ba49237f783
+  - enabled: 1
     path: Assets/Scenes/Dream1.unity
     guid: 9b9eff6e3d88344209b24f3feae950c6
   - enabled: 1

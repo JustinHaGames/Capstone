@@ -109,7 +109,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 492}
   m_MaxSize: {x: 18008, y: 14042}
   vertical: 0
-  controlID: 10629
+  controlID: 220
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_MinSize: {x: 436, y: 492}
   m_MaxSize: {x: 14006, y: 14042}
   vertical: 1
-  controlID: 10630
+  controlID: 221
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -154,10 +154,10 @@ MonoBehaviour:
     y: 0
     width: 1003
     height: 362
-  m_MinSize: {x: 404, y: 221}
-  m_MaxSize: {x: 8004, y: 4021}
+  m_MinSize: {x: 406, y: 221}
+  m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 10631
+  controlID: 222
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -232,7 +232,7 @@ MonoBehaviour:
   m_MinSize: {x: 436, y: 271}
   m_MaxSize: {x: 14006, y: 10021}
   vertical: 0
-  controlID: 10699
+  controlID: 291
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -415,9 +415,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
+    m_SelectedIDs: 34290000
     m_LastClickedID: 0
-    m_ExpandedIDs: 94a4f7ff32a8f7ff7ab7f7ffbcbcf7ff3ccff7ffd800f8ff5416f8ff8a76fcffc079fcfffe30fdff1836fdff7838fdff843cfdff0259fdffbe53ffff485bffffeee2ffffccecfffffcf2ffff9cfbffff00000000de2b0000b02c0000c82c00005a3900000a3f0000045c0000
+    m_ExpandedIDs: a6f8ffff9cfbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -468,14 +468,14 @@ MonoBehaviour:
     height: 341
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 0
-  lastFramingTime: 7168.511716961861
+  lastFramingTime: 4834.538692951202
   m_2DMode: 1
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.3924483, y: 1.7062657, z: -0.546875}
+    m_Target: {x: -8.673392, y: -0.6425307, z: -0.1015625}
     speed: 2
-    m_Value: {x: 0.3924483, y: 1.7062657, z: -0.546875}
+    m_Value: {x: -8.673392, y: -0.6425307, z: -0.1015625}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -503,9 +503,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 58.115185
+    m_Target: 23.950443
     speed: 2
-    m_Value: 58.115185
+    m_Value: 23.950443
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -592,10 +592,10 @@ MonoBehaviour:
   m_LastProjectPath: /Users/Raios/Documents/Unity/Capstone/Capstone
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: ea280000
-    m_LastClickedID: 10474
-    m_ExpandedIDs: 0000000050280000b4280000f2280000ac29000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 44}
+    m_SelectedIDs: f4280000
+    m_LastClickedID: 10484
+    m_ExpandedIDs: 0000000054280000fe280000c029000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -623,7 +623,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000050280000b4280000f2280000ac29000000ca9a3bffffff7f
+    m_ExpandedIDs: 0000000054280000fe280000c029000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 

@@ -62,11 +62,11 @@ public class GameManager : MonoBehaviour {
 		//Get the current scene you are on
 		sceneID = SceneManager.GetActiveScene ().buildIndex;
 
-		if (sceneID == 1) {
+		if (sceneID >= 4) {
 			superJumpUpgrade = true; 
 		}
 
-		if (sceneID == 2) {
+		if (sceneID == 3) {
 			if (playFlying) {
 				if (!audio.isPlaying) {
 					audio.Play ();
