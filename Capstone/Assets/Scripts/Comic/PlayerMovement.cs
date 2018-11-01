@@ -42,6 +42,9 @@ public class PlayerMovement : MonoBehaviour {
 	Color defaultColor;
 
 	public GameObject pickUpBox; 
+	public GameObject heldObject;
+	bool grab;
+	bool holding = false; 
 
 	// Use this for initialization
 	void Start () {
@@ -56,6 +59,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		//save the initial color of the player
 		defaultColor = GetComponent<SpriteRenderer>().color;
+		heldObject = null;
 
 	}
 
@@ -63,6 +67,29 @@ public class PlayerMovement : MonoBehaviour {
 		if (canJump) {
 			if ((Input.GetKeyDown (KeyCode.Space) || Input.GetKeyDown (KeyCode.Z)) && !jump) {
 				jump = true;	
+			}
+		}
+
+		//When you let go of the jump buttons, make jump false and fall
+		if ((Input.GetKeyUp (KeyCode.Space) || Input.GetKeyUp (KeyCode.Z))) {
+			jump = false; 
+			jumpCounter = 0;
+		}
+
+		//Pickup objects
+		if (Input.GetKeyDown (KeyCode.X)) {
+			Debug.Log ("hey");
+			//Box kicking test
+			if (heldObject == null) {
+				RaycastHit2D hit = Physics2D.Raycast (new Vector2 (transform.position.x, transform.position.y - .5f), Vector2.right * 2f);
+				Debug.DrawRay (new Vector2 (transform.position.x, transform.position.y - .5f), Vector2.right * 2f, Color.red);
+				heldObject = hit.collider.gameObject;
+				heldObject.SendMessage ("PickUp", SendMessageOptions.DontRequireReceiver);
+			} else {
+
+
+				heldObject.SendMessage ("Drop", SendMessageOptions.DontRequireReceiver);
+				heldObject = null;
 			}
 		}
 
@@ -132,12 +159,7 @@ public class PlayerMovement : MonoBehaviour {
 
 			}
 		}
-
-		//When you let go of the jump buttons, make jump false and fall
-		if ((Input.GetKeyUp (KeyCode.Space) || Input.GetKeyUp (KeyCode.Z))) {
-			jump = false; 
-			jumpCounter = 0;
-		}
+			
 
 		//If player is trying to go out of bounds
 		if (transform.position.x <= boundaryL) {
@@ -216,13 +238,7 @@ public class PlayerMovement : MonoBehaviour {
 
 
 
-		if (Input.GetKeyDown (KeyCode.X)) {
-			//Box kicking test
-			RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - .5f),  Vector2.right * 2f);
-			Debug.DrawRay(new Vector2(transform.position.x, transform.position.y - .5f), Vector2.right * 2f, Color.red);
-			pickUpBox = hit.collider.gameObject; 
-			pickUpBox.SendMessage ("PickUp", SendMessageOptions.DontRequireReceiver);
-		}
+
 			
 		rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
 

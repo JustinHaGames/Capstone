@@ -53,10 +53,11 @@ public class Box : MonoBehaviour {
 		grounded = Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("Platform")) != null; 
 
 		if (grounded) {
-			vel.x = 0;
 			set = true; 
 		} else {
-			vel.y += gravity;
+			if (!held) {
+				vel.y += gravity;
+			}
 			set = false; 
 			setChecked = false; 
 		}
@@ -64,10 +65,19 @@ public class Box : MonoBehaviour {
 	}
 
 	public void PickUp(){
+		Debug.Log ("Pick up");
 		gameObject.layer = 15; 
 		rb.isKinematic = true; 
 		transform.position = player.transform.position; 
 		transform.parent = player.transform;
 		held = true;
+	}
+
+	public void Drop () {
+		Debug.Log ("Drop");
+		transform.parent = null;
+		rb.isKinematic = false;
+		gameObject.layer = 14; 
+		held = false; 
 	}
 }
