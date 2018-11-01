@@ -11,7 +11,16 @@ public class Box : MonoBehaviour {
 
 	bool grounded; 
 
+	bool set;
+	bool setChecked; 
+
+	bool held; 
+
+	Vector3 setPosition; 
+
 	public float gravity; 
+
+	public Transform player; 
 
 	// Use this for initialization
 	void Start () {
@@ -24,10 +33,17 @@ public class Box : MonoBehaviour {
 
 		Grounded (); 
 
-		Debug.Log (grounded);
+		if (set) {
+			if (!setChecked) {
+				setPosition = transform.position; 
+				setChecked = true;
+			}
+			transform.position = setPosition; 
+		}
 
-		rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
-
+		if (!held) {
+			rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
+		}
 	}
 
 	void Grounded(){
@@ -37,9 +53,21 @@ public class Box : MonoBehaviour {
 		grounded = Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("Platform")) != null; 
 
 		if (grounded) {
+			vel.x = 0;
+			set = true; 
 		} else {
 			vel.y += gravity;
+			set = false; 
+			setChecked = false; 
 		}
 
+	}
+
+	public void PickUp(){
+		gameObject.layer = 15; 
+		rb.isKinematic = true; 
+		transform.position = player.transform.position; 
+		transform.parent = player.transform;
+		held = true;
 	}
 }

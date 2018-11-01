@@ -41,6 +41,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	Color defaultColor;
 
+	public GameObject pickUpBox; 
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
@@ -174,23 +176,23 @@ public class PlayerMovement : MonoBehaviour {
 			}
 		}
 
-		if (GameManager.instance.sceneID >= 3) {
-			//Shoot the lightning bullet in the given direction
-			if (Input.GetKeyDown (KeyCode.X) && lastR && canAttack == true) {
-			
-				Instantiate (bullet, transform.position, Quaternion.identity);
-				canAttack = false;
-				StartCoroutine (HitDelay ());
-			}
-
-			if (Input.GetKeyDown (KeyCode.X) && lastL && canAttack == true) {
-			
-				LightningBullet temp = Instantiate (bullet, transform.position, Quaternion.identity).GetComponent<LightningBullet> ();
-				temp.speed *= -1;
-				canAttack = false;
-				StartCoroutine (HitDelay ());
-			}
-		}
+//		if (GameManager.instance.sceneID >= 3) {
+//			//Shoot the lightning bullet in the given direction
+//			if (Input.GetKeyDown (KeyCode.X) && lastR && canAttack == true) {
+//			
+//				Instantiate (bullet, transform.position, Quaternion.identity);
+//				canAttack = false;
+//				StartCoroutine (HitDelay ());
+//			}
+//
+//			if (Input.GetKeyDown (KeyCode.X) && lastL && canAttack == true) {
+//			
+//				LightningBullet temp = Instantiate (bullet, transform.position, Quaternion.identity).GetComponent<LightningBullet> ();
+//				temp.speed *= -1;
+//				canAttack = false;
+//				StartCoroutine (HitDelay ());
+//			}
+//		}
 
 		//If superJump unlocked, allow players to do super jump
 		if (GameManager.superJumpUpgrade) {
@@ -212,10 +214,16 @@ public class PlayerMovement : MonoBehaviour {
 
 		}
 
-		//Box kicking test
-		RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * 2f);
-		Debug.DrawRay(transform.position, Vector2.right * 2f, Color.red);
 
+
+		if (Input.GetKeyDown (KeyCode.X)) {
+			//Box kicking test
+			RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - .5f),  Vector2.right * 2f);
+			Debug.DrawRay(new Vector2(transform.position.x, transform.position.y - .5f), Vector2.right * 2f, Color.red);
+			pickUpBox = hit.collider.gameObject; 
+			pickUpBox.SendMessage ("PickUp", SendMessageOptions.DontRequireReceiver);
+		}
+			
 		rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
 
 	}
@@ -224,7 +232,7 @@ public class PlayerMovement : MonoBehaviour {
 		Vector2 pt1 = transform.TransformPoint (box.offset + new Vector2 (box.size.x / 2, -box.size.y / 2));
 		Vector2 pt2 = transform.TransformPoint (box.offset - (box.size / 2) + new Vector2 (0, 0));
 
-		grounded = Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("Platform")) != null; 
+		grounded = Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("Platform")) != null || Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("Box")) != null; 
 
 		if (grounded) {
 			vel.y = 0; 
