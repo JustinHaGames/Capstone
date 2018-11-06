@@ -16,8 +16,6 @@ public class GameManager : MonoBehaviour {
 
 	public bool playerSwitch;
 
-	public static bool superJumpUpgrade; 
-
 	public bool monarchComeAlive; 
 	public bool monarchFlying; 
 
@@ -61,10 +59,6 @@ public class GameManager : MonoBehaviour {
 
 		//Get the current scene you are on
 		sceneID = SceneManager.GetActiveScene ().buildIndex;
-
-		if (sceneID >= 4) {
-			superJumpUpgrade = true; 
-		}
 
 		if (sceneID == 3) {
 			if (playFlying) {

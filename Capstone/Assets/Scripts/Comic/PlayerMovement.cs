@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
+	public static PlayerMovement instance;
+
 	Vector2 vel; 
 
 	Rigidbody2D rb; 
@@ -31,28 +33,22 @@ public class PlayerMovement : MonoBehaviour {
 	bool lastR; 
 	bool lastL; 
 
-	bool canAttack;
-
-	public GameObject bullet; 
-
-	float superJumpCounter; 
-	bool superJump; 
-	public float superJumpVel; 
-
 	Color defaultColor;
 
 	public GameObject pickUpBox; 
 	public GameObject heldObject;
 	bool grab;
 	bool holding = false; 
+	bool standingOnTop; 
 
 	// Use this for initialization
 	void Start () {
+
+		instance = this; 
+
 		rb = GetComponent<Rigidbody2D>();
 		box = GetComponent<BoxCollider2D>();
 		sprite = GetComponent<SpriteRenderer> ();
-
-		canAttack = true;
 
 		lastR = true;
 		lastL = false;
@@ -78,7 +74,6 @@ public class PlayerMovement : MonoBehaviour {
 
 		//Pickup objects
 		if (Input.GetKeyDown (KeyCode.X)) {
-			Debug.Log ("hey");
 			//Box kicking test
 			if (heldObject == null) {
 				RaycastHit2D hit = Physics2D.Raycast (new Vector2 (transform.position.x, transform.position.y - .5f), Vector2.right * 2f);
@@ -87,10 +82,23 @@ public class PlayerMovement : MonoBehaviour {
 				heldObject.SendMessage ("PickUp", SendMessageOptions.DontRequireReceiver);
 			} else {
 
+				if (Input.GetKey (KeyCode.UpArrow)) {
+					heldObject.SendMessage ("Up", SendMessageOptions.DontRequireReceiver);
+					heldObject = null;
+				}
 
-				heldObject.SendMessage ("Drop", SendMessageOptions.DontRequireReceiver);
-				heldObject = null;
-			}
+				else if (Input.GetKey (KeyCode.RightArrow)) {
+					heldObject.SendMessage ("Right", SendMessageOptions.DontRequireReceiver);
+					heldObject = null; 
+				} 
+
+				//Drop the box
+				if (Input.GetKeyDown (KeyCode.X)) {
+					heldObject.SendMessage ("Drop", SendMessageOptions.DontRequireReceiver);
+					heldObject = null;
+				}
+
+			} 
 		}
 
 	}
@@ -197,48 +205,6 @@ public class PlayerMovement : MonoBehaviour {
 				}
 			}
 		}
-
-//		if (GameManager.instance.sceneID >= 3) {
-//			//Shoot the lightning bullet in the given direction
-//			if (Input.GetKeyDown (KeyCode.X) && lastR && canAttack == true) {
-//			
-//				Instantiate (bullet, transform.position, Quaternion.identity);
-//				canAttack = false;
-//				StartCoroutine (HitDelay ());
-//			}
-//
-//			if (Input.GetKeyDown (KeyCode.X) && lastL && canAttack == true) {
-//			
-//				LightningBullet temp = Instantiate (bullet, transform.position, Quaternion.identity).GetComponent<LightningBullet> ();
-//				temp.speed *= -1;
-//				canAttack = false;
-//				StartCoroutine (HitDelay ());
-//			}
-//		}
-
-		//If superJump unlocked, allow players to do super jump
-		if (GameManager.superJumpUpgrade) {
-			if (Input.GetKey (KeyCode.DownArrow)) {
-				superJumpCounter += 1 * Time.deltaTime; 
-			}
-
-			if (superJumpCounter >= 3) {
-				superJump = true; 
-				Flashing ();
-			}
-
-			if (superJump && Input.GetKeyDown (KeyCode.Z)) {
-				vel.y = superJumpVel;
-				superJumpCounter = 0; 
-				sprite.color = defaultColor;
-				superJump = false; 
-			}
-
-		}
-
-
-
-
 			
 		rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
 
@@ -248,7 +214,7 @@ public class PlayerMovement : MonoBehaviour {
 		Vector2 pt1 = transform.TransformPoint (box.offset + new Vector2 (box.size.x / 2, -box.size.y / 2));
 		Vector2 pt2 = transform.TransformPoint (box.offset - (box.size / 2) + new Vector2 (0, 0));
 
-		grounded = Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("Platform")) != null || Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("Box")) != null; 
+		grounded = Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("Platform")) != null; 
 
 		if (grounded) {
 			vel.y = 0; 
@@ -257,7 +223,7 @@ public class PlayerMovement : MonoBehaviour {
 			jumpVel = baseJumpVel; 
 		} else {
 			canJump = false;
-			if (!climbing) {
+			if (!standingOnTop) {
 				vel.y += gravity;
 			}
 		}
@@ -266,8 +232,6 @@ public class PlayerMovement : MonoBehaviour {
 	void OnCollisionEnter2D (Collision2D coll){
 
 		if (coll.gameObject.tag == "Enemy") {
-
-			transform.position = new Vector3 (-7f, -3f, transform.position.z);
 
 		}
 
@@ -284,35 +248,29 @@ public class PlayerMovement : MonoBehaviour {
 			GameManager.instance.fadeIn = false; 
 		}
 
+		if (coll.gameObject.tag == "Box") {
+			standingOnTop = true; 
+			vel.y = 0; 
+		}
+
+	}
+
+	void OnTriggerStay2D(Collider2D coll){
+		if (coll.gameObject.tag == "Box") {
+			Debug.Log (standingOnTop);
+			standingOnTop = true;
+			vel.y = 0; 
+		}
 	}
 
 	void OnTriggerExit2D(Collider2D coll){
 		if (coll.gameObject.tag == "Ladder") {
 			climbing = false; 
 		} 
-	}
 
-	float flashcounter;
-
-	void Flashing(){
-		flashcounter += 1; 
-
-		if (flashcounter <= 10) {
-			sprite.color = Color.yellow;
-		} else {
-			sprite.color = defaultColor;
+		if (coll.gameObject.tag == "Box") {
+			standingOnTop = false; 
 		}
-
-		if (flashcounter >= 20) {
-			flashcounter = 0; 
-		}
-	}
-
-	IEnumerator HitDelay(){
-		for (int i = 0; i < 20; i++) {
-			yield return new WaitForFixedUpdate();
-		}
-		canAttack = true;
 	}
 		
 }

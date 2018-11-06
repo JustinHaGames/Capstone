@@ -10,6 +10,7 @@ public class Box : MonoBehaviour {
 	BoxCollider2D box; 
 
 	bool grounded; 
+	bool stacked; 
 
 	bool set;
 	bool setChecked; 
@@ -17,6 +18,8 @@ public class Box : MonoBehaviour {
 	bool held; 
 
 	Vector3 setPosition; 
+
+	public float throwVel; 
 
 	public float gravity; 
 
@@ -38,12 +41,21 @@ public class Box : MonoBehaviour {
 				setPosition = transform.position; 
 				setChecked = true;
 			}
+			rb.isKinematic = true; 
+			vel.x = 0; 
 			transform.position = setPosition; 
 		}
 
-		if (!held) {
-			rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
+		RaycastHit2D hit = Physics2D.Raycast (new Vector2 (transform.position.x, transform.position.y - .25f), Vector2.down * .5f);
+		Debug.DrawRay (new Vector2 (transform.position.x, transform.position.y - .25f), Vector2.down * .5f, Color.red);
+	
+		if (hit.collider.gameObject.layer == 14) {
+			set = true; 
 		}
+
+		if (!held || !set) {
+			rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
+		} 
 	}
 
 	void Grounded(){
@@ -57,6 +69,8 @@ public class Box : MonoBehaviour {
 		} else {
 			if (!held) {
 				vel.y += gravity;
+			} else {
+				vel.y = 0; 
 			}
 			set = false; 
 			setChecked = false; 
@@ -66,18 +80,23 @@ public class Box : MonoBehaviour {
 
 	public void PickUp(){
 		Debug.Log ("Pick up");
-		gameObject.layer = 15; 
 		rb.isKinematic = true; 
 		transform.position = player.transform.position; 
 		transform.parent = player.transform;
 		held = true;
 	}
 
+	public void Up () {
+		Debug.Log ("Up");
+		transform.parent = null;
+		rb.isKinematic = false;
+		held = false; 
+	}
+
 	public void Drop () {
 		Debug.Log ("Drop");
 		transform.parent = null;
 		rb.isKinematic = false;
-		gameObject.layer = 14; 
 		held = false; 
 	}
 }

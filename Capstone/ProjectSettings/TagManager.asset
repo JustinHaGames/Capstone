@@ -10,6 +10,7 @@ TagManager:
   - Portal
   - Railing
   - RoomManager
+  - Box
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - Player
   - Portal
   - Box
-  - Holding
+  - 
   - 
   - 
   - 
