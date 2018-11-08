@@ -219,7 +219,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		grounded = Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("Platform")) != null || Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("BoxTop")) != null; 
 
-		if (grounded) {
+		if (grounded && vel.y <= 0) {
 			vel.y = 0; 
 			canJump = true;
 			jumpCounter = 0; 

@@ -35,7 +35,7 @@ public class Box : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
 		Grounded (); 
 
@@ -51,16 +51,16 @@ public class Box : MonoBehaviour {
 		Vector2 pt1 = transform.TransformPoint (box.offset + new Vector2 (box.size.x / 2, -box.size.y / 2));
 		Vector2 pt2 = transform.TransformPoint (box.offset - (box.size / 2) + new Vector2 (0, 0));
 
-		grounded = Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("Platform")) != null; 
+		grounded = Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("Platform")) != null || Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("BoxTop")) != null; 
 
 		RaycastHit2D hit = Physics2D.Raycast (new Vector2 (transform.position.x, transform.position.y - .25f), Vector2.down * .5f);
 
-		if (grounded || hit.collider.gameObject.layer == 14) {
+		if (grounded) {
 			vel.x = 0; 
 			vel.y = 0; 
+			transform.GetChild(0).gameObject.SetActive(true);
 			rb.isKinematic = true; 
 			lastLR = false; 
-			transform.GetChild(0).gameObject.SetActive(true);
 		} else {
 			//If you threw the box and the last throw was not thrown left or right
 			if (!held && !lastLR) {
