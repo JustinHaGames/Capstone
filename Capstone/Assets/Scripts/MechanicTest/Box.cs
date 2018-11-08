@@ -13,7 +13,6 @@ public class Box : MonoBehaviour {
 	bool stacked; 
 
 	bool set;
-	bool setChecked; 
 
 	bool held; 
 
@@ -21,7 +20,6 @@ public class Box : MonoBehaviour {
 
 	public float throwVel; 
 	public float upThrowVel;
-	public float downThrowVel; 
 
 	public float gravity; 
 
@@ -41,25 +39,10 @@ public class Box : MonoBehaviour {
 
 		Grounded (); 
 
-		if (set) {
-			if (!setChecked) {
-				setPosition = transform.position; 
-				setChecked = true;
-			}
-			rb.isKinematic = true; 
-			vel.x = 0; 
-			transform.position = setPosition; 
-			lastLR = false; 
-		}
 
-		RaycastHit2D hit = Physics2D.Raycast (new Vector2 (transform.position.x, transform.position.y - .25f), Vector2.down * .5f);
 		Debug.DrawRay (new Vector2 (transform.position.x, transform.position.y - .25f), Vector2.down * .5f, Color.red);
-	
-		if (hit.collider.gameObject.layer == 14) {
-			set = true; 
-		}
 
-		if (!held || !set) {
+		if (!held) {
 			rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
 		} 
 	}
@@ -70,8 +53,14 @@ public class Box : MonoBehaviour {
 
 		grounded = Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("Platform")) != null; 
 
-		if (grounded) {
-			set = true; 
+		RaycastHit2D hit = Physics2D.Raycast (new Vector2 (transform.position.x, transform.position.y - .25f), Vector2.down * .5f);
+
+		if (grounded || hit.collider.gameObject.layer == 14) {
+			vel.x = 0; 
+			vel.y = 0; 
+			rb.isKinematic = true; 
+			lastLR = false; 
+			transform.GetChild(0).gameObject.SetActive(true);
 		} else {
 			//If you threw the box and the last throw was not thrown left or right
 			if (!held && !lastLR) {
@@ -80,9 +69,7 @@ public class Box : MonoBehaviour {
 				//if you haven't throw it, don't apply gravity
 				vel.y = 0; 
 			}
-			//if you're holding the box, don't set it
-			set = false; 
-			setChecked = false; 
+			transform.GetChild(0).gameObject.SetActive(false);
 		}
 
 	}
@@ -123,10 +110,10 @@ public class Box : MonoBehaviour {
 	}
 
 	public void Down () {
-		Debug.Log ("Up");
+		Debug.Log ("Down");
 		transform.parent = null;
 		rb.isKinematic = false;
-		vel.y = downThrowVel; 
+		vel.y = -upThrowVel; 
 		lastLR = false;
 		held = false; 
 	}
