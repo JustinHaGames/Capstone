@@ -35,11 +35,9 @@ public class PlayerMovement : MonoBehaviour {
 
 	Color defaultColor;
 
-	public GameObject pickUpBox; 
 	public GameObject heldObject;
 	bool grab;
 	bool holding = false; 
-	bool standingOnTop; 
 
 	// Use this for initialization
 	void Start () {
@@ -76,8 +74,7 @@ public class PlayerMovement : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.X)) {
 			//Box kicking test
 			if (heldObject == null) {
-				RaycastHit2D hit = Physics2D.Raycast (new Vector2 (transform.position.x, transform.position.y - .5f), Vector2.right * 2f);
-				Debug.DrawRay (new Vector2 (transform.position.x, transform.position.y - .5f), Vector2.right * 2f, Color.red);
+				RaycastHit2D hit = Physics2D.Raycast (new Vector2 (transform.position.x, transform.position.y - .5f), Vector2.right * 2f, 3f);
 				heldObject = hit.collider.gameObject;
 				heldObject.SendMessage ("PickUp", SendMessageOptions.DontRequireReceiver);
 			} else {
@@ -90,17 +87,16 @@ public class PlayerMovement : MonoBehaviour {
 				else if (Input.GetKey (KeyCode.RightArrow)) {
 					heldObject.SendMessage ("Right", SendMessageOptions.DontRequireReceiver);
 					heldObject = null; 
-				} 
-
-				//Drop the box
-				if (Input.GetKeyDown (KeyCode.X)) {
-					heldObject.SendMessage ("Drop", SendMessageOptions.DontRequireReceiver);
-					heldObject = null;
 				}
 
-			} 
+				//Drop the box
+				else if (Input.GetKeyDown (KeyCode.X)){
+					heldObject.SendMessage ("Drop", SendMessageOptions.DontRequireReceiver);
+					Debug.Log ("dropped");
+					heldObject = null;
+				}
+			}
 		}
-
 	}
 
 	// Update is called once per frame
@@ -214,7 +210,7 @@ public class PlayerMovement : MonoBehaviour {
 		Vector2 pt1 = transform.TransformPoint (box.offset + new Vector2 (box.size.x / 2, -box.size.y / 2));
 		Vector2 pt2 = transform.TransformPoint (box.offset - (box.size / 2) + new Vector2 (0, 0));
 
-		grounded = Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("Platform")) != null; 
+		grounded = Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("Platform")) != null || Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("Box")) != null; 
 
 		if (grounded) {
 			vel.y = 0; 
@@ -223,7 +219,7 @@ public class PlayerMovement : MonoBehaviour {
 			jumpVel = baseJumpVel; 
 		} else {
 			canJump = false;
-			if (!standingOnTop) {
+			if (!climbing) {
 				vel.y += gravity;
 			}
 		}
@@ -239,38 +235,14 @@ public class PlayerMovement : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D coll){
 
-		if (coll.gameObject.tag == "Ladder") {
-			climbing = true; 
-		} 
-
 		if (coll.gameObject.tag == "Portal") {
 			GameManager.instance.switchScene = true;
 			GameManager.instance.fadeIn = false; 
 		}
 
-		if (coll.gameObject.tag == "Box") {
-			standingOnTop = true; 
-			vel.y = 0; 
-		}
-
-	}
-
-	void OnTriggerStay2D(Collider2D coll){
-		if (coll.gameObject.tag == "Box") {
-			Debug.Log (standingOnTop);
-			standingOnTop = true;
-			vel.y = 0; 
-		}
 	}
 
 	void OnTriggerExit2D(Collider2D coll){
-		if (coll.gameObject.tag == "Ladder") {
-			climbing = false; 
-		} 
-
-		if (coll.gameObject.tag == "Box") {
-			standingOnTop = false; 
-		}
 	}
 		
 }

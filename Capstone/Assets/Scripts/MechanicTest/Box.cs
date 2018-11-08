@@ -20,8 +20,13 @@ public class Box : MonoBehaviour {
 	Vector3 setPosition; 
 
 	public float throwVel; 
+	public float upThrowVel;
+	public float downThrowVel; 
 
 	public float gravity; 
+
+	//Was last action left or right throw?
+	bool lastLR;
 
 	public Transform player; 
 
@@ -44,6 +49,7 @@ public class Box : MonoBehaviour {
 			rb.isKinematic = true; 
 			vel.x = 0; 
 			transform.position = setPosition; 
+			lastLR = false; 
 		}
 
 		RaycastHit2D hit = Physics2D.Raycast (new Vector2 (transform.position.x, transform.position.y - .25f), Vector2.down * .5f);
@@ -67,18 +73,21 @@ public class Box : MonoBehaviour {
 		if (grounded) {
 			set = true; 
 		} else {
-			if (!held) {
+			//If you threw the box and the last throw was not thrown left or right
+			if (!held && !lastLR) {
 				vel.y += gravity;
 			} else {
+				//if you haven't throw it, don't apply gravity
 				vel.y = 0; 
 			}
+			//if you're holding the box, don't set it
 			set = false; 
 			setChecked = false; 
 		}
 
 	}
 
-	public void PickUp(){
+	public void PickUp() {
 		Debug.Log ("Pick up");
 		rb.isKinematic = true; 
 		transform.position = player.transform.position; 
@@ -90,6 +99,35 @@ public class Box : MonoBehaviour {
 		Debug.Log ("Up");
 		transform.parent = null;
 		rb.isKinematic = false;
+		vel.y = upThrowVel; 
+		lastLR = false;
+		held = false; 
+	}
+
+	public void Right () {
+		Debug.Log ("Right");
+		transform.parent = null;
+		rb.isKinematic = false;
+		vel.x = throwVel; 
+		lastLR = true; 
+		held = false; 
+	}
+
+	public void Left () {
+		Debug.Log ("Left");
+		transform.parent = null;
+		rb.isKinematic = false;
+		vel.x = -throwVel; 
+		lastLR = true;
+		held = false; 
+	}
+
+	public void Down () {
+		Debug.Log ("Up");
+		transform.parent = null;
+		rb.isKinematic = false;
+		vel.y = downThrowVel; 
+		lastLR = false;
 		held = false; 
 	}
 
