@@ -78,10 +78,12 @@ public class Box : MonoBehaviour {
 			if (coll.gameObject.tag == "Box") {
 				lastL = false; 
 				lastR = false; 
+				vel.x = 0; 
 			}
 			if (coll.gameObject.tag == "Wall") {
 				lastL = false; 
 				lastR = false; 
+				vel.x = 0; 
 			}
 		}
 	}
