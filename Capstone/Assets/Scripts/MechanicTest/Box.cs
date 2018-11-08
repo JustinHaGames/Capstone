@@ -24,7 +24,8 @@ public class Box : MonoBehaviour {
 	public float gravity; 
 
 	//Was last action left or right throw?
-	bool lastLR;
+	bool lastL;
+	bool lastR; 
 
 	public Transform player; 
 
@@ -38,9 +39,6 @@ public class Box : MonoBehaviour {
 	void FixedUpdate () {
 
 		Grounded (); 
-
-
-		Debug.DrawRay (new Vector2 (transform.position.x, transform.position.y - .25f), Vector2.down * .5f, Color.red);
 
 		if (!held) {
 			rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
@@ -60,10 +58,11 @@ public class Box : MonoBehaviour {
 			vel.y = 0; 
 			transform.GetChild(0).gameObject.SetActive(true);
 			rb.isKinematic = true; 
-			lastLR = false; 
+			lastL = false;
+			lastR = false; 
 		} else {
 			//If you threw the box and the last throw was not thrown left or right
-			if (!held && !lastLR) {
+			if (!held && !lastL && !lastR) {
 				vel.y += gravity;
 			} else {
 				//if you haven't throw it, don't apply gravity
@@ -74,8 +73,20 @@ public class Box : MonoBehaviour {
 
 	}
 
+	public void OnCollisionEnter2D(Collision2D coll){
+		if (lastL || lastR) {
+			if (coll.gameObject.tag == "Box") {
+				lastL = false; 
+				lastR = false; 
+			}
+			if (coll.gameObject.tag == "Wall") {
+				lastL = false; 
+				lastR = false; 
+			}
+		}
+	}
+
 	public void PickUp() {
-		Debug.Log ("Pick up");
 		rb.isKinematic = true; 
 		transform.position = player.transform.position; 
 		transform.parent = player.transform;
@@ -83,43 +94,40 @@ public class Box : MonoBehaviour {
 	}
 
 	public void Up () {
-		Debug.Log ("Up");
 		transform.parent = null;
 		rb.isKinematic = false;
 		vel.y = upThrowVel; 
-		lastLR = false;
+		lastL = false;
+		lastR = false; 
 		held = false; 
 	}
 
 	public void Right () {
-		Debug.Log ("Right");
 		transform.parent = null;
 		rb.isKinematic = false;
 		vel.x = throwVel; 
-		lastLR = true; 
+		lastR = true; 
 		held = false; 
 	}
 
 	public void Left () {
-		Debug.Log ("Left");
 		transform.parent = null;
 		rb.isKinematic = false;
 		vel.x = -throwVel; 
-		lastLR = true;
+		lastL = true;
 		held = false; 
 	}
 
 	public void Down () {
-		Debug.Log ("Down");
 		transform.parent = null;
 		rb.isKinematic = false;
 		vel.y = -upThrowVel; 
-		lastLR = false;
+		lastL = false;
+		lastR = false; 
 		held = false; 
 	}
 
 	public void Drop () {
-		Debug.Log ("Drop");
 		transform.parent = null;
 		rb.isKinematic = false;
 		held = false; 
