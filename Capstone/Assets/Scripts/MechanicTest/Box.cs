@@ -23,6 +23,8 @@ public class Box : MonoBehaviour {
 
 	public float gravity; 
 
+	bool floating; 
+
 	//Was last action left or right throw?
 	bool lastL;
 	bool lastR; 
@@ -39,6 +41,10 @@ public class Box : MonoBehaviour {
 	void FixedUpdate () {
 
 		Grounded (); 
+
+		if (floating) {
+			vel.y = 1; 
+		}
 
 		if (!held) {
 			rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
@@ -90,7 +96,14 @@ public class Box : MonoBehaviour {
 
 	void OnTriggerStay2D(Collider2D coll){
 		if (coll.gameObject.tag == "Water") {
-				vel.x += 1 * Time.deltaTime; 
+			floating = true; 
+			transform.GetChild(0).gameObject.SetActive(true);
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D coll){
+		if (coll.gameObject.tag == "Water") {
+			floating = false; 
 		}
 	}
 
