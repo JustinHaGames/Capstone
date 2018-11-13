@@ -14,8 +14,8 @@ public class MonarchComeAlive : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update () {
-		if (GameManager.instance.monarchComeAlive) {
+	void FixedUpdate () {
+		if (GameManager.instance.sceneID == 3 || GameManager.instance.sceneID == 4) {
 			timer += 1 * Time.deltaTime; 
 
 			if (timer >= 3f) {

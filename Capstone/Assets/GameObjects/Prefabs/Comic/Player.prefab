@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1474913426420956}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7, y: -3, z: 0}
+  m_LocalPosition: {x: -4.4273047, y: -0.9124718, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -104,11 +104,8 @@ MonoBehaviour:
   gravity: -0.35
   baseJumpVel: 5
   jumpVel: 5
-  climbVel: 3
-  boundaryL: -9.5
-  boundaryR: 49.5
-  bullet: {fileID: 1335053491873462, guid: ed893bdc040ae483ea3c66cd070cdafb, type: 2}
-  superJumpVel: 50
+  maxJumpVel: 8
+  heldObject: {fileID: 0}
 --- !u!212 &212577685041477818
 SpriteRenderer:
   m_ObjectHideFlags: 1

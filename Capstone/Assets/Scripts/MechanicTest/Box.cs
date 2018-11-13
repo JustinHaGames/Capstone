@@ -73,7 +73,7 @@ public class Box : MonoBehaviour {
 
 	}
 
-	public void OnCollisionEnter2D(Collision2D coll){
+	void OnCollisionEnter2D(Collision2D coll){
 		if (lastL || lastR) {
 			if (coll.gameObject.tag == "Box") {
 				lastL = false; 
@@ -85,6 +85,12 @@ public class Box : MonoBehaviour {
 				lastR = false; 
 				vel.x = 0; 
 			}
+		}
+	}
+
+	void OnTriggerStay2D(Collider2D coll){
+		if (coll.gameObject.tag == "Water") {
+				vel.x += 1 * Time.deltaTime; 
 		}
 	}
 
@@ -124,6 +130,26 @@ public class Box : MonoBehaviour {
 		transform.parent = null;
 		rb.isKinematic = false;
 		vel.y = -upThrowVel; 
+		lastL = false;
+		lastR = false; 
+		held = false; 
+	}
+
+	public void RightDiagonal (){
+		transform.parent = null;
+		rb.isKinematic = false;
+		vel.y = upThrowVel; 
+		vel.x = throwVel;
+		lastL = false;
+		lastR = false; 
+		held = false; 
+	}
+
+	public void LeftDiagonal () {
+		transform.parent = null;
+		rb.isKinematic = false;
+		vel.y = upThrowVel; 
+		vel.x = -throwVel;
 		lastL = false;
 		lastR = false; 
 		held = false; 

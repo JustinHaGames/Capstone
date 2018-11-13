@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
-	public static PlayerMovement instance;
-
 	Vector2 vel; 
 
 	Rigidbody2D rb; 
@@ -22,27 +20,21 @@ public class PlayerMovement : MonoBehaviour {
 	bool jump; 
 	public float baseJumpVel; 
 	public float jumpVel;
+	public float maxJumpVel;
 	int jumpCounter; 
-
-	bool climbing; 
-	public float climbVel; 
-
-	public float boundaryL; 
-	public float boundaryR;
 
 	bool lastR; 
 	bool lastL; 
-
-	Color defaultColor;
 
 	public GameObject heldObject;
 	bool grab;
 	bool holding = false; 
 
+	float waterSpeed = 1;
+	bool swim;
+
 	// Use this for initialization
 	void Start () {
-
-		instance = this; 
 
 		rb = GetComponent<Rigidbody2D>();
 		box = GetComponent<BoxCollider2D>();
@@ -52,13 +44,12 @@ public class PlayerMovement : MonoBehaviour {
 		lastL = false;
 
 		//save the initial color of the player
-		defaultColor = GetComponent<SpriteRenderer>().color;
 		heldObject = null;
 
 	}
 
 	void Update(){
-		if (canJump) {
+		if (canJump || swim) {
 			if ((Input.GetKeyDown (KeyCode.Space) || Input.GetKeyDown (KeyCode.Z)) && !jump) {
 				jump = true;	
 			}
@@ -94,9 +85,15 @@ public class PlayerMovement : MonoBehaviour {
 				} else if (Input.GetKey (KeyCode.LeftArrow)) {
 					heldObject.SendMessage ("Left", SendMessageOptions.DontRequireReceiver);
 					heldObject = null; 
-				} else if (Input.GetKey (KeyCode.DownArrow)){
+				} else if (Input.GetKey (KeyCode.DownArrow)) {
 					heldObject.SendMessage ("Down", SendMessageOptions.DontRequireReceiver);
 					heldObject = null; 
+				} else if (Input.GetKey (KeyCode.UpArrow) && Input.GetKey (KeyCode.RightArrow)) {
+					heldObject.SendMessage ("RightDiagonal", SendMessageOptions.DontRequireReceiver);
+					heldObject = null;
+				} else if (Input.GetKey (KeyCode.UpArrow) && Input.GetKey (KeyCode.LeftArrow)) {
+					heldObject.SendMessage ("LeftDiagonal", SendMessageOptions.DontRequireReceiver);
+					heldObject = null;
 				} else if (Input.GetKeyDown (KeyCode.X)){
 					heldObject.SendMessage ("Drop", SendMessageOptions.DontRequireReceiver);
 					Debug.Log ("dropped");
@@ -118,14 +115,14 @@ public class PlayerMovement : MonoBehaviour {
 
 		//If right or left if pressed, accel in that direction
 		if (right) {
-			vel.x += accel;
+			vel.x += accel/waterSpeed;
 			lastR = true; 
 			lastL = false; 
 			sprite.flipX = false;
 
 		}
 		if (left) {
-			vel.x -= accel;
+			vel.x -= accel/waterSpeed;
 			lastL = true; 
 			lastR = false; 
 			if (!right) {
@@ -166,47 +163,22 @@ public class PlayerMovement : MonoBehaviour {
 					break;
 				}
 				jumpCounter++; 
-				vel.y = jumpVel; 
+				vel.y = jumpVel/waterSpeed; 
 
 			}
 		}
 			
-
-		//If player is trying to go out of bounds
-		if (transform.position.x <= boundaryL) {
-			transform.position = new Vector3 (boundaryL, transform.position.y, transform.position.z); 
-		} else if (transform.position.x >= boundaryR) {
-			transform.position = new Vector3 (boundaryR, transform.position.y, transform.position.z); 
+		if (jumpVel > maxJumpVel) {
+			jumpVel = maxJumpVel;
 		}
 
-		// Climb up and down the ladder
-		if (climbing) {
-
-			bool up = Input.GetKey (KeyCode.UpArrow);
-			bool down = Input.GetKey (KeyCode.DownArrow);
-
-			if (up) {
-				vel.y = climbVel;
-			} else if (down) {
-				vel.y = -climbVel;
-			}
-
-			if (!up && !down) {
-				vel.y = 0;
-			}
-
-		}
-
-		if (GameManager.instance.sceneID == 3) {
-			if (transform.position.x >= 70f) {
+		if (GameManager.instance.sceneID == 3 || GameManager.instance.sceneID == 4) {
 				GameManager.instance.monarchComeAlive = true; 
 				GameManager.instance.playFlying = true; 
-				boundaryL = 70f;
 				if (GameManager.instance.monarchFlying == false) {
 					vel.x = 0; 
 					vel.y = 0; 
 				}
-			}
 		}
 			
 		rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
@@ -226,8 +198,10 @@ public class PlayerMovement : MonoBehaviour {
 			jumpVel = baseJumpVel; 
 		} else {
 			canJump = false;
-			if (!climbing) {
+			if (!swim) {
 				vel.y += gravity;
+			} else {
+				vel.y += gravity *(waterSpeed / 2.5f);
 			}
 		}
 	}
@@ -249,7 +223,18 @@ public class PlayerMovement : MonoBehaviour {
 
 	}
 
+	void OnTriggerStay2D(Collider2D coll){
+		if (coll.gameObject.tag == "Water") {
+			waterSpeed = 3; 
+			swim = true;
+		}
+	}
+
 	void OnTriggerExit2D(Collider2D coll){
+		if (coll.gameObject.tag == "Water") {
+			waterSpeed = 1; 
+			swim = false;
+		}
 	}
 		
 }

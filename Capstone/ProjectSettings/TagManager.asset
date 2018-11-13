@@ -12,6 +12,7 @@ TagManager:
   - RoomManager
   - Box
   - Wall
+  - Water
   layers:
   - Default
   - TransparentFX

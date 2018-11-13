@@ -54,3 +54,9 @@ MonoBehaviour:
   alphaNum: 0
   fadeIn: 1
   switchScene: 0
+  playerSwitch: 0
+  monarchComeAlive: 0
+  monarchFlying: 0
+  sceneID: 0
+  flying: {fileID: 8300000, guid: b4868089876684e99ae2fd608358e10e, type: 3}
+  playFlying: 0

@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour {
 		//Get the current scene you are on
 		sceneID = SceneManager.GetActiveScene ().buildIndex;
 
-		if (sceneID == 3) {
+		if (sceneID == 3 || sceneID == 4) {
 			if (playFlying) {
 				if (!audio.isPlaying) {
 					audio.Play ();

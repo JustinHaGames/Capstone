@@ -15,11 +15,17 @@ EditorBuildSettings:
     path: Assets/Scenes/GoingToSleep.unity
     guid: 91b7e438f857e44c095a2ba49237f783
   - enabled: 1
-    path: Assets/Scenes/Dream1.unity
-    guid: 9b9eff6e3d88344209b24f3feae950c6
+    path: Assets/Scenes/Dream1Test.unity
+    guid: ff4a48fedb3bc4b15ac3e2a47005ad29
   - enabled: 1
+    path: Assets/Scenes/Dream2Test.unity
+    guid: 0f30541fddcca49e08aee285a25c8433
+  - enabled: 0
     path: Assets/Scenes/MechanicTestScene.unity
     guid: 2808ecd5bdc3a4326a1eb0e36e598b72
   - enabled: 0
-    path: Assets/Scenes/Reality.unity
-    guid: 224eca735a39047b6a5249a52aa2a6eb
+    path: Assets/Scenes/Dream1.unity
+    guid: 9b9eff6e3d88344209b24f3feae950c6
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
