@@ -381,7 +381,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.28676468, g: 0.27622187, b: 0.2791103, a: 0}
+  m_BackGroundColor: {r: 0.7058823, g: 1, b: 0.9756592, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -450,6 +450,21 @@ Prefab:
     - target: {fileID: 1532960032901052, guid: 134876f0748344d74b8e5e521c6ce173, type: 2}
       propertyPath: m_Name
       value: Wall (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 212484057217186128, guid: 134876f0748344d74b8e5e521c6ce173,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.8509804
+      objectReference: {fileID: 0}
+    - target: {fileID: 212484057217186128, guid: 134876f0748344d74b8e5e521c6ce173,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.85882354
+      objectReference: {fileID: 0}
+    - target: {fileID: 212484057217186128, guid: 134876f0748344d74b8e5e521c6ce173,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.67058825
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 134876f0748344d74b8e5e521c6ce173, type: 2}
@@ -725,6 +740,21 @@ Prefab:
       propertyPath: m_TagString
       value: Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 212484057217186128, guid: 134876f0748344d74b8e5e521c6ce173,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.849824
+      objectReference: {fileID: 0}
+    - target: {fileID: 212484057217186128, guid: 134876f0748344d74b8e5e521c6ce173,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0.8602941
+      objectReference: {fileID: 0}
+    - target: {fileID: 212484057217186128, guid: 134876f0748344d74b8e5e521c6ce173,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.67052335
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 134876f0748344d74b8e5e521c6ce173, type: 2}
   m_IsPrefabParent: 0
@@ -859,6 +889,16 @@ Prefab:
     - target: {fileID: 4584203200799276, guid: c36886d59892a4029beceedff9aa76fa, type: 2}
       propertyPath: m_RootOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 212320045386635826, guid: c36886d59892a4029beceedff9aa76fa,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0.5131846
+      objectReference: {fileID: 0}
+    - target: {fileID: 212320045386635826, guid: c36886d59892a4029beceedff9aa76fa,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0.44852942
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c36886d59892a4029beceedff9aa76fa, type: 2}
