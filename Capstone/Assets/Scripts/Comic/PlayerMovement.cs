@@ -66,17 +66,23 @@ public class PlayerMovement : MonoBehaviour {
 			//Box kicking test
 			if (heldObject == null) {
 				if (lastR) {
-					RaycastHit2D hit = Physics2D.Raycast (new Vector2 (transform.position.x, transform.position.y - .5f), Vector2.right, 2f);
+					RaycastHit2D hit = Physics2D.Raycast (new Vector2 (transform.position.x, transform.position.y - .5f), Vector2.right, 1f);
 					heldObject = hit.collider.gameObject;
 					heldObject.SendMessage ("PickUp", SendMessageOptions.DontRequireReceiver);
 				} else if (lastL) {
-					RaycastHit2D hit = Physics2D.Raycast (new Vector2 (transform.position.x, transform.position.y - .5f), Vector2.left, 2f);
+					RaycastHit2D hit = Physics2D.Raycast (new Vector2 (transform.position.x, transform.position.y - .5f), Vector2.left, 1f);
 					heldObject = hit.collider.gameObject;
 					heldObject.SendMessage ("PickUp", SendMessageOptions.DontRequireReceiver);
 				}
 			} else {
 
-				if (Input.GetKey (KeyCode.UpArrow)) {
+				if (Input.GetKey (KeyCode.UpArrow) && Input.GetKey (KeyCode.RightArrow)) {
+					heldObject.SendMessage ("RightDiagonal", SendMessageOptions.DontRequireReceiver);
+					heldObject = null;
+				} else if (Input.GetKey (KeyCode.UpArrow) && Input.GetKey (KeyCode.LeftArrow)) {
+					heldObject.SendMessage ("LeftDiagonal", SendMessageOptions.DontRequireReceiver);
+					heldObject = null;
+				} else if (Input.GetKey (KeyCode.UpArrow)) {
 					heldObject.SendMessage ("Up", SendMessageOptions.DontRequireReceiver);
 					heldObject = null;
 				} else if (Input.GetKey (KeyCode.RightArrow)) {
@@ -88,15 +94,8 @@ public class PlayerMovement : MonoBehaviour {
 				} else if (Input.GetKey (KeyCode.DownArrow)) {
 					heldObject.SendMessage ("Down", SendMessageOptions.DontRequireReceiver);
 					heldObject = null; 
-				} else if (Input.GetKey (KeyCode.UpArrow) && Input.GetKey (KeyCode.RightArrow)) {
-					heldObject.SendMessage ("RightDiagonal", SendMessageOptions.DontRequireReceiver);
-					heldObject = null;
-				} else if (Input.GetKey (KeyCode.UpArrow) && Input.GetKey (KeyCode.LeftArrow)) {
-					heldObject.SendMessage ("LeftDiagonal", SendMessageOptions.DontRequireReceiver);
-					heldObject = null;
 				} else if (Input.GetKeyDown (KeyCode.X)){
 					heldObject.SendMessage ("Drop", SendMessageOptions.DontRequireReceiver);
-					Debug.Log ("dropped");
 					heldObject = null;
 				}
 			}
@@ -181,7 +180,7 @@ public class PlayerMovement : MonoBehaviour {
 				}
 		}
 			
-		rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
+		rb.MovePosition ((Vector2)transform.position + vel * Time.fixedDeltaTime);
 
 	}
 
@@ -189,7 +188,7 @@ public class PlayerMovement : MonoBehaviour {
 		Vector2 pt1 = transform.TransformPoint (box.offset + new Vector2 (box.size.x / 2, -box.size.y / 2));
 		Vector2 pt2 = transform.TransformPoint (box.offset - (box.size / 2) + new Vector2 (0, 0));
 
-		grounded = Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("Platform")) != null || Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("BoxTop")) != null; 
+		grounded = Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("Platform")) != null || Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("PlayerTop")) != null; 
 
 		if (grounded && vel.y <= 0) {
 			vel.y = 0; 

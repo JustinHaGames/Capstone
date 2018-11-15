@@ -208,6 +208,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 114405402405286630, guid: f5e71659f1b394d4186dcf696517a842,
+        type: 2}
+      propertyPath: flying
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f5e71659f1b394d4186dcf696517a842, type: 2}
   m_IsPrefabParent: 0
@@ -220,6 +225,7 @@ GameObject:
   m_Component:
   - component: {fileID: 366189738}
   - component: {fileID: 366189739}
+  - component: {fileID: 366189740}
   m_Layer: 0
   m_Name: WaterHitbox
   m_TagString: Water
@@ -250,7 +256,7 @@ BoxCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
@@ -265,6 +271,24 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!253 &366189740
+BuoyancyEffector2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 366189737}
+  m_Enabled: 0
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_SurfaceLevel: 0
+  m_Density: 100
+  m_LinearDrag: 5
+  m_AngularDrag: 5
+  m_FlowAngle: 0
+  m_FlowMagnitude: 0
+  m_FlowVariation: 0
 --- !u!1001 &596370196
 Prefab:
   m_ObjectHideFlags: 0
@@ -326,7 +350,6 @@ GameObject:
   - component: {fileID: 627789364}
   - component: {fileID: 627789367}
   - component: {fileID: 627789366}
-  - component: {fileID: 627789365}
   m_Layer: 0
   m_Name: Camera2
   m_TagString: Untagged
@@ -347,13 +370,6 @@ Transform:
   m_Father: {fileID: 939647194}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &627789365
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 627789363}
-  m_Enabled: 1
 --- !u!124 &627789366
 Behaviour:
   m_ObjectHideFlags: 0
@@ -684,10 +700,10 @@ MeshCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1115468423}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}

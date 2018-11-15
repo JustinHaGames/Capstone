@@ -31,10 +31,14 @@ public class Box : MonoBehaviour {
 
 	public Transform player; 
 
+	BoxCollider2D childCollider; 
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
 		box = GetComponent<BoxCollider2D> ();
+
+		childCollider = transform.GetChild(0).GetComponent<BoxCollider2D>();
 	}
 	
 	// Update is called once per frame
@@ -43,11 +47,19 @@ public class Box : MonoBehaviour {
 		Grounded (); 
 
 		if (floating) {
-			vel.y = 1; 
+			vel.y = 1f; 
+			//floatStarted = true;
+		}
+			
+
+		if (player.transform.position.y >= transform.position.y + 1f) {
+			childCollider.enabled = true;
+		} else {
+			childCollider.enabled = false;
 		}
 
 		if (!held) {
-			rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
+			rb.MovePosition ((Vector2)transform.position + vel * Time.fixedDeltaTime);
 		} 
 	}
 
@@ -55,14 +67,11 @@ public class Box : MonoBehaviour {
 		Vector2 pt1 = transform.TransformPoint (box.offset + new Vector2 (box.size.x / 2, -box.size.y / 2));
 		Vector2 pt2 = transform.TransformPoint (box.offset - (box.size / 2) + new Vector2 (0, 0));
 
-		grounded = Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("Platform")) != null || Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("BoxTop")) != null; 
-
-		RaycastHit2D hit = Physics2D.Raycast (new Vector2 (transform.position.x, transform.position.y - .25f), Vector2.down * .5f);
+		grounded = Physics2D.OverlapArea (pt1, pt2, LayerMask.GetMask ("Platform")) != null || Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("BoxTop")) != null; 
 
 		if (grounded) {
 			vel.x = 0; 
 			vel.y = 0; 
-			transform.GetChild(0).gameObject.SetActive(true);
 			rb.isKinematic = true; 
 			lastL = false;
 			lastR = false; 
@@ -74,7 +83,6 @@ public class Box : MonoBehaviour {
 				//if you haven't throw it, don't apply gravity
 				vel.y = 0; 
 			}
-			transform.GetChild(0).gameObject.SetActive(false);
 		}
 
 	}
@@ -96,8 +104,7 @@ public class Box : MonoBehaviour {
 
 	void OnTriggerStay2D(Collider2D coll){
 		if (coll.gameObject.tag == "Water") {
-			floating = true; 
-			transform.GetChild(0).gameObject.SetActive(true);
+				floating = true; 
 		}
 	}
 
