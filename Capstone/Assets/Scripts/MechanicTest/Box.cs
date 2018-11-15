@@ -48,7 +48,6 @@ public class Box : MonoBehaviour {
 
 		if (floating) {
 			vel.y = 1f; 
-			//floatStarted = true;
 		}
 			
 
@@ -59,7 +58,7 @@ public class Box : MonoBehaviour {
 		}
 
 		if (!held) {
-			rb.MovePosition ((Vector2)transform.position + vel * Time.fixedDeltaTime);
+			rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
 		} 
 	}
 
@@ -67,7 +66,8 @@ public class Box : MonoBehaviour {
 		Vector2 pt1 = transform.TransformPoint (box.offset + new Vector2 (box.size.x / 2, -box.size.y / 2));
 		Vector2 pt2 = transform.TransformPoint (box.offset - (box.size / 2) + new Vector2 (0, 0));
 
-		grounded = Physics2D.OverlapArea (pt1, pt2, LayerMask.GetMask ("Platform")) != null || Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("BoxTop")) != null; 
+		grounded = Physics2D.OverlapArea (pt1, pt2, LayerMask.GetMask ("Platform")) != null; 
+		stacked = Physics2D.OverlapArea (pt1, pt2, LayerMask.GetMask ("BoxTop")) != null;
 
 		if (grounded) {
 			vel.x = 0; 
@@ -77,12 +77,19 @@ public class Box : MonoBehaviour {
 			lastR = false; 
 		} else {
 			//If you threw the box and the last throw was not thrown left or right
-			if (!held && !lastL && !lastR) {
+			if (!held && !lastL && !lastR && !stacked) {
 				vel.y += gravity;
 			} else {
 				//if you haven't throw it, don't apply gravity
 				vel.y = 0; 
 			}
+		}
+
+		if (stacked) {
+			vel.x = 0; 
+			vel.y = 0; 
+			lastL = false;
+			lastR = false;
 		}
 
 	}

@@ -180,7 +180,7 @@ public class PlayerMovement : MonoBehaviour {
 				}
 		}
 			
-		rb.MovePosition ((Vector2)transform.position + vel * Time.fixedDeltaTime);
+		rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
 
 	}
 
