@@ -29,10 +29,7 @@ public class EnemyMovement : MonoBehaviour {
 	}
 		
 	void OnCollisionEnter2D(Collision2D coll){
-//		if (coll.gameObject.tag == "Box") {
-//			Instantiate (box, transform.position, Quaternion.identity);
-//			Destroy (gameObject);
-//		}
+
 	}
 
 	public void Dead (){

@@ -9,6 +9,7 @@ TagManager:
   - Box
   - Wall
   - Water
+  - BoxPusher
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - BoxTop
   - Wall
   - PlayerTop
-  - 
+  - BoxPusher
   - 
   - 
   - 

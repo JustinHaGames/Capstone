@@ -11,6 +11,7 @@ public class Box : MonoBehaviour {
 
 	bool grounded; 
 	bool stacked; 
+	bool boxPushing;
 
 	bool set;
 
@@ -36,6 +37,8 @@ public class Box : MonoBehaviour {
 	BoxCollider2D playerTopCollider; 
 	BoxCollider2D boxTopCollider;
 
+	GameObject boxPusher;
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
@@ -49,6 +52,7 @@ public class Box : MonoBehaviour {
 	void FixedUpdate () {
 
 		player = GameObject.FindGameObjectWithTag ("Player");
+		boxPusher = GameObject.FindGameObjectWithTag ("BoxPusher");
 
 		Grounded (); 
 
@@ -80,11 +84,12 @@ public class Box : MonoBehaviour {
 
 		grounded = Physics2D.OverlapArea (pt1, pt2, LayerMask.GetMask ("Platform")) != null; 
 		stacked = Physics2D.OverlapArea (pt1, pt2, LayerMask.GetMask ("BoxTop")) != null;
+		boxPushing = Physics2D.OverlapArea (pt1, pt2, LayerMask.GetMask ("BoxPusher")) != null;
 
-		if (grounded) {
+		if (grounded && !boxPushing) {
 			vel.x = 0; 
 			vel.y = 0; 
-			rb.isKinematic = true; 
+			//rb.isKinematic = true; 
 			lastL = false;
 			lastR = false; 
 			thrown = false;
@@ -103,6 +108,14 @@ public class Box : MonoBehaviour {
 			vel.y = 0; 
 			lastL = false;
 			lastR = false;
+			thrown = false;
+		}
+
+		if (boxPushing) {
+			transform.parent = boxPusher.transform;
+			grounded = false;
+		} else {
+			transform.parent = this.transform;
 		}
 
 	}
@@ -123,7 +136,6 @@ public class Box : MonoBehaviour {
 			
 			if (coll.gameObject.tag == "Enemy") {
 				if (thrown) {
-				Debug.Log ("working");
 					GameObject collidedObject = coll.collider.gameObject;
 					collidedObject.SendMessage ("Dead", SendMessageOptions.DontRequireReceiver);
 				}
@@ -132,15 +144,15 @@ public class Box : MonoBehaviour {
 	}
 
 	void OnTriggerStay2D(Collider2D coll){
-		if (coll.gameObject.tag == "Water") {
-				floating = true; 
-		}
+//		if (coll.gameObject.tag == "Water") {
+//				floating = true; 
+//		}
 	}
 
 	void OnTriggerExit2D(Collider2D coll){
-		if (coll.gameObject.tag == "Water") {
-			floating = false; 
-		}
+//		if (coll.gameObject.tag == "Water") {
+//			floating = false; 
+//		}
 	}
 
 	public void PickUp() {
@@ -178,17 +190,7 @@ public class Box : MonoBehaviour {
 		held = false; 
 		thrown = true; 
 	}
-
-	public void Down () {
-		transform.parent = null;
-		rb.isKinematic = false;
-		vel.y = -upThrowVel; 
-		lastL = false;
-		lastR = false; 
-		held = false; 
-		thrown = true; 
-	}
-
+		
 	public void RightDiagonal (){
 		transform.parent = null;
 		rb.isKinematic = false;

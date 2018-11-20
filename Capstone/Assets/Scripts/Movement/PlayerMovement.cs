@@ -28,10 +28,11 @@ public class PlayerMovement : MonoBehaviour {
 
 	public GameObject heldObject;
 	bool grab;
-	bool holding = false; 
 
 	float waterSpeed = 1;
 	bool swim;
+
+	bool onWall;
 
 	// Use this for initialization
 	void Start () {
@@ -66,11 +67,11 @@ public class PlayerMovement : MonoBehaviour {
 			//Box kicking test
 			if (heldObject == null) {
 				if (lastR) {
-					RaycastHit2D hit = Physics2D.Raycast (new Vector2 (transform.position.x, transform.position.y - .5f), Vector2.right, .5f);
+					RaycastHit2D hit = Physics2D.Raycast (new Vector2 (transform.position.x, transform.position.y - .5f), Vector2.right, .4f);
 					heldObject = hit.collider.gameObject;
 					heldObject.SendMessage ("PickUp", SendMessageOptions.DontRequireReceiver);
 				} else if (lastL) {
-					RaycastHit2D hit = Physics2D.Raycast (new Vector2 (transform.position.x, transform.position.y - .5f), Vector2.left, .5f);
+					RaycastHit2D hit = Physics2D.Raycast (new Vector2 (transform.position.x, transform.position.y - .5f), Vector2.left, .4f);
 					heldObject = hit.collider.gameObject;
 					heldObject.SendMessage ("PickUp", SendMessageOptions.DontRequireReceiver);
 				}
@@ -90,9 +91,6 @@ public class PlayerMovement : MonoBehaviour {
 					heldObject = null; 
 				} else if (Input.GetKey (KeyCode.LeftArrow)) {
 					heldObject.SendMessage ("Left", SendMessageOptions.DontRequireReceiver);
-					heldObject = null; 
-				} else if (Input.GetKey (KeyCode.DownArrow)) {
-					heldObject.SendMessage ("Down", SendMessageOptions.DontRequireReceiver);
 					heldObject = null; 
 				} else if (Input.GetKeyDown (KeyCode.X)){
 					heldObject.SendMessage ("Drop", SendMessageOptions.DontRequireReceiver);
@@ -142,7 +140,6 @@ public class PlayerMovement : MonoBehaviour {
 			if ((Input.GetKey (KeyCode.Space) || Input.GetKey (KeyCode.Z))) {
 				switch (jumpCounter) {
 				case 0:
-					jumpVel = jumpVel; 
 					break;
 				case 1:
 					jumpVel += 1;
@@ -162,7 +159,11 @@ public class PlayerMovement : MonoBehaviour {
 					break;
 				}
 				jumpCounter++; 
-				vel.y = jumpVel/waterSpeed; 
+				if (!swim) {
+					vel.y = jumpVel;
+				} else {
+					vel.y = jumpVel / (waterSpeed  * .5f); 
+				}
 
 			}
 		}
@@ -208,17 +209,15 @@ public class PlayerMovement : MonoBehaviour {
 	void OnCollisionEnter2D (Collision2D coll){
 
 		if (coll.gameObject.tag == "Enemy") {
-
+			GameObject collidedObject = coll.collider.gameObject; 
+			if (transform.position.y >= collidedObject.transform.position.y + 1f) {
+				collidedObject.SendMessage ("Dead", SendMessageOptions.DontRequireReceiver);
+			}
 		}
 
 	}
 
 	void OnTriggerEnter2D(Collider2D coll){
-
-		if (coll.gameObject.tag == "Portal") {
-			GameManager.instance.switchScene = true;
-			GameManager.instance.fadeIn = false; 
-		}
 
 	}
 
