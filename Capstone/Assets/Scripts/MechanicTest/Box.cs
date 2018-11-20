@@ -61,7 +61,7 @@ public class Box : MonoBehaviour {
 		}
 			
 
-		if (player.transform.position.y >= transform.position.y + 1.35f) {
+		if (player.transform.position.y >= transform.position.y + 1.3f) {
 			playerTopCollider.enabled = true;
 		} else {
 			playerTopCollider.enabled = false;
@@ -89,7 +89,6 @@ public class Box : MonoBehaviour {
 		if (grounded && !boxPushing) {
 			vel.x = 0; 
 			vel.y = 0; 
-			//rb.isKinematic = true; 
 			lastL = false;
 			lastR = false; 
 			thrown = false;
