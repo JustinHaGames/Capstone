@@ -59,7 +59,7 @@ public class MonarchMovement : MonoBehaviour {
 			player = GameObject.FindGameObjectWithTag ("Player");
 
 			if (transform.position.y <= player.transform.position.y + 2f) {
-				transform.Translate (Vector3.up * Time.deltaTime * 1.5f);
+				transform.Translate (Vector3.up * Time.deltaTime * 3f);
 			}
 
 			if (timer >= 40f) {

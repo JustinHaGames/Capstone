@@ -31,14 +31,16 @@ public class Box : MonoBehaviour {
 
 	public Transform player; 
 
-	BoxCollider2D childCollider; 
+	BoxCollider2D playerTopCollider; 
+	BoxCollider2D boxTopCollider;
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
 		box = GetComponent<BoxCollider2D> ();
 
-		childCollider = transform.GetChild(0).GetComponent<BoxCollider2D>();
+		playerTopCollider = transform.GetChild(0).GetComponent<BoxCollider2D>();
+		boxTopCollider = transform.GetChild (1).GetComponent<BoxCollider2D> ();
 	}
 	
 	// Update is called once per frame
@@ -51,15 +53,21 @@ public class Box : MonoBehaviour {
 		}
 			
 
-		if (player.transform.position.y >= transform.position.y + 1f) {
-			childCollider.enabled = true;
+		if (player.transform.position.y >= transform.position.y + 1.35f) {
+			playerTopCollider.enabled = true;
 		} else {
-			childCollider.enabled = false;
+			playerTopCollider.enabled = false;
+		}
+
+		if (held) {
+			boxTopCollider.enabled = false;
+		} else {
+			boxTopCollider.enabled = true;
 		}
 
 		if (!held) {
 			rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
-		} 
+		}
 	}
 
 	void Grounded(){
