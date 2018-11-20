@@ -29,7 +29,9 @@ public class Box : MonoBehaviour {
 	bool lastL;
 	bool lastR; 
 
-	public GameObject player; 
+	GameObject player; 
+
+	bool thrown; 
 
 	BoxCollider2D playerTopCollider; 
 	BoxCollider2D boxTopCollider;
@@ -85,6 +87,7 @@ public class Box : MonoBehaviour {
 			rb.isKinematic = true; 
 			lastL = false;
 			lastR = false; 
+			thrown = false;
 		} else {
 			//If you threw the box and the last throw was not thrown left or right
 			if (!held && !lastL && !lastR && !stacked) {
@@ -117,6 +120,15 @@ public class Box : MonoBehaviour {
 				vel.x = 0; 
 			}
 		}
+			
+			if (coll.gameObject.tag == "Enemy") {
+				if (thrown) {
+				Debug.Log ("working");
+					GameObject collidedObject = coll.collider.gameObject;
+					collidedObject.SendMessage ("Dead", SendMessageOptions.DontRequireReceiver);
+				}
+			}
+
 	}
 
 	void OnTriggerStay2D(Collider2D coll){
@@ -136,6 +148,7 @@ public class Box : MonoBehaviour {
 		transform.position = player.transform.position; 
 		transform.parent = player.transform;
 		held = true;
+		thrown = false;
 	}
 
 	public void Up () {
@@ -145,6 +158,7 @@ public class Box : MonoBehaviour {
 		lastL = false;
 		lastR = false; 
 		held = false; 
+		thrown = true; 
 	}
 
 	public void Right () {
@@ -153,6 +167,7 @@ public class Box : MonoBehaviour {
 		vel.x = throwVel; 
 		lastR = true; 
 		held = false; 
+		thrown = true; 
 	}
 
 	public void Left () {
@@ -161,6 +176,7 @@ public class Box : MonoBehaviour {
 		vel.x = -throwVel; 
 		lastL = true;
 		held = false; 
+		thrown = true; 
 	}
 
 	public void Down () {
@@ -170,6 +186,7 @@ public class Box : MonoBehaviour {
 		lastL = false;
 		lastR = false; 
 		held = false; 
+		thrown = true; 
 	}
 
 	public void RightDiagonal (){
@@ -180,6 +197,7 @@ public class Box : MonoBehaviour {
 		lastL = false;
 		lastR = false; 
 		held = false; 
+		thrown = true; 
 	}
 
 	public void LeftDiagonal () {
@@ -190,11 +208,13 @@ public class Box : MonoBehaviour {
 		lastL = false;
 		lastR = false; 
 		held = false; 
+		thrown = true; 
 	}
 
 	public void Drop () {
 		transform.parent = null;
 		rb.isKinematic = false;
 		held = false; 
+		thrown = true;
 	}
 }
