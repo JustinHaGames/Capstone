@@ -171,7 +171,7 @@ public class PlayerMovement : MonoBehaviour {
 			jumpVel = maxJumpVel;
 		}
 
-		if (GameManager.instance.sceneID == 3 || GameManager.instance.sceneID == 4) {
+		if (GameManager.instance.sceneID == 3) {
 				GameManager.instance.monarchComeAlive = true; 
 				GameManager.instance.playFlying = true; 
 				if (GameManager.instance.monarchFlying == false) {

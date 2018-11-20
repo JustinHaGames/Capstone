@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour {
 
+	public GameObject box;
+
+	GameObject player;
+
+	public float speed;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -11,6 +17,21 @@ public class EnemyMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		player = GameObject.FindGameObjectWithTag ("Player");
+
+		float interpolation = speed * Time.deltaTime;
+
+		Vector3 position = this.transform.position;
+		position.y = Mathf.Lerp(this.transform.position.y, player.transform.position.y, interpolation);
+		position.x = Mathf.Lerp(this.transform.position.x, player.transform.position.x, interpolation);
+
+		this.transform.position = position;
+	}
 		
+	void OnCollisionEnter2D(Collision2D coll){
+		if (coll.gameObject.tag == "Box") {
+			Instantiate (box, transform.position, Quaternion.identity);
+			Destroy (gameObject);
+		}
 	}
 }

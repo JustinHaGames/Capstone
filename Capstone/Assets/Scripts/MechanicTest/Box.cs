@@ -29,7 +29,7 @@ public class Box : MonoBehaviour {
 	bool lastL;
 	bool lastR; 
 
-	public Transform player; 
+	public GameObject player; 
 
 	BoxCollider2D playerTopCollider; 
 	BoxCollider2D boxTopCollider;
@@ -45,6 +45,8 @@ public class Box : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+
+		player = GameObject.FindGameObjectWithTag ("Player");
 
 		Grounded (); 
 
