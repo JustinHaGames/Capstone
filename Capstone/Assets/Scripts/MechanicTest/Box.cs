@@ -39,6 +39,9 @@ public class Box : MonoBehaviour {
 
 	GameObject boxPusher;
 
+	//Only applicable in 4th scene
+	bool safe;
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
@@ -78,6 +81,15 @@ public class Box : MonoBehaviour {
 
 		if (!held) {
 			rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
+		}
+
+		//In scene 4, have these properties
+		if (GameManager.instance.sceneID == 4) {
+			if (GameManager.instance.targetHit <= 7) {
+				if (transform.position.x <= 0 && grounded && !safe || transform.position.x <= 0 && stacked && !safe) {
+					Destroy (gameObject);
+				}
+			}
 		}
 	}
 
@@ -145,7 +157,9 @@ public class Box : MonoBehaviour {
 					collidedObject.SendMessage ("Dead", SendMessageOptions.DontRequireReceiver);
 				}
 			}
-
+		if (coll.gameObject.tag == "Target") {
+			safe = true;
+		}
 	}
 
 	void OnTriggerStay2D(Collider2D coll){

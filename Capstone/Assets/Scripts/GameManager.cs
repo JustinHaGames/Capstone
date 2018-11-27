@@ -27,6 +27,22 @@ public class GameManager : MonoBehaviour {
 
 	public bool playFlying; 
 
+	//only pertains to scene 4
+
+	public bool playerImagining;
+
+	public GameObject barrier;
+	bool barrierMade;
+
+	public GameObject greyBox;
+
+	public GameObject target;
+
+	public int targetHit;
+
+	float targetXPos;
+	float targetYPos;
+
 	// Use this for initialization
 	void Start () {
 		alphaNum = 1f;
@@ -60,7 +76,8 @@ public class GameManager : MonoBehaviour {
 		//Get the current scene you are on
 		sceneID = SceneManager.GetActiveScene ().buildIndex;
 
-		if (sceneID == 3 || sceneID == 4) {
+		//Only things done in scene 3
+		if (sceneID == 3) {
 			if (playFlying) {
 				if (!audio.isPlaying) {
 					audio.Play ();
@@ -68,7 +85,65 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 			
+		//Only things done in scene 4
+		if (sceneID == 4) {
 
+			switch (targetHit) {
+			case 0: 
+				targetXPos = -6.3f; 
+				targetYPos = -3.6f; 
+				break; 
+			case 1: 
+				targetXPos = -4.8f; 
+				targetYPos = -3.5f;
+				break; 
+			case 2: 
+				targetXPos = -4.3f;
+				targetYPos = -1.87f;
+				break;
+			case 3:
+				targetXPos = -5.4f; 
+				targetYPos = -1.5f;
+				break; 
+			case 4: 
+				targetXPos = -6.3f; 
+				targetYPos = 0;
+				break;
+			case 5:
+				targetXPos = -5.3f; 
+				targetYPos = 0; 
+				break; 
+			case 6: 
+				targetXPos = -6.5f; 
+				targetYPos = 1.95f; 
+				break; 
+			case 7:
+				targetXPos = -4f; 
+				targetYPos = 2f; 
+				break;
+			}
+
+			if (playerImagining) {
+
+				if (!barrierMade) {
+					Instantiate (barrier, new Vector3 (0, -6.93f, 0), transform.rotation * Quaternion.Euler (0f, 0f, 90f));
+					barrierMade = true;
+				}
+
+				if (GameObject.FindGameObjectWithTag ("Target") == null) {
+					if (targetHit <= 7) {
+						Instantiate (target, new Vector3 (targetXPos, targetYPos, -1f), Quaternion.identity);
+					}
+				}
+			}
+
+
+			if (GameObject.FindGameObjectsWithTag ("Box").Length < 7) {
+				if (targetHit <= 7) {
+					Instantiate (greyBox, new Vector3 (6.5f, 1f, -1f), Quaternion.identity);
+				} 
+			}
+		}
 	}
 
 	//After a short delay, change to a different scene

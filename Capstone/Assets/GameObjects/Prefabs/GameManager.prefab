@@ -60,3 +60,9 @@ MonoBehaviour:
   sceneID: 0
   flying: {fileID: 8300000, guid: b4868089876684e99ae2fd608358e10e, type: 3}
   playFlying: 0
+  playerImagining: 0
+  barrier: {fileID: 1622079497141384, guid: 164f7065288ef414593e2bd9b2dea6bf, type: 2}
+  greyBox: {fileID: 1366078514017244, guid: aa1c28d7bade64130b82274804c3a9e3, type: 2}
+  colorBox: {fileID: 1940571616096716, guid: 6f83fd230e9b242c4b83b558065e8c58, type: 2}
+  target: {fileID: 1319310734936954, guid: 76f0be7a7e2f1478a81aeb3164da6f00, type: 2}
+  targetHit: 0

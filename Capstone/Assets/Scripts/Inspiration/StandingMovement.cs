@@ -61,8 +61,9 @@ public class StandingMovement : MonoBehaviour {
 				counter += 1;
 			}
 
-			if (counter == 4) {
+			if (counter == 2) {
 				if (GameManager.instance.playerSwitch == false) {
+					GameManager.instance.playerImagining = true; 
 					Instantiate (dreamPlayer, transform.position, Quaternion.identity);
 					GameManager.instance.playerSwitch = true;
 				}

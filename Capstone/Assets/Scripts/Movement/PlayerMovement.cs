@@ -201,7 +201,7 @@ public class PlayerMovement : MonoBehaviour {
 			if (!swim) {
 				vel.y += gravity;
 			} else {
-				vel.y += gravity *(waterSpeed / 2.5f);
+				vel.y += gravity / waterSpeed;
 			}
 		}
 	}
@@ -213,6 +213,10 @@ public class PlayerMovement : MonoBehaviour {
 			if (transform.position.y >= collidedObject.transform.position.y + 1f) {
 				collidedObject.SendMessage ("Dead", SendMessageOptions.DontRequireReceiver);
 			}
+		}
+
+		if (coll.gameObject.tag == "Portal") {
+			GameManager.instance.switchScene = true;
 		}
 
 	}

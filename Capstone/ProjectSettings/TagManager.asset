@@ -10,6 +10,9 @@ TagManager:
   - Wall
   - Water
   - BoxPusher
+  - Portal
+  - Target
+  - Barrier
   layers:
   - Default
   - TransparentFX
@@ -30,7 +33,7 @@ TagManager:
   - Wall
   - PlayerTop
   - BoxPusher
-  - 
+  - Barrier
   - 
   - 
   - 
