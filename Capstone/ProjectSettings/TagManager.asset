@@ -13,6 +13,7 @@ TagManager:
   - Portal
   - Target
   - Barrier
+  - SpecialBox
   layers:
   - Default
   - TransparentFX

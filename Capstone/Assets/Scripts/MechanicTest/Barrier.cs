@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Barrier : MonoBehaviour {
 
-	public GameObject colorBox; 
+	public GameObject specialBox; 
 
 	// Use this for initialization
 	void Start () {
@@ -14,7 +14,7 @@ public class Barrier : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (GameManager.instance.targetHit > 7) {
-			Instantiate (colorBox, new Vector3(0,0,-1f), Quaternion.identity);
+			Instantiate (specialBox, new Vector3(0,0,-1f), Quaternion.identity);
 			Destroy (gameObject);
 		}
 	}

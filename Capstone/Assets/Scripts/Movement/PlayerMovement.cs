@@ -98,6 +98,15 @@ public class PlayerMovement : MonoBehaviour {
 				}
 			}
 		}
+
+		//Only do this in scene 4
+		if (GameManager.instance.sceneID == 4) {
+			if (GameManager.instance.targetHit > 7) {
+				if (heldObject.tag == "SpecialBox") {
+					GameManager.instance.switchScene = true; 
+				}
+			}
+		}
 	}
 
 	// Update is called once per frame
