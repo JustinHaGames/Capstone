@@ -60,11 +60,14 @@ public class Box : MonoBehaviour {
 			vel.y = 1f; 
 		}
 			
-
-		if (player.transform.position.y >= transform.position.y + 1.3f) {
-			playerTopCollider.enabled = true;
+		if (player != null) {
+			if (player.transform.position.y >= transform.position.y + 1f) {
+				playerTopCollider.enabled = true;
+			} else {
+				playerTopCollider.enabled = false;
+			}
 		} else {
-			playerTopCollider.enabled = false;
+			playerTopCollider.enabled = true;
 		}
 
 		if (held) {
@@ -84,7 +87,10 @@ public class Box : MonoBehaviour {
 
 		grounded = Physics2D.OverlapArea (pt1, pt2, LayerMask.GetMask ("Platform")) != null; 
 		stacked = Physics2D.OverlapArea (pt1, pt2, LayerMask.GetMask ("BoxTop")) != null;
-		boxPushing = Physics2D.OverlapArea (pt1, pt2, LayerMask.GetMask ("BoxPusher")) != null;
+
+		if (!held) {
+			boxPushing = Physics2D.OverlapArea (pt1, pt2, LayerMask.GetMask ("BoxPusher")) != null;
+		}
 
 		if (grounded && !boxPushing) {
 			vel.x = 0; 
@@ -143,15 +149,11 @@ public class Box : MonoBehaviour {
 	}
 
 	void OnTriggerStay2D(Collider2D coll){
-//		if (coll.gameObject.tag == "Water") {
-//				floating = true; 
-//		}
+
 	}
 
 	void OnTriggerExit2D(Collider2D coll){
-//		if (coll.gameObject.tag == "Water") {
-//			floating = false; 
-//		}
+
 	}
 
 	public void PickUp() {

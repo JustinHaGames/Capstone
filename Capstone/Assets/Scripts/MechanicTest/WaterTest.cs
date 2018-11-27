@@ -10,6 +10,6 @@ public class WaterTest : MonoBehaviour {
 	}
 	
 	void Update () {
-		transform.Translate ((Vector3.down * Time.deltaTime) * .25f);
+		transform.Translate ((Vector3.down * Time.deltaTime) * -.25f);
 	}
 }
