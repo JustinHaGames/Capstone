@@ -14,11 +14,15 @@ public class Target : MonoBehaviour {
 		
 	}
 
-	void OnCollisionEnter2D(Collision2D coll){
-		if (coll.gameObject.tag == "Box") {
-			GameManager.instance.targetHit += 1; 
-			Destroy (gameObject);
-		}
+//	void OnCollisionEnter2D(Collision2D coll){
+//		if (coll.gameObject.tag == "Box") {
+//			GameManager.instance.targetHit += 1; 
+//			Destroy (gameObject);
+//		}
+//	}
+
+	public void Destroy(){GameManager.instance.targetHit += 1; 
+		Destroy (gameObject);
 	}
 
 }

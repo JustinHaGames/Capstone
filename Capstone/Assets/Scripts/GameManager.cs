@@ -90,32 +90,32 @@ public class GameManager : MonoBehaviour {
 
 			switch (targetHit) {
 			case 0: 
-				targetXPos = -6.3f; 
-				targetYPos = -3.6f; 
+				targetXPos = -6.5f; 
+				targetYPos = -3.5f; 
 				break; 
 			case 1: 
-				targetXPos = -4.8f; 
+				targetXPos = -4f; 
 				targetYPos = -3.5f;
 				break; 
 			case 2: 
-				targetXPos = -4.3f;
-				targetYPos = -1.87f;
+				targetXPos = -6.5f; 
+				targetYPos = -1.5f;
 				break;
 			case 3:
-				targetXPos = -5.4f; 
+				targetXPos = -4f;
 				targetYPos = -1.5f;
 				break; 
 			case 4: 
-				targetXPos = -6.3f; 
-				targetYPos = 0;
+				targetXPos = -6.5f; 
+				targetYPos = .25f;
 				break;
 			case 5:
-				targetXPos = -5.3f; 
-				targetYPos = 0; 
+				targetXPos = -4f; 
+				targetYPos = .25f; 
 				break; 
 			case 6: 
 				targetXPos = -6.5f; 
-				targetYPos = 1.95f; 
+				targetYPos = 2f; 
 				break; 
 			case 7:
 				targetXPos = -4f; 
@@ -138,7 +138,7 @@ public class GameManager : MonoBehaviour {
 			}
 
 
-			if (GameObject.FindGameObjectsWithTag ("Box").Length < 7) {
+			if (GameObject.FindGameObjectsWithTag ("Box").Length < 8) {
 				if (targetHit <= 7) {
 					Instantiate (greyBox, new Vector3 (6.5f, 1f, -1f), Quaternion.identity);
 				} 

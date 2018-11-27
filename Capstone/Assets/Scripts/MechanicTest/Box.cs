@@ -85,7 +85,7 @@ public class Box : MonoBehaviour {
 
 		//In scene 4, have these properties
 		if (GameManager.instance.sceneID == 4) {
-			if (GameManager.instance.targetHit <= 7) {
+			if (GameManager.instance.targetHit < 7) {
 				if (transform.position.x <= 0 && grounded && !safe || transform.position.x <= 0 && stacked && !safe) {
 					Destroy (gameObject);
 				}
@@ -157,9 +157,18 @@ public class Box : MonoBehaviour {
 					collidedObject.SendMessage ("Dead", SendMessageOptions.DontRequireReceiver);
 				}
 			}
+
 		if (coll.gameObject.tag == "Target") {
-			safe = true;
+			if (!safe) {
+				GameObject collidedObject = coll.collider.gameObject; 
+				collidedObject.SendMessage ("Destroy", SendMessageOptions.DontRequireReceiver);
+				safe = true;
+			}
 		}
+
+//		if (coll.gameObject.tag == "Target") {
+//			safe = true;
+//		}
 	}
 
 	void OnTriggerStay2D(Collider2D coll){
