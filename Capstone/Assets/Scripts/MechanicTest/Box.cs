@@ -165,10 +165,6 @@ public class Box : MonoBehaviour {
 				safe = true;
 			}
 		}
-
-//		if (coll.gameObject.tag == "Target") {
-//			safe = true;
-//		}
 	}
 
 	void OnTriggerStay2D(Collider2D coll){
