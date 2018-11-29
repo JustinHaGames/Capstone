@@ -43,6 +43,10 @@ public class GameManager : MonoBehaviour {
 	float targetXPos;
 	float targetYPos;
 
+	//Only pertains to scene 5
+
+	public bool specialBoxPickedUp;
+
 	// Use this for initialization
 	void Start () {
 		alphaNum = 1f;
@@ -83,6 +87,19 @@ public class GameManager : MonoBehaviour {
 					audio.Play ();
 				}
 			}
+		}
+
+		if (sceneID == 5) {
+			if (specialBoxPickedUp) {
+				monarchFlying = true;
+				playFlying = true;
+				if (playFlying) {
+					if (!audio.isPlaying) {
+						audio.Play ();
+					}
+				}
+			}
+
 		}
 			
 		//Only things done in scene 4

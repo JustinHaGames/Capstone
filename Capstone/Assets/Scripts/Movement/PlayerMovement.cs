@@ -107,6 +107,15 @@ public class PlayerMovement : MonoBehaviour {
 				}
 			}
 		}
+
+		//Only do this in scene 5
+		if (GameManager.instance.sceneID == 5) {
+			if (!GameManager.instance.specialBoxPickedUp) {
+				if (heldObject.tag == "SpecialBox") {
+					GameManager.instance.specialBoxPickedUp = true;
+				}
+			}
+		}
 	}
 
 	// Update is called once per frame

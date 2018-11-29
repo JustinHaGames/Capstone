@@ -129,11 +129,14 @@ public class Box : MonoBehaviour {
 		}
 
 		if (boxPushing) {
-			transform.parent = boxPusher.transform;
-			grounded = false;
-		} else {
-			transform.parent = this.transform;
+			if (!held) {
+				transform.parent = boxPusher.transform;
+				grounded = false;
+			} else {
+				transform.parent = this.transform;
+			}
 		}
+
 
 	}
 
