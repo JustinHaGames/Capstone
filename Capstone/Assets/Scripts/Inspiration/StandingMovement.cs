@@ -8,6 +8,8 @@ public class StandingMovement : MonoBehaviour {
 
 	SpriteRenderer sprite; 
 
+	Sprite defaultSprite;
+
 	bool imagining; 
 
 	bool left; 
@@ -17,11 +19,18 @@ public class StandingMovement : MonoBehaviour {
 
 	public Sprite fallenPlayer; 
 
+	bool fall;
+	bool leave;
+
+	float fallTimer;
+	float leaveTimer;
+
 	public GameObject dreamPlayer;
 
 	// Use this for initialization
 	void Start () {
 		sprite = GetComponent<SpriteRenderer> ();
+		defaultSprite = sprite.sprite;
 		left = true;
 	}
 	
@@ -30,8 +39,45 @@ public class StandingMovement : MonoBehaviour {
 
 		//Do this in the first scene
 		if (GameManager.instance.sceneID == 0) {
-			sprite.flipX = true; 
-			//transform.Translate (Vector3.left * Time.deltaTime);
+
+			if (transform.position.y <= -3.41f) {
+				transform.position = new Vector3 (transform.position.x, -3.41f, transform.position.z);
+			}
+
+			if (InspirationManager.moveCrowd && !fall && !leave) {
+				timer += Time.deltaTime;
+				if (timer >= 1f && transform.position.x < -.5f) {
+					transform.Translate (Vector3.right * 3f * Time.deltaTime);
+					if (transform.position.x >= -.5f) {
+						fall = true;
+					}
+				}
+			}
+
+			if (fall) {
+				sprite.sprite = fallenPlayer; 
+				fallTimer += 1 * Time.deltaTime;
+				if (fallTimer < .5f) {
+					transform.Translate (Vector3.up * 3f * Time.deltaTime);
+					transform.Translate (Vector3.left * 1f * Time.deltaTime);
+				} else {
+					transform.Translate (Vector3.down * 3f * Time.deltaTime);
+					transform.Translate (Vector3.left * 1f * Time.deltaTime);
+				}
+				if (fallTimer >= 1f) {
+					sprite.sprite = defaultSprite;
+					leave = true;
+					fall = false;
+				}
+			}
+
+			if (leave) {
+				leaveTimer += 1 * Time.deltaTime;
+				if (leaveTimer >= 2f) {
+					sprite.flipX = true;
+					transform.Translate (Vector3.left * 1f * Time.deltaTime);
+				}
+			}
 
 			if (transform.position.x <= -10f) {
 				GameManager.instance.switchScene = true;
@@ -39,7 +85,6 @@ public class StandingMovement : MonoBehaviour {
 			}
 
 		}
-
 
 		//Do this in the 4th scene
 		if (GameManager.instance.sceneID == 4) {
@@ -73,6 +118,24 @@ public class StandingMovement : MonoBehaviour {
 			}
 
 		}
-
 	}
+
+	IEnumerator Fall() 
+	{
+		for (float f = 10f; f >= 0; f -= 0.1f) 
+		{
+			float newTimer = 0;
+			newTimer += Time.deltaTime;
+
+			if (newTimer < .5f) {
+				transform.Translate (Vector3.up * 3f * Time.deltaTime);
+				transform.Translate (Vector3.left * 1f * Time.deltaTime);
+			} else {
+				transform.Translate (Vector3.down * 3f * Time.deltaTime);
+				transform.Translate (Vector3.left * 1f * Time.deltaTime);
+			}
+			yield return null;
+		}
+	}
+
 }

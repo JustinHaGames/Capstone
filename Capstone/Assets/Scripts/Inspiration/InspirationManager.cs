@@ -47,10 +47,6 @@ public class InspirationManager : MonoBehaviour {
 		}
 
 		if (gotTrophy) { 
-			clapTimer += 1 * Time.deltaTime;
-			if (clapTimer >= 1f) {
-				standUp = true; 
-			}
 			if (!clapped) {
 				audio.PlayOneShot (clap);
 				clapped = true; 

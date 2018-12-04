@@ -33,7 +33,7 @@ public class Winner : MonoBehaviour {
 
 		if (walkRight) {
 			transform.Translate (Vector3.right * 2f * Time.deltaTime);
-			sprite.flipX = true;
+			sprite.flipX = false;
 			if (transform.position.x >= 10f) {
 				transform.position = new Vector3 (transform.position.x,-3.41f,transform.position.z);
 				walkLeft = true;

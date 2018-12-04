@@ -22,6 +22,7 @@ public class WalkingHome : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D>();
 		box = GetComponent<BoxCollider2D>();
 		sprite = GetComponent<SpriteRenderer> ();
+		sprite.flipX = true;
 	}
 
 	void Update(){

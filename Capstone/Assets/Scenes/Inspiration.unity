@@ -164,6 +164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 55083145}
   - component: {fileID: 55083144}
+  - component: {fileID: 55083146}
   m_Layer: 0
   m_Name: Chair 1 (9)
   m_TagString: Untagged
@@ -222,12 +223,24 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 55083143}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.3031058, y: 0, z: 2}
+  m_LocalPosition: {x: -4.386894, y: -3.4063594, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1688632585}
-  m_RootOrder: 8
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &55083146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 55083143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19e3d6a3d415846f396f862dbf5ab455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  femaleAudience: {fileID: 21300000, guid: 885e79556b7e14d7daa2d452f6fda331, type: 3}
 --- !u!1 &193756194
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,6 +337,7 @@ GameObject:
   m_Component:
   - component: {fileID: 273529662}
   - component: {fileID: 273529661}
+  - component: {fileID: 273529663}
   m_Layer: 0
   m_Name: Chair 1 (6)
   m_TagString: Untagged
@@ -382,12 +396,24 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 273529660}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.77689457, y: 0, z: 1}
+  m_LocalPosition: {x: -7.4668946, y: -3.4063594, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1688632585}
-  m_RootOrder: 5
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &273529663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 273529660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 245f82b37b17147a69c471ab0f21edb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maleAudience: {fileID: 21300000, guid: 427b5622bb2a34d14ac132d7ce934ee3, type: 3}
 --- !u!1 &500415391
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,7 +482,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 500415391}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.3574533, y: -1.019, z: 0}
+  m_LocalPosition: {x: 5.3574533, y: -1.019, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 193756197}
@@ -484,6 +510,7 @@ GameObject:
   m_Component:
   - component: {fileID: 544033822}
   - component: {fileID: 544033821}
+  - component: {fileID: 544033823}
   m_Layer: 0
   m_Name: Chair 1 (4)
   m_TagString: Untagged
@@ -542,12 +569,24 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 544033820}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.6631055, y: 0, z: 1}
+  m_LocalPosition: {x: -4.0268946, y: -3.4063594, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1688632585}
-  m_RootOrder: 3
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &544033823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 544033820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 245f82b37b17147a69c471ab0f21edb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maleAudience: {fileID: 21300000, guid: 427b5622bb2a34d14ac132d7ce934ee3, type: 3}
 --- !u!1 &710777922
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,6 +719,7 @@ GameObject:
   m_Component:
   - component: {fileID: 786549101}
   - component: {fileID: 786549100}
+  - component: {fileID: 786549102}
   m_Layer: 0
   m_Name: Chair 1 (1)
   m_TagString: Untagged
@@ -738,12 +778,24 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 786549099}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.7931056, y: 0, z: 0}
+  m_LocalPosition: {x: -4.8968945, y: -3.4063594, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1688632585}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &786549102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 786549099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19e3d6a3d415846f396f862dbf5ab455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  femaleAudience: {fileID: 21300000, guid: 885e79556b7e14d7daa2d452f6fda331, type: 3}
 --- !u!1 &851583019
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,6 +892,7 @@ GameObject:
   m_Component:
   - component: {fileID: 910408360}
   - component: {fileID: 910408359}
+  - component: {fileID: 910408361}
   m_Layer: 0
   m_Name: Chair 1 (3)
   m_TagString: Untagged
@@ -898,12 +951,24 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 910408358}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.4631057, y: 0, z: 1}
+  m_LocalPosition: {x: -2.2268944, y: -3.4063594, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1688632585}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &910408361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 910408358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19e3d6a3d415846f396f862dbf5ab455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  femaleAudience: {fileID: 21300000, guid: 885e79556b7e14d7daa2d452f6fda331, type: 3}
 --- !u!1 &1019234425
 GameObject:
   m_ObjectHideFlags: 0
@@ -1041,6 +1106,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1258244282}
   - component: {fileID: 1258244281}
+  - component: {fileID: 1258244283}
   m_Layer: 0
   m_Name: Chair 1 (11)
   m_TagString: Untagged
@@ -1099,12 +1165,24 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1258244280}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.0531054, y: 0, z: 2}
+  m_LocalPosition: {x: -2.6368947, y: -3.4063594, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1688632585}
-  m_RootOrder: 10
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1258244283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1258244280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 245f82b37b17147a69c471ab0f21edb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maleAudience: {fileID: 21300000, guid: 427b5622bb2a34d14ac132d7ce934ee3, type: 3}
 --- !u!1 &1269461769
 GameObject:
   m_ObjectHideFlags: 0
@@ -1114,6 +1192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1269461771}
   - component: {fileID: 1269461770}
+  - component: {fileID: 1269461772}
   m_Layer: 0
   m_Name: Chair 1 (2)
   m_TagString: Untagged
@@ -1172,12 +1251,24 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1269461769}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.1331058, y: 0, z: 1}
+  m_LocalPosition: {x: -1.5568943, y: -3.4063594, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1688632585}
-  m_RootOrder: 1
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1269461772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1269461769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 245f82b37b17147a69c471ab0f21edb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maleAudience: {fileID: 21300000, guid: 427b5622bb2a34d14ac132d7ce934ee3, type: 3}
 --- !u!4 &1305498118 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4141536751488064, guid: cbe7283eb6d8442919efa81672b4508f,
@@ -1192,6 +1283,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1328226943}
   - component: {fileID: 1328226942}
+  - component: {fileID: 1328226944}
   m_Layer: 0
   m_Name: Chair 1 (7)
   m_TagString: Untagged
@@ -1250,12 +1342,24 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1328226941}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.40310574, y: 0, z: 2}
+  m_LocalPosition: {x: -6.2868943, y: -3.4063594, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1688632585}
-  m_RootOrder: 6
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1328226944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1328226941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19e3d6a3d415846f396f862dbf5ab455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  femaleAudience: {fileID: 21300000, guid: 885e79556b7e14d7daa2d452f6fda331, type: 3}
 --- !u!1 &1362215181
 GameObject:
   m_ObjectHideFlags: 0
@@ -1265,6 +1369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1362215183}
   - component: {fileID: 1362215182}
+  - component: {fileID: 1362215184}
   m_Layer: 0
   m_Name: Chair 1 (10)
   m_TagString: Untagged
@@ -1323,12 +1428,24 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1362215181}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.0231056, y: 0, z: 2}
+  m_LocalPosition: {x: -3.6668944, y: -3.4063594, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1688632585}
-  m_RootOrder: 9
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1362215184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1362215181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 245f82b37b17147a69c471ab0f21edb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maleAudience: {fileID: 21300000, guid: 427b5622bb2a34d14ac132d7ce934ee3, type: 3}
 --- !u!1 &1465803840
 GameObject:
   m_ObjectHideFlags: 0
@@ -1411,6 +1528,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1472613644}
   - component: {fileID: 1472613643}
+  - component: {fileID: 1472613645}
   m_Layer: 0
   m_Name: Chair 1 (5)
   m_TagString: Untagged
@@ -1469,12 +1587,24 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1472613642}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.97310543, y: 0, z: 1}
+  m_LocalPosition: {x: -5.7168946, y: -3.4063594, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1688632585}
-  m_RootOrder: 4
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1472613645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1472613642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19e3d6a3d415846f396f862dbf5ab455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  femaleAudience: {fileID: 21300000, guid: 885e79556b7e14d7daa2d452f6fda331, type: 3}
 --- !u!1 &1582367130
 GameObject:
   m_ObjectHideFlags: 0
@@ -1546,7 +1676,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1688632583
 GameObject:
@@ -1557,6 +1687,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1688632585}
   - component: {fileID: 1688632584}
+  - component: {fileID: 1688632586}
   m_Layer: 0
   m_Name: Chair 1
   m_TagString: Untagged
@@ -1615,23 +1746,24 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1688632583}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.7331057, y: -3.4063594, z: 0}
+  m_LocalPosition: {x: -6.69, y: -3.4063594, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 786549101}
-  - {fileID: 1269461771}
-  - {fileID: 910408360}
-  - {fileID: 544033822}
-  - {fileID: 1472613644}
-  - {fileID: 273529662}
-  - {fileID: 1328226943}
-  - {fileID: 2132873131}
-  - {fileID: 55083145}
-  - {fileID: 1362215183}
-  - {fileID: 1258244282}
+  m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1688632586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1688632583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 245f82b37b17147a69c471ab0f21edb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maleAudience: {fileID: 21300000, guid: 427b5622bb2a34d14ac132d7ce934ee3, type: 3}
 --- !u!1 &1800121198
 GameObject:
   m_ObjectHideFlags: 0
@@ -1699,7 +1831,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1800121198}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.87, y: -3.84, z: 0}
+  m_LocalPosition: {x: 4.87, y: -3.84, z: 3}
   m_LocalScale: {x: 2.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1772,7 +1904,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1813247509}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.09269921, y: 1.63, z: 0}
+  m_LocalPosition: {x: 0.09269921, y: 1.63, z: 3}
   m_LocalScale: {x: 1.5, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1787,6 +1919,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2132873131}
   - component: {fileID: 2132873130}
+  - component: {fileID: 2132873132}
   m_Layer: 0
   m_Name: Chair 1 (8)
   m_TagString: Untagged
@@ -1845,9 +1978,21 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2132873129}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.2231054, y: 0, z: 2}
+  m_LocalPosition: {x: -5.4668946, y: -3.4063594, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1688632585}
-  m_RootOrder: 7
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2132873132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2132873129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 245f82b37b17147a69c471ab0f21edb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maleAudience: {fileID: 21300000, guid: 427b5622bb2a34d14ac132d7ce934ee3, type: 3}

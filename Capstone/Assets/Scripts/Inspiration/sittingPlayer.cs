@@ -15,12 +15,9 @@ public class sittingPlayer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (InspirationManager.standUp) {
-			timer += 1 * Time.deltaTime;
-			if (timer >= 5f) {
+		if (InspirationManager.moveCrowd) {
 				Instantiate (standingPlayer, transform.position, Quaternion.identity);
 				Destroy (gameObject);
-			}
 		}
 
 	}
