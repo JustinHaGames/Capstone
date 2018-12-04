@@ -22,7 +22,7 @@ public class InspirationManager : MonoBehaviour {
 
 	bool clapped; 
 
-
+	public static bool moveCrowd;
 
 	// Use this for initialization
 	void Start () {

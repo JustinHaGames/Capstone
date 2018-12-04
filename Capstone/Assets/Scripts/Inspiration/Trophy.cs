@@ -25,7 +25,6 @@ public class Trophy : MonoBehaviour {
 			} 
 
 			if (transform.position.y <= -.8f) {
-				transform.position = new Vector3 (transform.position.x, -.8f, transform.position.z); 
 				InspirationManager.gotTrophy = true; 
 				descend = false; 
 				if (!effectPlayed) {

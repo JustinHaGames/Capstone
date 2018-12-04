@@ -15,6 +15,8 @@ public class StandingMovement : MonoBehaviour {
 
 	int counter = 0;
 
+	public Sprite fallenPlayer; 
+
 	public GameObject dreamPlayer;
 
 	// Use this for initialization
@@ -28,9 +30,8 @@ public class StandingMovement : MonoBehaviour {
 
 		//Do this in the first scene
 		if (GameManager.instance.sceneID == 0) {
-			timer += 1 * Time.deltaTime; 
 			sprite.flipX = true; 
-			transform.Translate (Vector3.left * Time.deltaTime);
+			//transform.Translate (Vector3.left * Time.deltaTime);
 
 			if (transform.position.x <= -10f) {
 				GameManager.instance.switchScene = true;
@@ -39,6 +40,8 @@ public class StandingMovement : MonoBehaviour {
 
 		}
 
+
+		//Do this in the 4th scene
 		if (GameManager.instance.sceneID == 4) {
 			
 			if (left) {
