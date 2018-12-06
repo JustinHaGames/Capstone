@@ -10,7 +10,7 @@ Material:
   m_Shader: {fileID: 4800000, guid: ce47e2840b48d48cfb852568e7845bd3, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 0
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -108,15 +108,17 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _Transparency: 0.78
+    - _Transparency: 0.93
     - _UVSec: 0
     - _ZWrite: 1
     - __dirty: 0
     m_Colors:
-    - _BottomC: {r: 1, g: 1, b: 1, a: 0}
+    - _BottomC: {r: 0.6102941, g: 0.7097362, b: 1, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
     - _Speed: {r: 0.01, g: 0.05, b: 0, a: 0}
     - _Tiling: {r: 1, g: 0.2, b: 0, a: 0}
-    - _TopC: {r: 0, g: 0.030507518, b: 0.33823532, a: 0}
+    - _TopC: {r: 0, g: 0.03979241, b: 0.44117647, a: 0}
+    - _Vector0: {r: 1, g: 10.05, b: 0, a: 0}
+    - _Vector1: {r: 1, g: 1, b: 0, a: 0}
