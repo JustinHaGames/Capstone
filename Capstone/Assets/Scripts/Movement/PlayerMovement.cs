@@ -63,23 +63,20 @@ public class PlayerMovement : MonoBehaviour {
 			jump = false; 
 			jumpCounter = 0;
 		}
-		/*
-		 * Vector3 facingDirection = Vector3.right;
-		 * transform.position + (-facingDirection * spriteRenderer.bounds.extents.x) + (Vector3.down * spriteRenderer.bounds.extents.y * 0.5f)
-		 * */
+
 		//Pickup objects
 		if (Input.GetKeyDown (KeyCode.X)) {
 			//Box kicking test
 			if (heldObject == null) {
 				if (lastR) {
 					Vector3 facingDirection = Vector3.right;
-					RaycastHit2D hit = Physics2D.Raycast (transform.position + (-facingDirection * sprite.bounds.extents.x * .5f) + (Vector3.down * sprite.bounds.extents.y * 0.3f), facingDirection, 1.75f, blockMask);
+					RaycastHit2D hit = Physics2D.Raycast (transform.position + (-facingDirection * sprite.bounds.extents.x * .5f) + (Vector3.down * sprite.bounds.extents.y * 0.3f), facingDirection, 1.5f, blockMask);
 					heldObject = hit.collider.gameObject;
 					heldObject.SendMessage ("PickUp", SendMessageOptions.DontRequireReceiver);
 					Debug.DrawRay(transform.position + (-facingDirection * sprite.bounds.extents.x * .5f) + (Vector3.down * sprite.bounds.extents.y * 0.3f), facingDirection * 1.75f, Color.green);
 				} else if (lastL) {
 					Vector3 facingDirection = Vector3.left;
-					RaycastHit2D hit = Physics2D.Raycast (transform.position + (-facingDirection * sprite.bounds.extents.x) + (Vector3.down * sprite.bounds.extents.y * 0.3f), facingDirection, 1.75f,blockMask);
+					RaycastHit2D hit = Physics2D.Raycast (transform.position + (-facingDirection * sprite.bounds.extents.x) + (Vector3.down * sprite.bounds.extents.y * 0.3f), facingDirection, 1.5f,blockMask);
 					heldObject = hit.collider.gameObject;
 					heldObject.SendMessage ("PickUp", SendMessageOptions.DontRequireReceiver);
 					Debug.DrawRay(transform.position + (-facingDirection * sprite.bounds.extents.x * .5f) + (Vector3.down * sprite.bounds.extents.y * 0.3f), facingDirection * 1.75f, Color.green);

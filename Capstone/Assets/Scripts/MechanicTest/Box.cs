@@ -75,8 +75,10 @@ public class Box : MonoBehaviour {
 
 		if (held) {
 			boxTopCollider.enabled = false;
+			box.enabled = false;
 		} else {
 			boxTopCollider.enabled = true;
+			box.enabled = true; 
 		}
 
 		if (!held) {
