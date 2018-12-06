@@ -91,21 +91,23 @@ public class StandingMovement : MonoBehaviour {
 			
 			if (left) {
 				transform.Translate (Vector3.left * Time.deltaTime * 2f);
+				sprite.flipX = true;
 			}
 
 			if (right) {
 				transform.Translate (Vector3.right * Time.deltaTime * 2f);
+				sprite.flipX = false;
 			}
 
 			if (transform.position.x <= -6f) {
 				left = false; 
 				right = true;
-				sprite.flipX = false;
+				//sprite.flipX = false;
 				counter += 1;
 			} else if (transform.position.x >= 6f) {
 				left = true;
 				right = false;
-				sprite.flipX = true;
+				//sprite.flipX = true;
 				counter += 1;
 			}
 

@@ -34,6 +34,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	bool onWall;
 
+	public LayerMask blockMask;
+
 	// Use this for initialization
 	void Start () {
 
@@ -61,19 +63,27 @@ public class PlayerMovement : MonoBehaviour {
 			jump = false; 
 			jumpCounter = 0;
 		}
-
+		/*
+		 * Vector3 facingDirection = Vector3.right;
+		 * transform.position + (-facingDirection * spriteRenderer.bounds.extents.x) + (Vector3.down * spriteRenderer.bounds.extents.y * 0.5f)
+		 * */
 		//Pickup objects
 		if (Input.GetKeyDown (KeyCode.X)) {
 			//Box kicking test
 			if (heldObject == null) {
 				if (lastR) {
-					RaycastHit2D hit = Physics2D.Raycast (new Vector2 (transform.position.x, transform.position.y - .5f), Vector2.right, .4f);
+					Vector3 facingDirection = Vector3.right;
+					RaycastHit2D hit = Physics2D.Raycast (transform.position + (-facingDirection * sprite.bounds.extents.x * .5f) + (Vector3.down * sprite.bounds.extents.y * 0.3f), facingDirection, 1.75f, blockMask);
 					heldObject = hit.collider.gameObject;
 					heldObject.SendMessage ("PickUp", SendMessageOptions.DontRequireReceiver);
+					Debug.DrawRay(transform.position + (-facingDirection * sprite.bounds.extents.x * .5f) + (Vector3.down * sprite.bounds.extents.y * 0.3f), facingDirection * 1.75f, Color.green);
 				} else if (lastL) {
-					RaycastHit2D hit = Physics2D.Raycast (new Vector2 (transform.position.x, transform.position.y - .5f), Vector2.left, .4f);
+					Vector3 facingDirection = Vector3.left;
+					RaycastHit2D hit = Physics2D.Raycast (transform.position + (-facingDirection * sprite.bounds.extents.x) + (Vector3.down * sprite.bounds.extents.y * 0.3f), facingDirection, 1.75f,blockMask);
 					heldObject = hit.collider.gameObject;
 					heldObject.SendMessage ("PickUp", SendMessageOptions.DontRequireReceiver);
+					Debug.DrawRay(transform.position + (-facingDirection * sprite.bounds.extents.x * .5f) + (Vector3.down * sprite.bounds.extents.y * 0.3f), facingDirection * 1.75f, Color.green);
+
 				}
 			} else {
 
