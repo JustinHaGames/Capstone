@@ -36,6 +36,10 @@ public class PlayerMovement : MonoBehaviour {
 
 	public LayerMask blockMask;
 
+	bool knockedBack;
+	public float knockbackSpeed;
+	bool inactive;
+
 	// Use this for initialization
 	void Start () {
 
@@ -135,20 +139,22 @@ public class PlayerMovement : MonoBehaviour {
 		bool right = Input.GetKey(KeyCode.RightArrow);
 		bool left = Input.GetKey (KeyCode.LeftArrow);
 
-		//If right or left if pressed, accel in that direction
-		if (right) {
-			vel.x += accel/waterSpeed;
-			lastR = true; 
-			lastL = false; 
-			sprite.flipX = false;
+		if (!inactive) {
+			//If right or left if pressed, accel in that direction
+			if (right) {
+				vel.x += accel / waterSpeed;
+				lastR = true; 
+				lastL = false; 
+				sprite.flipX = false;
 
-		}
-		if (left) {
-			vel.x -= accel/waterSpeed;
-			lastL = true; 
-			lastR = false; 
-			if (!right) {
-				sprite.flipX = true;
+			}
+			if (left) {
+				vel.x -= accel / waterSpeed;
+				lastL = true; 
+				lastR = false; 
+				if (!right) {
+					sprite.flipX = true;
+				}
 			}
 		}
 
@@ -187,7 +193,7 @@ public class PlayerMovement : MonoBehaviour {
 				if (!swim) {
 					vel.y = jumpVel;
 				} else {
-					vel.y = jumpVel / (waterSpeed  * .5f); 
+					vel.y = jumpVel / (waterSpeed * .75f); 
 				}
 
 			}
@@ -237,11 +243,20 @@ public class PlayerMovement : MonoBehaviour {
 			GameObject collidedObject = coll.collider.gameObject; 
 			if (transform.position.y >= collidedObject.transform.position.y + 1f) {
 				collidedObject.SendMessage ("Dead", SendMessageOptions.DontRequireReceiver);
+				vel.y = 12f;
+			} else {
+				Vector3 dir = (collidedObject.transform.position - transform.position).normalized; 
+				StartCoroutine (KnockedBack ());
+				vel.x = -dir.x * knockbackSpeed;
+				vel.y = 3f;
 			}
 		}
 
-		if (coll.gameObject.tag == "Portal") {
-			GameManager.instance.switchScene = true;
+		if (coll.gameObject.tag == "PlayerTop") {
+			GameObject collidedObject = coll.collider.gameObject; 
+			if (transform.position.y >= collidedObject.transform.position.y + 1f) {
+				collidedObject.SendMessage ("PickUp", SendMessageOptions.DontRequireReceiver);
+			}
 		}
 
 	}
@@ -263,5 +278,18 @@ public class PlayerMovement : MonoBehaviour {
 			swim = false;
 		}
 	}
+		
+	IEnumerator KnockedBack() 
+	{
+		inactive = true;
+		for (int f = 0; f < 15; f++) 
+		{
+			maxAccel = knockbackSpeed;
+			yield return new WaitForFixedUpdate ();
+		}
+		maxAccel = 6f;
+		inactive = false;
+	}
+
 		
 }

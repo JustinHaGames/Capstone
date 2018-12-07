@@ -574,6 +574,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1091634920431556, guid: b36acd6052328434b8d5303ac068a7e1, type: 2}
+      propertyPath: m_TagString
+      value: PlayerTop
+      objectReference: {fileID: 0}
+    - target: {fileID: 1681364780408144, guid: b36acd6052328434b8d5303ac068a7e1, type: 2}
+      propertyPath: m_TagString
+      value: SpecialBox
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b36acd6052328434b8d5303ac068a7e1, type: 2}
   m_IsPrefabParent: 0
@@ -595,7 +603,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &792343430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -951,25 +959,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 212577685041477818, guid: 9dfcfc2392df940a3a578588d8a3cc82,
+    - target: {fileID: 114930787554727444, guid: 9dfcfc2392df940a3a578588d8a3cc82,
         type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 647780f8ea89a44e4a19fd636a1c7b22, type: 2}
-    - target: {fileID: 212577685041477818, guid: 9dfcfc2392df940a3a578588d8a3cc82,
-        type: 2}
-      propertyPath: m_FlipX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 212577685041477818, guid: 9dfcfc2392df940a3a578588d8a3cc82,
-        type: 2}
-      propertyPath: m_MaskInteraction
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 212577685041477818, guid: 9dfcfc2392df940a3a578588d8a3cc82,
-        type: 2}
-      propertyPath: m_FlipY
-      value: 0
+      propertyPath: knockbackSpeed
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9dfcfc2392df940a3a578588d8a3cc82, type: 2}

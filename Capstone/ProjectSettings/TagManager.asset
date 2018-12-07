@@ -14,6 +14,7 @@ TagManager:
   - Target
   - Barrier
   - SpecialBox
+  - PlayerTop
   layers:
   - Default
   - TransparentFX
