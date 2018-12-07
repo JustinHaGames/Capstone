@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Water : MonoBehaviour {
 
+	bool rising;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -11,8 +13,23 @@ public class Water : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (GameManager.instance.monarchFlying) {
-			transform.Translate ((Vector3.down * Time.deltaTime) * .25f);
+
+		//In scene 5, water shouldn't rise until the monarch is flying
+		if (GameManager.instance.sceneID == 3) {
+			if (GameManager.instance.monarchFlying) {
+				rising = true;
+			}
+		}
+
+		//In scene 5, water shouldn't rise until the box is picked up
+		if (GameManager.instance.sceneID == 5) {
+			if (GameManager.instance.specialBoxPickedUp) {
+				rising = true; 
+			}
+		}
+
+		if (rising) {
+			transform.Translate ((Vector3.down * Time.deltaTime) * -.25f);
 		}
 	}
 }

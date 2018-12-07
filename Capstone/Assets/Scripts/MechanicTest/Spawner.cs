@@ -18,8 +18,9 @@ public class Spawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-		timer += 1 * Time.deltaTime;
+		if (GameManager.instance.specialBoxPickedUp) {
+			timer += 1 * Time.deltaTime;
+		}
 
 		if (!chosen) {
 			randomNum = Random.Range (5, 10);
