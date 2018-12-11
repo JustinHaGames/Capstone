@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 61310503171895862}
   m_Layer: 17
   m_Name: PlayerTop
-  m_TagString: Untagged
+  m_TagString: PlayerTop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1681364780408144}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.899246, y: 1.2546694, z: -2}
+  m_LocalPosition: {x: 0, y: -3.51, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4739917927347244}
@@ -226,7 +226,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c3089f300949a46f5814046d6028019b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -143,8 +143,10 @@ public class PlayerMovement : MonoBehaviour {
 		//Only do this in scene 5
 		if (GameManager.instance.sceneID == 5) {
 			if (!GameManager.instance.specialBoxPickedUp) {
-				if (heldObject.tag == "SpecialBox") {
-					GameManager.instance.specialBoxPickedUp = true;
+				if (heldObject != null) {
+					if (heldObject.tag == "SpecialBox") {
+						GameManager.instance.specialBoxPickedUp = true;
+					}
 				}
 			}
 		}
@@ -283,7 +285,7 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D coll){
-
+		
 	}
 
 	void OnTriggerStay2D(Collider2D coll){

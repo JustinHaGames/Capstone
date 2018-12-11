@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4629180840555572}
   - component: {fileID: 212738025548854316}
   - component: {fileID: 61805978476132266}
+  - component: {fileID: 114212718009543852}
   m_Layer: 16
   m_Name: StoneWalls
   m_TagString: Wall
@@ -66,6 +67,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.6, y: 9}
   m_EdgeRadius: 0
+--- !u!114 &114212718009543852
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1418744819500684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d01ab553907b4f01a2884c200a40dbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  stoneWall: {fileID: 1418744819500684}
+  spawnDistance: 9
 --- !u!212 &212738025548854316
 SpriteRenderer:
   m_ObjectHideFlags: 1
