@@ -29,16 +29,24 @@ public class PlayerMovement : MonoBehaviour {
 	public GameObject heldObject;
 	bool grab;
 
+	//Swim variables
 	float waterSpeed = 1;
 	bool swim;
 
-	bool onWall;
-
 	public LayerMask blockMask;
 
+	//Knockback variables
 	bool knockedBack;
 	public float knockbackSpeed;
 	bool inactive;
+
+	//Walljump layermask
+	public LayerMask wallMask;
+	public float wallJumpX;
+	public float wallJumpY;
+
+	//set walljump direction to -1 or 1
+	float wallJumpDirection;
 
 	// Use this for initialization
 	void Start () {
@@ -68,6 +76,23 @@ public class PlayerMovement : MonoBehaviour {
 			jumpCounter = 0;
 		}
 
+//		//Walljump
+//		if (lastL) {
+//			Vector3 facingDirection = Vector3.left;
+//			RaycastHit2D wallHit = Physics2D.Raycast (transform.position, facingDirection, 1f, wallMask);
+//			wallJumpDirection = 1f;
+//			if (Input.GetKeyDown (KeyCode.Z) || Input.GetKeyDown (KeyCode.Space)) {
+//				StartCoroutine (WallJump ());
+//			}
+//		} else if (lastR) {
+//			Vector3 facingDirection = Vector3.right;
+//			RaycastHit2D wallHit = Physics2D.Raycast (transform.position, facingDirection, 1f, wallMask);
+//			wallJumpDirection = -1f;
+//			if (Input.GetKeyDown (KeyCode.Z) || Input.GetKeyDown (KeyCode.Space)) {
+//				StartCoroutine (WallJump ());
+//			}
+//		}
+
 		//Pickup objects
 		if (Input.GetKeyDown (KeyCode.X)) {
 			//Box kicking test
@@ -77,17 +102,13 @@ public class PlayerMovement : MonoBehaviour {
 					RaycastHit2D hit = Physics2D.Raycast (transform.position + (-facingDirection * sprite.bounds.extents.x * .5f) + (Vector3.down * sprite.bounds.extents.y * 0.3f), facingDirection, 1.5f, blockMask);
 					heldObject = hit.collider.gameObject;
 					heldObject.SendMessage ("PickUp", SendMessageOptions.DontRequireReceiver);
-					Debug.DrawRay(transform.position + (-facingDirection * sprite.bounds.extents.x * .5f) + (Vector3.down * sprite.bounds.extents.y * 0.3f), facingDirection * 1.75f, Color.green);
 				} else if (lastL) {
 					Vector3 facingDirection = Vector3.left;
 					RaycastHit2D hit = Physics2D.Raycast (transform.position + (-facingDirection * sprite.bounds.extents.x) + (Vector3.down * sprite.bounds.extents.y * 0.3f), facingDirection, 1.5f,blockMask);
 					heldObject = hit.collider.gameObject;
 					heldObject.SendMessage ("PickUp", SendMessageOptions.DontRequireReceiver);
-					Debug.DrawRay(transform.position + (-facingDirection * sprite.bounds.extents.x * .5f) + (Vector3.down * sprite.bounds.extents.y * 0.3f), facingDirection * 1.75f, Color.green);
-
 				}
 			} else {
-
 				if (Input.GetKey (KeyCode.UpArrow) && Input.GetKey (KeyCode.RightArrow)) {
 					heldObject.SendMessage ("RightDiagonal", SendMessageOptions.DontRequireReceiver);
 					heldObject = null;
@@ -291,5 +312,14 @@ public class PlayerMovement : MonoBehaviour {
 		inactive = false;
 	}
 
+	IEnumerator WallJump(){
+		inactive = true;
+		for (int f = 0; f < 4; f++) {
+			vel.x = wallJumpX * wallJumpDirection;
+			vel.y = wallJumpY;
+			yield return new WaitForFixedUpdate ();
+		}
+		inactive = false;
+	}
 		
 }
