@@ -15,52 +15,67 @@ public class MonarchMovement : MonoBehaviour {
 
 	GameObject player; 
 
+	bool flyingRight;
+
 	// Use this for initialization
 	void Start () {
 		right = true; 
+
+		player = GameObject.FindGameObjectWithTag ("Player");
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 
-		timer += Time.deltaTime;
+		if (!GameManager.instance.playerFallen) {
+			timer += Time.deltaTime;
 
-		if (GameManager.instance.monarchComeAlive) {
+			if (GameManager.instance.monarchComeAlive) {
 			
-			ascend = true; 
-
-
-			if (timer < 7f) {
-				transform.Translate (Vector3.up * Time.deltaTime);
-
-			}else{
-				ascend = false; 
+				ascend = true; 
 				GameManager.instance.monarchFlying = true; 
-				GameManager.instance.monarchComeAlive = false; 
+
+				if (timer < 7f) {
+					transform.Translate (Vector3.up * Time.deltaTime);
+
+				} else {
+					ascend = false; 
+					GameManager.instance.monarchFlying = false; 
+					GameManager.instance.monarchComeAlive = false; 
+					flyingRight = true; 
+				}
+				
+			}
+
+			if (flyingRight) {
+				if (transform.position.x < 0) {
+					transform.Translate (Vector2.right * Time.deltaTime * 5f);
+				}
 			}
 
 		}
 
-		if (GameManager.instance.monarchFlying) {
-			if (transform.position.x <= -7f) {
-				right = true; 
-				left = false; 
-			} else if (transform.position.x >= 7f) {
-				left = true; 
-				right = false; 
-			}
+		if (GameManager.instance.playerFallen || GameManager.instance.sceneID == 5){
+			if (GameManager.instance.monarchFlying) {
+				if (transform.position.x <= -7f) {
+					right = true; 
+					left = false; 
+				} else if (transform.position.x >= 7f) {
+					left = true; 
+					right = false; 
+				}
 
-			if (right) {
-				transform.Translate (Vector3.right * Time.deltaTime * 3f);
-			} else if (left) {
-				transform.Translate (Vector3.left * Time.deltaTime * 3f);
-			}
+				if (right) {
+					transform.Translate (Vector3.right * Time.deltaTime * 3f);
+				} else if (left) {
+					transform.Translate (Vector3.left * Time.deltaTime * 3f);
+				}
 
-			player = GameObject.FindGameObjectWithTag ("Player");
+				player = GameObject.FindGameObjectWithTag ("Player");
 
-			if (transform.position.y <= player.transform.position.y + 2f) {
-				transform.position = new Vector3 (transform.position.x, player.transform.position.y + 2f, transform.position.z);
-				//transform.Translate (Vector3.up * Time.deltaTime * 3f);
+				if (transform.position.y <= player.transform.position.y + 2f) {
+					transform.position = new Vector3 (transform.position.x, player.transform.position.y + 2f, transform.position.z);
+				}
 			}
 
 			if (timer >= 40f) {

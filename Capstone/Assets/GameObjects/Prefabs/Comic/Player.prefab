@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1474913426420956}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.7, y: -4, z: 1}
+  m_LocalPosition: {x: -6.7, y: -3.51, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -102,6 +102,7 @@ MonoBehaviour:
   accel: 2
   maxAccel: 6
   gravity: -0.35
+  maxGravity: -9.87
   baseJumpVel: 5
   jumpVel: 5
   maxJumpVel: 10
@@ -109,6 +110,12 @@ MonoBehaviour:
   blockMask:
     serializedVersion: 2
     m_Bits: 16384
+  knockbackSpeed: 25
+  wallMask:
+    serializedVersion: 2
+    m_Bits: 0
+  wallJumpX: 0
+  wallJumpY: 0
 --- !u!212 &212577685041477818
 SpriteRenderer:
   m_ObjectHideFlags: 1

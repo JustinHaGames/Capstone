@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour {
 	public float maxAccel;
 
 	public float gravity; 
+	public float maxGravity;
 	bool canJump;
 	bool jump; 
 	public float baseJumpVel; 
@@ -48,6 +49,10 @@ public class PlayerMovement : MonoBehaviour {
 	//set walljump direction to -1 or 1
 	float wallJumpDirection;
 
+	bool falling;
+	public Material playerMat;
+	public Material defaultMat;
+
 	// Use this for initialization
 	void Start () {
 
@@ -58,12 +63,17 @@ public class PlayerMovement : MonoBehaviour {
 		lastR = true;
 		lastL = false;
 
-		//save the initial color of the player
 		heldObject = null;
 
 	}
 
 	void Update(){
+
+		if (falling) {
+			sprite.material = playerMat;
+			GameManager.instance.playerFallen = true;
+		}
+
 		if (canJump || swim) {
 			if ((Input.GetKeyDown (KeyCode.Space) || Input.GetKeyDown (KeyCode.Z)) && !jump) {
 				jump = true;	
@@ -227,9 +237,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		if (GameManager.instance.sceneID == 3) {
-				GameManager.instance.monarchComeAlive = true; 
-				GameManager.instance.playFlying = true; 
-				if (GameManager.instance.monarchFlying == false) {
+			if (GameManager.instance.monarchComeAlive == true) {
 					vel.x = 0; 
 					vel.y = 0; 
 				}
@@ -243,7 +251,7 @@ public class PlayerMovement : MonoBehaviour {
 		Vector2 pt1 = transform.TransformPoint (box.offset + new Vector2 (box.size.x / 2, -box.size.y / 2));
 		Vector2 pt2 = transform.TransformPoint (box.offset - (box.size / 2) + new Vector2 (0, 0));
 
-		grounded = Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("Platform")) != null || Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("PlayerTop")) != null; 
+		grounded = Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("Platform")) != null || Physics2D.OverlapArea(pt1, pt2, LayerMask.GetMask("PlayerTop")) != null ; 
 
 		if (grounded && vel.y <= 0) {
 			vel.y = 0; 
@@ -258,6 +266,10 @@ public class PlayerMovement : MonoBehaviour {
 				vel.y += gravity / waterSpeed;
 			}
 		}
+
+		if (vel.y <= maxGravity) {
+			vel.y = maxGravity;
+		}
 	}
 
 	void OnCollisionEnter2D (Collision2D coll){
@@ -268,9 +280,10 @@ public class PlayerMovement : MonoBehaviour {
 				collidedObject.SendMessage ("Dead", SendMessageOptions.DontRequireReceiver);
 				vel.y = 12f;
 			} else {
-				Vector3 dir = (collidedObject.transform.position - transform.position).normalized; 
+				Debug.Log ("Hit");
+				//Vector3 dir = (collidedObject.transform.position - transform.position).normalized; 
 				StartCoroutine (KnockedBack ());
-				vel.x = -dir.x * knockbackSpeed;
+				vel.x = (collidedObject.transform.position.x >= transform.position.x)? vel.x - knockbackSpeed : vel.x + knockbackSpeed;
 				vel.y = 3f;
 			}
 		}
@@ -282,10 +295,18 @@ public class PlayerMovement : MonoBehaviour {
 			}
 		}
 
+		if (coll.gameObject.tag == "BrokenFloor") {
+			falling = true;
+		}
+
 	}
 
 	void OnTriggerEnter2D(Collider2D coll){
-		
+		if (coll.gameObject.tag == "Water") {
+			waterSpeed = 3; 
+			vel.y = vel.y / 3;
+			swim = true;
+		}
 	}
 
 	void OnTriggerStay2D(Collider2D coll){
@@ -307,6 +328,7 @@ public class PlayerMovement : MonoBehaviour {
 		inactive = true;
 		for (int f = 0; f < 15; f++) 
 		{
+			Debug.Log ("KnockBack frame: " + f);
 			maxAccel = knockbackSpeed;
 			yield return new WaitForFixedUpdate ();
 		}

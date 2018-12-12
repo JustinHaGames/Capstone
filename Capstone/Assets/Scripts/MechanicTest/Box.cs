@@ -23,6 +23,7 @@ public class Box : MonoBehaviour {
 	public float upThrowVel;
 
 	public float gravity; 
+	public float maxGravity;
 
 	bool floating; 
 
@@ -120,6 +121,10 @@ public class Box : MonoBehaviour {
 				//if you haven't throw it, don't apply gravity
 				vel.y = 0; 
 			}
+		}
+
+		if (vel.y <= maxGravity) {
+			vel.y = maxGravity;
 		}
 
 		if (stacked) {

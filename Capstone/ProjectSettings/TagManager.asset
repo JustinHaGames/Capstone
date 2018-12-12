@@ -15,6 +15,7 @@ TagManager:
   - Barrier
   - SpecialBox
   - PlayerTop
+  - BrokenFloor
   layers:
   - Default
   - TransparentFX

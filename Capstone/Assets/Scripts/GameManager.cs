@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour {
 
 	public bool specialBoxPickedUp;
 
+	public bool playerFallen;
+
 	// Use this for initialization
 	void Start () {
 		alphaNum = 1f;
