@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Cafe.unity
     guid: 2af30b23c6e4a44c6aac6be4caf14f61
   - enabled: 1

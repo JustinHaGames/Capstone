@@ -33,17 +33,23 @@ public class WalkingHome : MonoBehaviour {
 
 			//Press the left and right keys to move
 			bool left = Input.GetKey (KeyCode.LeftArrow);
+			bool right = Input.GetKey (KeyCode.RightArrow);
 
-			if (left) {
-				vel.x -= accel;
+		if (left) {
+			vel.x -= accel;
+			sprite.flipX = true;
+		}
 
-			}
+		if (right) {
+			vel.x += accel;
+			sprite.flipX = false;
+		}
 
 			//Limit the player's max velocity
 			vel.x = Mathf.Max (Mathf.Min (vel.x, maxAccel), -maxAccel);
 
 			//If you don't move right or left, then don't move
-			if (!left) {
+		if (!left && !right) {
 				vel.x = 0;
 			}
 			
@@ -51,7 +57,7 @@ public class WalkingHome : MonoBehaviour {
 			GameManager.instance.switchScene = true;
 			GameManager.instance.fadeIn = false; 
 			vel.x = 0; 
-			if (GameManager.instance.sceneID == 2) {
+			if (GameManager.instance.sceneID == 3) {
 				sprite.enabled = false; 
 			}
 		}

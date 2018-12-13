@@ -57,38 +57,38 @@ public class CafeManager : MonoBehaviour {
 			cafeTalk.color = player;
 			break;
 		case 7:
-			cafeTalk.text = "Hope it goes well. It's almost time for the ceremony. I'm pretty nervous.";
+			cafeTalk.text = "Hope it goes well. It's almost time for the ceremony.";
 			cafeTalk.color = winner;
 			break;
 		case 8:
+			cafeTalk.text = "I'm pretty nervous.";
+			cafeTalk.color = winner;
+			break;
+		case 9:
 			cafeTalk.text = "Why? This is pretty much the start of our lives. I think being nominated for a Monarch award is a pretty good start.";
 			cafeTalk.color = player;
 			break;
-		case 9:
+		case 10:
 			cafeTalk.text = "DON'T BE AFRAID OF FAILURE!";
 			cafeTalk.color = player;
 			break;
-		case 10: 
+		case 11: 
 			cafeTalk.text = "Jesus! Alright...";
 			cafeTalk.color = winner;
 			break;
-		case 11:
+		case 12:
 			cafeTalk.text = "You ready to go?";
 			cafeTalk.color = player;
 			break;
-		case 12:
+		case 13:
 			cafeTalk.text = "Yeah...";
 			cafeTalk.color = winner;
 			break;
-	}
-
-		if (dialogueCount >= 12) {
-			float timer = 1 * Time.deltaTime;
-			if (timer >= 3f) {
+		case 14:
 				GameManager.instance.switchScene = true;
 				GameManager.instance.fadeIn = false;
-			}
-		}
+			break;
+	}
 
 }
 }

@@ -38,7 +38,7 @@ public class StandingMovement : MonoBehaviour {
 	void Update () {
 
 		//Do this in the first scene
-		if (GameManager.instance.sceneID == 0) {
+		if (GameManager.instance.sceneID == 1) {
 
 			if (transform.position.y <= -3.41f) {
 				transform.position = new Vector3 (transform.position.x, -3.41f, transform.position.z);
@@ -87,7 +87,7 @@ public class StandingMovement : MonoBehaviour {
 		}
 
 		//Do this in the 4th scene
-		if (GameManager.instance.sceneID == 4) {
+		if (GameManager.instance.sceneID == 5) {
 			
 			if (left) {
 				transform.Translate (Vector3.left * Time.deltaTime * 2f);

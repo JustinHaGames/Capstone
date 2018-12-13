@@ -61,6 +61,15 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			SceneManager.LoadScene (0);
+		}
+
+		if (Input.GetKeyDown (KeyCode.R)) {
+			SceneManager.LoadScene (sceneID);
+		}
+
 		//Always fade in to a new scene
 		if (fadeIn && alphaNum > 0f) {
 			alphaNum -= .25f * Time.deltaTime;
@@ -83,7 +92,7 @@ public class GameManager : MonoBehaviour {
 		sceneID = SceneManager.GetActiveScene ().buildIndex;
 
 		//Only things done in scene 3
-		if (sceneID == 3) {
+		if (sceneID == 4) {
 			if (playFlying) {
 				if (!audio.isPlaying) {
 					audio.Play ();
@@ -91,7 +100,7 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
-		if (sceneID == 5) {
+		if (sceneID == 6) {
 			if (specialBoxPickedUp) {
 				monarchFlying = true;
 				playFlying = true;
@@ -105,7 +114,7 @@ public class GameManager : MonoBehaviour {
 		}
 			
 		//Only things done in scene 4
-		if (sceneID == 4) {
+		if (sceneID == 5) {
 
 			switch (targetHit) {
 			case 0: 

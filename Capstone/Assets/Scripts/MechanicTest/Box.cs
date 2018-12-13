@@ -87,7 +87,7 @@ public class Box : MonoBehaviour {
 		}
 
 		//In scene 4, have these properties
-		if (GameManager.instance.sceneID == 4) {
+		if (GameManager.instance.sceneID == 5) {
 			if (GameManager.instance.targetHit < 7) {
 				if (transform.position.x <= 0 && grounded && !safe || transform.position.x <= 0 && stacked && !safe) {
 					Destroy (gameObject);

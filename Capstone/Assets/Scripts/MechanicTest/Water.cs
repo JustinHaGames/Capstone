@@ -15,14 +15,14 @@ public class Water : MonoBehaviour {
 	void Update () {
 
 		//In scene 5, water shouldn't rise until the monarch is flying
-		if (GameManager.instance.sceneID == 3) {
+		if (GameManager.instance.sceneID == 4) {
 			if (GameManager.instance.monarchFlying) {
 				rising = true;
 			}
 		}
 
 		//In scene 5, water shouldn't rise until the box is picked up
-		if (GameManager.instance.sceneID == 5) {
+		if (GameManager.instance.sceneID == 6) {
 			if (GameManager.instance.specialBoxPickedUp) {
 				rising = true; 
 			}

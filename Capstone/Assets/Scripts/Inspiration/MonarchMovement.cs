@@ -55,7 +55,7 @@ public class MonarchMovement : MonoBehaviour {
 
 		}
 
-		if (GameManager.instance.playerFallen || GameManager.instance.sceneID == 5){
+		if (GameManager.instance.playerFallen || GameManager.instance.sceneID == 6){
 
 			timer += Time.deltaTime;
 
@@ -81,7 +81,7 @@ public class MonarchMovement : MonoBehaviour {
 				}
 			}
 
-			if (timer >= 40f) {
+			if (timer >= 40f && GameManager.instance.sceneID == 4) {
 				GameManager.instance.switchScene = true;
 				GameManager.instance.fadeIn = false; 
 			}
