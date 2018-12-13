@@ -212,6 +212,7 @@ MonoBehaviour:
   throwVel: 10
   upThrowVel: 15
   gravity: -0.45
+  maxGravity: -9.87
 --- !u!212 &212409040868660252
 SpriteRenderer:
   m_ObjectHideFlags: 1
