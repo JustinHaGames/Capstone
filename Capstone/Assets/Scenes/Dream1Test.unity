@@ -2966,42 +2966,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114930787554727444, guid: 9dfcfc2392df940a3a578588d8a3cc82,
-        type: 2}
-      propertyPath: baseJumpVel
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114930787554727444, guid: 9dfcfc2392df940a3a578588d8a3cc82,
-        type: 2}
-      propertyPath: jumpVel
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114930787554727444, guid: 9dfcfc2392df940a3a578588d8a3cc82,
-        type: 2}
-      propertyPath: maxJumpVel
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 114930787554727444, guid: 9dfcfc2392df940a3a578588d8a3cc82,
-        type: 2}
-      propertyPath: playerMat
-      value: 
-      objectReference: {fileID: 2100000, guid: 647780f8ea89a44e4a19fd636a1c7b22, type: 2}
     - target: {fileID: 212577685041477818, guid: 9dfcfc2392df940a3a578588d8a3cc82,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-    - target: {fileID: 212577685041477818, guid: 9dfcfc2392df940a3a578588d8a3cc82,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 1a7dc435f721d425aa1d5c5b5ec4b7f1,
-        type: 3}
-    - target: {fileID: 114930787554727444, guid: 9dfcfc2392df940a3a578588d8a3cc82,
-        type: 2}
-      propertyPath: maxGravity
-      value: -80
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9dfcfc2392df940a3a578588d8a3cc82, type: 2}
   m_IsPrefabParent: 0

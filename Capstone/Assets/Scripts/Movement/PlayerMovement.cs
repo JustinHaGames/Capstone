@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour {
 	BoxCollider2D box; 
 	SpriteRenderer sprite; 
 
+	Animator anim;
+
 	bool grounded;
 
 	public float accel;
@@ -59,6 +61,7 @@ public class PlayerMovement : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D>();
 		box = GetComponent<BoxCollider2D>();
 		sprite = GetComponent<SpriteRenderer> ();
+		anim = GetComponent<Animator> ();
 
 		lastR = true;
 		lastL = false;
@@ -69,9 +72,13 @@ public class PlayerMovement : MonoBehaviour {
 
 	void Update(){
 
-		if (falling) {
-			sprite.material = playerMat;
-			GameManager.instance.playerFallen = true;
+		if (GameManager.instance.sceneID == 3) {
+			if (falling) {
+				sprite.material = playerMat;
+				GameManager.instance.playerFallen = true;
+			} else {
+				sprite.material = defaultMat;
+			}
 		}
 
 		if (canJump || swim) {
@@ -179,6 +186,7 @@ public class PlayerMovement : MonoBehaviour {
 				lastL = false; 
 				if (!inactive) {
 					sprite.flipX = false;
+					anim.Play ("RunningAnimation");
 				}
 			}
 			if (left) {
@@ -186,7 +194,8 @@ public class PlayerMovement : MonoBehaviour {
 				lastL = true; 
 				lastR = false; 
 				if (!inactive) {
-				sprite.flipX = true;
+					sprite.flipX = true;
+					anim.Play ("RunningAnimation");
 				}
 			}
 
@@ -195,6 +204,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		//If you don't move right or left, then don't move
 		if ((!right && !left) || (right && left) || inactive) {
+			anim.Play ("Idle");
 			vel.x = 0;
 		}
 
