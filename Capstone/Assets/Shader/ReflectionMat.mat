@@ -91,6 +91,7 @@ Material:
     - _BumpScale: 1
     - _ChromaticAberration: 0.1
     - _Cutoff: 0.5
+    - _Darkness: 0.5
     - _DetailNormalMapScale: 1
     - _Distortion: 0.02
     - _DstBlend: 0
@@ -119,6 +120,6 @@ Material:
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
     - _Speed: {r: 0.01, g: 0.05, b: 0, a: 0}
     - _Tiling: {r: 1, g: 0.2, b: 0, a: 0}
-    - _TopC: {r: 0, g: 0.03979241, b: 0.44117647, a: 0}
+    - _TopC: {r: 0, g: 0.05438296, b: 0.60294116, a: 0}
     - _Vector0: {r: 1, g: 10.05, b: 0, a: 0}
     - _Vector1: {r: 1, g: 1, b: 0, a: 0}

@@ -172,30 +172,29 @@ public class PlayerMovement : MonoBehaviour {
 		bool right = Input.GetKey(KeyCode.RightArrow);
 		bool left = Input.GetKey (KeyCode.LeftArrow);
 
-		if (!inactive) {
 			//If right or left if pressed, accel in that direction
 			if (right) {
 				vel.x += accel / waterSpeed;
 				lastR = true; 
 				lastL = false; 
-				sprite.flipX = false;
-
+				if (!inactive) {
+					sprite.flipX = false;
+				}
 			}
 			if (left) {
 				vel.x -= accel / waterSpeed;
 				lastL = true; 
 				lastR = false; 
-				if (!right) {
-					sprite.flipX = true;
+				if (!inactive) {
+				sprite.flipX = true;
 				}
 			}
-		}
 
 		//Limit the player's max velocity
 		vel.x = Mathf.Max (Mathf.Min (vel.x, maxAccel), -maxAccel);
 
 		//If you don't move right or left, then don't move
-		if ((!right && !left) || (right && left)) {
+		if ((!right && !left) || (right && left) || inactive) {
 			vel.x = 0;
 		}
 
@@ -238,9 +237,11 @@ public class PlayerMovement : MonoBehaviour {
 
 		if (GameManager.instance.sceneID == 3) {
 			if (GameManager.instance.monarchComeAlive == true) {
-					vel.x = 0; 
-					vel.y = 0; 
-				}
+				inactive = true;
+				canJump = false;
+			} else {
+				inactive = false;
+			}
 		}
 			
 		rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
@@ -280,8 +281,6 @@ public class PlayerMovement : MonoBehaviour {
 				collidedObject.SendMessage ("Dead", SendMessageOptions.DontRequireReceiver);
 				vel.y = 12f;
 			} else {
-				Debug.Log ("Hit");
-				//Vector3 dir = (collidedObject.transform.position - transform.position).normalized; 
 				StartCoroutine (KnockedBack ());
 				vel.x = (collidedObject.transform.position.x >= transform.position.x)? vel.x - knockbackSpeed : vel.x + knockbackSpeed;
 				vel.y = 3f;

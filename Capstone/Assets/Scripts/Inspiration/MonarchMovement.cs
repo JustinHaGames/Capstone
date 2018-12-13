@@ -56,6 +56,9 @@ public class MonarchMovement : MonoBehaviour {
 		}
 
 		if (GameManager.instance.playerFallen || GameManager.instance.sceneID == 5){
+
+			timer += Time.deltaTime;
+
 			if (GameManager.instance.monarchFlying) {
 				if (transform.position.x <= -7f) {
 					right = true; 

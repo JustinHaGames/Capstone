@@ -22,22 +22,28 @@ public class DreamCamera : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (!GameManager.instance.playerFallen) {
-			transform.position = new Vector3 (player.position.x, transform.position.y, transform.position.z);
+		if (GameManager.instance.sceneID == 3) {
 
-			if (transform.position.x <= -81.2f) {
-				transform.position = new Vector3 (-81.2f, transform.position.y, transform.position.z);
-			} 
+			if (!GameManager.instance.playerFallen) {
+				transform.position = new Vector3 (player.position.x, transform.position.y, transform.position.z);
+
+				if (transform.position.x <= -81.2f) {
+					transform.position = new Vector3 (-81.2f, transform.position.y, transform.position.z);
+				} 
+			} else {
+
+				transform.position = new Vector3 (0, player.position.y, transform.position.z);
+
+				if (transform.position.y <= -0.4f) {
+					transform.position = new Vector3 (0, -0.4f, transform.position.z);
+				}
+			}
 		}
 
+		if (GameManager.instance.sceneID == 5) {
 
-		if (GameManager.instance.playerFallen || GameManager.instance.sceneID == 5) {
+			Vector3 movePosition = new Vector3 (0, player.transform.position.y, transform.position.z);
 
-			Vector3 movePosition = new Vector3 (0, transform.position.y, transform.position.z);
-
-			if (transform.position.x >= 0f || GameManager.instance.playerFallen) {
-				transform.position = new Vector3 (0f, transform.position.y, transform.position.z);
-			}
 
 			if (player.transform.position.y >= transform.position.y + yTopDif) {
 				moving = true;
