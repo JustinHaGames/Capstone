@@ -35,7 +35,7 @@ public class MonarchMovement : MonoBehaviour {
 				ascend = true; 
 				GameManager.instance.monarchFlying = true; 
 
-				if (timer < 7f) {
+				if (timer < 6.5f) {
 					transform.Translate (Vector3.up * Time.deltaTime);
 
 				} else {

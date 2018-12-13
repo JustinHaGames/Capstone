@@ -42,8 +42,7 @@ public class DreamCamera : MonoBehaviour {
 
 		if (GameManager.instance.sceneID == 5) {
 
-			Vector3 movePosition = new Vector3 (0, player.transform.position.y, transform.position.z);
-
+			Vector3 movePosition = new Vector3 (0, transform.position.y, transform.position.z);
 
 			if (player.transform.position.y >= transform.position.y + yTopDif) {
 				moving = true;
