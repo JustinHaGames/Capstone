@@ -51,6 +51,8 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Cursor.visible = false;
+
 		alphaNum = 1f;
 		fadeIn = true;
 		instance = this; 
