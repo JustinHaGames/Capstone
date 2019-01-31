@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour {
 
 		if (canJump || swim) {
 			if ((Input.GetKeyDown (KeyCode.Space) || Input.GetKeyDown (KeyCode.Z)) && !jump) {
-				jump = true;	
+				jump = true;
 			}
 		}
 
@@ -186,7 +186,10 @@ public class PlayerMovement : MonoBehaviour {
 				lastL = false; 
 				if (!inactive) {
 					sprite.flipX = false;
-					anim.Play ("RunningAnimation");
+                if (grounded)
+                {
+                    anim.Play("RunningAnimation");
+                }
 				}
 			}
 			if (left) {
@@ -195,7 +198,10 @@ public class PlayerMovement : MonoBehaviour {
 				lastR = false; 
 				if (!inactive) {
 					sprite.flipX = true;
-					anim.Play ("RunningAnimation");
+                if (grounded)
+                {
+                    anim.Play("RunningAnimation");
+                }
 				}
 			}
 
@@ -203,14 +209,18 @@ public class PlayerMovement : MonoBehaviour {
 		vel.x = Mathf.Max (Mathf.Min (vel.x, maxAccel), -maxAccel);
 
 		//If you don't move right or left, then don't move
-		if ((!right && !left) || (right && left) || inactive) {
-			anim.Play ("Idle");
+		if ((!right && !left) || (right && left) || inactive ) {
+            if (grounded)
+            {
+                anim.Play("Idle");
+            }
 			vel.x = 0;
 		}
 
 		//Jump and check if the button is still being held to vary jumps
 		if (jump) {
-			if ((Input.GetKey (KeyCode.Space) || Input.GetKey (KeyCode.Z))) {
+           anim.Play("Jump");
+            if ((Input.GetKey (KeyCode.Space) || Input.GetKey (KeyCode.Z))) {
 				switch (jumpCounter) {
 				case 0:
 					break;
