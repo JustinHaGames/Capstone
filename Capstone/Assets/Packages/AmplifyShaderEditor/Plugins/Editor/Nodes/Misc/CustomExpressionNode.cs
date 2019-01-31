@@ -63,7 +63,7 @@ namespace AmplifyShaderEditor
 													"- If no return function is detected then an expression will be generated and used directly on the vertex/frag body.\n" +
 													"On Expression mode a ; is not required on the end of an instruction line.";
 		private const char LineFeedSeparator = '$';
-		private const char SemiColonSeparator = '@';
+		
 		private const string ReturnHelper = "return";
 		private const double MaxTimestamp = 1;
 		private const string DefaultExpressionNameStr = "My Custom Expression";
@@ -1300,7 +1300,7 @@ namespace AmplifyShaderEditor
 			base.ReadFromString( ref nodeParams );
 			m_code = GetCurrentParam( ref nodeParams );
 			m_code = m_code.Replace( LineFeedSeparator, '\n' );
-			m_code = m_code.Replace( SemiColonSeparator, ';' );
+			m_code = m_code.Replace( Constants.SemiColonSeparator, ';' );
 			m_outputTypeIdx = Convert.ToInt32( GetCurrentParam( ref nodeParams ) );
 			if( m_outputTypeIdx >= AvailableWireTypes.Length )
 			{
@@ -1418,7 +1418,7 @@ namespace AmplifyShaderEditor
 			m_code = m_code.Replace( "\r\n", "\n" );
 
 			string parsedCode = m_code.Replace( '\n', LineFeedSeparator );
-			parsedCode = parsedCode.Replace( ';', SemiColonSeparator );
+			parsedCode = parsedCode.Replace( ';', Constants.SemiColonSeparator );
 
 			IOUtils.AddFieldValueToString( ref nodeInfo, parsedCode );
 			IOUtils.AddFieldValueToString( ref nodeInfo, m_outputTypeIdx );

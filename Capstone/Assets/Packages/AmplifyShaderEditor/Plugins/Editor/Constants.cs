@@ -9,7 +9,22 @@ namespace AmplifyShaderEditor
 
 	public struct Constants
 	{
-
+		public readonly static char SemiColonSeparator = '@';
+		public readonly static string AppDataFullName = "appdata_full";
+		public readonly static string CustomAppDataFullName = "appdata_full_custom";
+		public readonly static string CustomAppDataFullBody =
+		"\n\t\tstruct appdata_full_custom\n" +
+		"\t\t{\n" +
+		"\t\t\tfloat4 vertex : POSITION;\n" +
+		"\t\t\tfloat4 tangent : TANGENT;\n" +
+		"\t\t\tfloat3 normal : NORMAL;\n" +
+		"\t\t\tfloat4 texcoord : TEXCOORD0;\n" +
+		"\t\t\tfloat4 texcoord1 : TEXCOORD1;\n" +
+		"\t\t\tfloat4 texcoord2 : TEXCOORD2;\n" +
+		"\t\t\tfloat4 texcoord3 : TEXCOORD3;\n" +
+		"\t\t\tfixed4 color : COLOR;\n" +
+		"\t\t\tUNITY_VERTEX_INPUT_INSTANCE_ID\n";
+		
 		public readonly static string IncludeFormat = "#include \"{0}\"";
 		public readonly static string PragmaFormat = "#pragma {0}";
 		public readonly static string DefineFormat = "#define {0}";
@@ -163,7 +178,7 @@ namespace AmplifyShaderEditor
 		public readonly static string LocalValueDef = LocalVarIdentation + "{0} = {1};\n";
 		public readonly static string CastHelper = "({0}).{1}";
 		public readonly static string PropertyLocalVarDec = "{0} {1} = {0}({2});";
-		public readonly static string UniformDec = "uniform {0} {1};";
+		public readonly static string[] UniformDec = { "uniform {0} {1};", "{0} {1};" };
 
 		public readonly static string PropertyValueLabel = "Value( {0} )";
 		public readonly static string ConstantsValueLabel = "Const( {0} )";
@@ -236,7 +251,7 @@ namespace AmplifyShaderEditor
 
 		public readonly static string[] WikiInvalidChars = { "#", "<", ">", "[", "]", "|", "{", "}", "%", "+", "?", "\\", "/", ",", ";", "." };
 
-		public readonly static Dictionary<string, string> UrlReplacementStringValues = new Dictionary<string, string>()
+		public readonly static string[,] UrlReplacementStringValues = 
 		{
 			{ " = ", "Equals" },
 			{ " == ", "Equals" },
@@ -249,11 +264,13 @@ namespace AmplifyShaderEditor
 			{ " \u2264 ", "LessOrEqual" },
 			{ " <= ", "LessOrEqual" },
 			{ " ", "_" },
-			{ "[", "" },
-			{ "]", "" }
+			{ "[", string.Empty },
+			{ "]", string.Empty }
 		};
 
-		public readonly static Dictionary<string, string> ReplacementStringValues = new Dictionary<string, string>()
+		public readonly static int UrlReplacementStringValuesLen = UrlReplacementStringValues.Length / 2;
+
+		public readonly static string[,] ReplacementStringValues =
 		{
 			{ " = ", "Equals" },
 			{ " == ", "Equals" },
@@ -266,6 +283,7 @@ namespace AmplifyShaderEditor
 			{ " \u2264 ", "LessOrEqual" },
 			{ " <= ", "LessOrEqual" }
 		};
+		public readonly static int ReplacementStringValuesLen = ReplacementStringValues.Length / 2;
 
 		public readonly static string InternalData = "INTERNAL_DATA";
 
@@ -289,17 +307,27 @@ namespace AmplifyShaderEditor
 
 		public readonly static Color LockedPortColor = new Color( 0.3f, 0.3f, 0.3f, 0.5f );
 
+#if UNITY_2018_2_OR_NEWER
+		public readonly static int[] AvailableUVChannels = { 0, 1, 2, 3, 4, 5, 6, 7 };
+		public readonly static string[] AvailableUVChannelsStr = { "0", "1", "2", "3", "4", "5", "6", "7"};
+		public readonly static string AvailableUVChannelLabel = "UV Channel";
+
+		public readonly static int[] AvailableUVSets = { 0, 1, 2, 3, 4, 5, 6, 7 };
+		public readonly static string[] AvailableUVSetsStr = { "1", "2", "3", "4","5", "6", "7", "8" };
+		public readonly static string AvailableUVSetsLabel = "UV Set";
+#else
 		public readonly static int[] AvailableUVChannels = { 0, 1, 2, 3 };
 		public readonly static string[] AvailableUVChannelsStr = { "0", "1", "2", "3" };
 		public readonly static string AvailableUVChannelLabel = "UV Channel";
 
-		public readonly static int[] AvailableUVSizes = { 2, 3, 4 };
-		public readonly static string[] AvailableUVSizesStr = { "Float 2", "Float 3", "Float 4" };
-		public readonly static string AvailableUVSizesLabel = "Coord Size";
-
 		public readonly static int[] AvailableUVSets = { 0, 1, 2, 3 };
 		public readonly static string[] AvailableUVSetsStr = { "1", "2", "3", "4" };
 		public readonly static string AvailableUVSetsLabel = "UV Set";
+#endif
+
+		public readonly static int[] AvailableUVSizes = { 2, 3, 4 };
+		public readonly static string[] AvailableUVSizesStr = { "Float 2", "Float 3", "Float 4" };
+		public readonly static string AvailableUVSizesLabel = "Coord Size";
 
 
 		public readonly static string LineSeparator = "________________________________";

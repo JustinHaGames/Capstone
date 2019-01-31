@@ -39,7 +39,7 @@ namespace AmplifyShaderEditor
 	{
 		private const string LongNameEnder = "... )";
 		protected int m_longNameSize = 200;
-
+		private const string InstancedPropertyWarning = "Instanced Property option shouldn't be used on official SRP templates as all property variables are already declared as instanced inside a CBuffer.\nPlease consider changing to Property option.";
 		private string TooltipFormatter = "{0}\n\nName: {1}\nValue: {2}";
 		protected string GlobalTypeWarningText = "Global variables must be set via a C# script using the Shader.SetGlobal{0}(...) method.\nPlease note that setting a global variable will affect all shaders which are using it.";
 		private const string AutoRegisterStr = "Auto-Register";
@@ -305,6 +305,11 @@ namespace AmplifyShaderEditor
 
 			if( parameterType == PropertyType.InstancedProperty )
 			{
+				if( m_containerGraph.IsSRP )
+				{					
+					UIUtils.ShowMessage( InstancedPropertyWarning,MessageSeverity.Warning );
+				}
+
 				UIUtils.CurrentWindow.OutsideGraph.AddInstancePropertyCount();
 			}
 			else if( m_currentParameterType == PropertyType.InstancedProperty )
@@ -325,6 +330,7 @@ namespace AmplifyShaderEditor
 			}
 
 			m_currentParameterType = parameterType;
+
 		}
 
 		void InitializeAttribsArray()
@@ -1236,7 +1242,10 @@ namespace AmplifyShaderEditor
 
 		public virtual string GetUniformValue()
 		{
-			return string.Format( Constants.UniformDec, UIUtils.FinalPrecisionWirePortToCgType( m_currentPrecisionType, m_outputPorts[ 0 ].DataType ), m_propertyName );
+			bool excludeUniformKeyword = (	m_currentParameterType == PropertyType.InstancedProperty ) ||
+											m_containerGraph.IsSRP ;
+			int index = excludeUniformKeyword ? 1 : 0;
+			return string.Format( Constants.UniformDec[index], UIUtils.FinalPrecisionWirePortToCgType( m_currentPrecisionType, m_outputPorts[ 0 ].DataType ), m_propertyName );
 		}
 
 		public virtual bool GetUniformData( out string dataType, out string dataName )

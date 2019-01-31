@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	void Update(){
 
-		if (GameManager.instance.sceneID == 4) {
+		if (GameManager.instance.sceneName == "Dream1") {
 			if (falling) {
 				sprite.material = playerMat;
 				GameManager.instance.playerFallen = true;
@@ -149,7 +149,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		//Only do this in scene 4
-		if (GameManager.instance.sceneID == 5) {
+		if (GameManager.instance.sceneName == "BoxCloset") {
 			if (GameManager.instance.targetHit > 7) {
 				if (heldObject.tag == "SpecialBox") {
 					GameManager.instance.switchScene = true; 
@@ -158,7 +158,7 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		//Only do this in scene 5
-		if (GameManager.instance.sceneID == 6) {
+		if (GameManager.instance.sceneName == "Dream2") {
 			if (!GameManager.instance.specialBoxPickedUp) {
 				if (heldObject != null) {
 					if (heldObject.tag == "SpecialBox") {
@@ -245,7 +245,7 @@ public class PlayerMovement : MonoBehaviour {
 			jumpVel = maxJumpVel;
 		}
 
-		if (GameManager.instance.sceneID == 4) {
+		if (GameManager.instance.sceneName == "Dream1") {
 			if (GameManager.instance.monarchComeAlive == true) {
 				inactive = true;
 				canJump = false;
@@ -337,7 +337,6 @@ public class PlayerMovement : MonoBehaviour {
 		inactive = true;
 		for (int f = 0; f < 15; f++) 
 		{
-			Debug.Log ("KnockBack frame: " + f);
 			maxAccel = knockbackSpeed;
 			yield return new WaitForFixedUpdate ();
 		}

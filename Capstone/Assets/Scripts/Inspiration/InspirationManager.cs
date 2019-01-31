@@ -16,8 +16,6 @@ public class InspirationManager : MonoBehaviour {
 
 	public static bool standUp; 
 
-	float clapTimer; 
-
 	bool playAudio;
 
 	bool clapped; 

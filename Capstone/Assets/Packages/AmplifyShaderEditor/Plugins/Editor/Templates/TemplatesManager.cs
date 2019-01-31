@@ -416,6 +416,7 @@ namespace AmplifyShaderEditor
 			{ "c71b220b631b6344493ea3cf87110c93","Legacy/Post Process" },
 			{ "6e114a916ca3e4b4bb51972669d463bf","Legacy/Default Unlit" },
 			{ "5056123faa0c79b47ab6ad7e8bf059a4","Legacy/Default UI" },
+			{ "899e609c083c74c4ca567477c39edef0","Legacy/Unlit Lightmap" },
 			{ "0f8ba0101102bb14ebf021ddadce9b49","Legacy/Default Sprites" },
 			{ "0b6a9f8b4f707c74ca64c0be8e590de0","Legacy/Particles Alpha Blended" },
 			{ "e1de45c0d41f68c41b2cc20c8b9c05ef","Legacy/Multi Pass Unlit" },
@@ -424,6 +425,7 @@ namespace AmplifyShaderEditor
 			{ "964e57f8f828f8e44b6bc62ddfbe7b51","Impostors/Runtime Metallic" }
 		};
 
+		public static readonly string TemplateMenuItemsFileGUID = "da0b931bd234a1e43b65f684d4b59bfb";
 
 		private Dictionary<string, TemplateDataParent> m_availableTemplates = new Dictionary<string, TemplateDataParent>();
 
@@ -459,6 +461,10 @@ namespace AmplifyShaderEditor
 			{
 				if( ShowDebugMessages )
 					Debug.Log( "Initialize" );
+
+				string templateMenuItems = IOUtils.LoadTextFileFromDisk( AssetDatabase.GUIDToAssetPath( TemplateMenuItemsFileGUID ) );
+				bool refreshTemplateMenuItems = false;
+
 				foreach( KeyValuePair<string, string> kvp in OfficialTemplates )
 				{
 					if( !string.IsNullOrEmpty( AssetDatabase.GUIDToAssetPath( kvp.Key ) ) )
@@ -466,6 +472,8 @@ namespace AmplifyShaderEditor
 						TemplateMultiPass template = ScriptableObject.CreateInstance<TemplateMultiPass>();
 						template.Init( kvp.Value, kvp.Key, false );
 						AddTemplate( template );
+						if( !refreshTemplateMenuItems && templateMenuItems.IndexOf( kvp.Value ) < 0 )
+							refreshTemplateMenuItems = true;
 					}
 				}
 
@@ -487,6 +495,10 @@ namespace AmplifyShaderEditor
 					m_sortedTemplates[ i ].OrderId = i;
 					AvailableTemplateNames[ i + 1 ] = m_sortedTemplates[ i ].Name;
 				}
+
+				if( refreshTemplateMenuItems )
+					CreateTemplateMenuItems();
+
 				Initialized = true;
 			}
 		}
@@ -508,7 +520,7 @@ namespace AmplifyShaderEditor
 			int fixedPriority = 85;
 			for( int i = 0; i < m_sortedTemplates.Count; i++ )
 			{
-				fileContents.AppendFormat( "\t\t[ MenuItem( \"Assets/Create/Amplify Shader/{0}\", false, {1} )]\n", m_sortedTemplates[ i ].Name, fixedPriority );
+				fileContents.AppendFormat( "\t\t[MenuItem( \"Assets/Create/Amplify Shader/{0}\", false, {1} )]\n", m_sortedTemplates[ i ].Name, fixedPriority );
 				fileContents.AppendFormat( "\t\tpublic static void ApplyTemplate{0}()\n", i );
 				fileContents.Append( "\t\t{\n" );
 				fileContents.AppendFormat( "\t\t\tAmplifyShaderEditorWindow.CreateNewTemplateShader( \"{0}\" );\n", m_sortedTemplates[ i ].GUID );
@@ -516,7 +528,7 @@ namespace AmplifyShaderEditor
 			}
 			fileContents.Append( "\t}\n" );
 			fileContents.Append( "}\n" );
-			string filePath = AssetDatabase.GUIDToAssetPath( "da0b931bd234a1e43b65f684d4b59bfb" );
+			string filePath = AssetDatabase.GUIDToAssetPath( TemplateMenuItemsFileGUID );
 			IOUtils.SaveTextfileToDisk( fileContents.ToString(), filePath, false );
 			AssetDatabase.ImportAsset( filePath );
 		}

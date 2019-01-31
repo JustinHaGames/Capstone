@@ -265,6 +265,8 @@ namespace AmplifyShaderEditor
 		private bool[] m_previewChannels = { true, true, true, false };
 
 		// Others
+		protected bool m_hasSubtitle = false;
+		protected bool m_showSubtitle = true;
 		protected bool m_hasLeftDropdown = false;
 		protected bool m_autoWrapProperties = false;
 		protected bool m_internalDataFoldout = true;
@@ -949,9 +951,15 @@ namespace AmplifyShaderEditor
 			outSize.y = Mathf.Max( outSize.y, UIUtils.PortsSize.y );
 
 			if( m_additionalContent.text.Length > 0 )
+			{
 				m_extraHeaderHeight = (int)Constants.NODE_HEADER_EXTRA_HEIGHT;
+				m_hasSubtitle = true && m_showSubtitle;
+			}
 			else
+			{
 				m_extraHeaderHeight = 0;
+				m_hasSubtitle = false;
+			}
 
 			float headerWidth = Mathf.Max( UIUtils.UnZoomedNodeTitleStyle.CalcSize( m_content ).x + m_paddingTitleLeft + m_paddingTitleRight, UIUtils.UnZoomedPropertyValuesTitleStyle.CalcSize( m_additionalContent ).x + m_paddingTitleLeft + m_paddingTitleRight );
 			m_position.width = Mathf.Max( headerWidth, Mathf.Max( MinInsideBoxWidth, m_insideSize.x ) + inSize.x + outSize.x ) + Constants.NODE_HEADER_LEFTRIGHT_MARGIN * 2;
@@ -1352,7 +1360,7 @@ namespace AmplifyShaderEditor
 			m_visibleInputs = 0;
 			m_visibleOutputs = 0;
 
-			if( m_additionalContent.text.Length > 0 )
+			if( m_hasSubtitle )
 				m_extraHeaderHeight = (int)Constants.NODE_HEADER_EXTRA_HEIGHT;
 			else
 				m_extraHeaderHeight = 0;
@@ -1370,7 +1378,7 @@ namespace AmplifyShaderEditor
 				// Title
 				m_titlePos = m_globalPosition;
 				m_titlePos.height = m_headerPosition.height;
-				if( m_additionalContent.text.Length > 0 )
+				if( m_hasSubtitle )
 					m_titlePos.yMin += ( 4 * drawInfo.InvertedZoom );
 				else
 					m_titlePos.yMin += ( 7 * drawInfo.InvertedZoom );
@@ -1378,7 +1386,7 @@ namespace AmplifyShaderEditor
 				m_titlePos.x += m_paddingTitleLeft * drawInfo.InvertedZoom;
 
 				// Additional Title
-				if( m_additionalContent.text.Length > 0 )
+				if( m_hasSubtitle )
 				{
 					m_addTitlePos = m_titlePos;
 					m_addTitlePos.y = m_globalPosition.y;
@@ -1725,7 +1733,7 @@ namespace AmplifyShaderEditor
 			DrawTitle( m_titlePos );
 
 			// Additional Tile
-			if( ContainerGraph.LodLevel <= ParentGraph.NodeLOD.LOD3 )
+			if( m_hasSubtitle && ContainerGraph.LodLevel <= ParentGraph.NodeLOD.LOD3 )
 				GUI.Label( m_addTitlePos, m_additionalContent, UIUtils.GetCustomStyle( CustomStyle.PropertyValuesTitle ) );
 
 			// Dropdown
@@ -2495,6 +2503,61 @@ namespace AmplifyShaderEditor
 			return string.Empty;
 		}
 
+		public string GenerateValueInVertex( ref MasterNodeDataCollector dataCollector, WirePortDataType dataType, string dataValue, string dataName, bool createInterpolator )
+		{
+
+			if( !dataCollector.IsFragmentCategory )
+				return dataValue;
+
+			//TEMPLATES
+			if( dataCollector.IsTemplate )
+			{
+				if( createInterpolator && dataCollector.TemplateDataCollectorInstance.HasCustomInterpolatedData( dataName ) )
+					return dataName;
+
+				MasterNodePortCategory category = dataCollector.PortCategory;
+				dataCollector.PortCategory = MasterNodePortCategory.Vertex;
+
+				dataCollector.PortCategory = category;
+
+				if( createInterpolator )
+				{
+					dataCollector.TemplateDataCollectorInstance.RegisterCustomInterpolatedData( dataName, dataType, m_currentPrecisionType, dataValue );
+				}
+				else
+				{
+					dataCollector.AddToVertexLocalVariables( -1, m_currentPrecisionType, dataType, dataName, dataValue );
+				}
+
+				return dataName;
+			}
+
+			//SURFACE 
+			{
+				if( dataCollector.TesselationActive )
+				{
+					UIUtils.ShowMessage( "Unable to use Vertex to Frag when Tessellation is active" );
+					return m_outputPorts[ 0 ].ErrorValue;
+				}
+
+				if( createInterpolator )
+					dataCollector.AddToInput( UniqueId, dataName, dataType, m_currentPrecisionType );
+
+				MasterNodePortCategory portCategory = dataCollector.PortCategory;
+				dataCollector.PortCategory = MasterNodePortCategory.Vertex;
+				if( createInterpolator )
+				{
+					dataCollector.AddLocalVariable( UniqueId, Constants.VertexShaderOutputStr + "." + dataName, dataValue + ";" );
+				}
+				else
+				{
+					dataCollector.AddLocalVariable( UniqueId, m_currentPrecisionType, dataType, dataName, dataValue );
+				}
+				dataCollector.PortCategory = portCategory;
+				return createInterpolator ? Constants.InputVarStr + "." + dataName : dataName;
+			}
+		}
+
 		public string GenerateInputInVertex( ref MasterNodeDataCollector dataCollector, int inputPortUniqueId, string varName, bool createInterpolator )
 		{
 			InputPort inputPort = GetInputPortByUniqueId( inputPortUniqueId );
@@ -3189,6 +3252,26 @@ namespace AmplifyShaderEditor
 			}
 		}
 
+		public string GenerateErrorValue( int outputIdx = 0 )
+		{
+			switch( m_outputPorts[ outputIdx ].DataType )
+			{
+				case WirePortDataType.FLOAT2:
+				{
+					return "(0).xx";
+				}
+				case WirePortDataType.FLOAT3:
+				{
+					return "(0).xxx";
+				}
+				case WirePortDataType.FLOAT4:
+				case WirePortDataType.COLOR:
+				{
+					return "(0).xxxx";
+				}
+			}
+			return "0";
+		}
 
 		//Methods created to take into account new ports added on nodes newer versions
 		//This way we can convert connections from previous versions to newer ones and not brake shader graph

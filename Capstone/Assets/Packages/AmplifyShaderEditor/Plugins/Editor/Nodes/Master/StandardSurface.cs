@@ -440,11 +440,14 @@ namespace AmplifyShaderEditor
 			if( m_usePass == null )
 			{
 				m_usePass = ScriptableObject.CreateInstance<UsePassHelper>();
-				m_usePass.ModuleName = " Additional Use Passes";
+				m_usePass.Init( " Additional Use Passes" );
 			}
 
 			if( m_fallbackHelper == null )
+			{
 				m_fallbackHelper = ScriptableObject.CreateInstance<FallbackPickerHelper>();
+				m_fallbackHelper.Init();
+			}
 		}
 
 		public override void AddMasterPorts()
@@ -1022,7 +1025,7 @@ namespace AmplifyShaderEditor
 					if( m_translucencyReorder == null )
 					{
 						List<PropertyNode> translucencyList = new List<PropertyNode>();
-						for( int i = 0; i < 6; i++ )
+						for( int i = 0; i < 7; i++ )
 						{
 							translucencyList.Add( m_dummyProperty );
 						}
@@ -1046,7 +1049,7 @@ namespace AmplifyShaderEditor
 					if( m_refractionReorder == null )
 					{
 						List<PropertyNode> refractionList = new List<PropertyNode>();
-						for( int i = 0; i < 1; i++ )
+						for( int i = 0; i < 2; i++ )
 						{
 							refractionList.Add( m_dummyProperty );
 						}
@@ -2069,6 +2072,8 @@ namespace AmplifyShaderEditor
 							ShaderBody += "\t\t#define TRANSFORM_TEX(tex,name) float4(tex.xy * name##_ST.xy + name##_ST.zw, tex.z, tex.w)\n";
 						}
 
+						if( m_currentDataCollector.DirtyAppData )
+							ShaderBody += m_currentDataCollector.CustomAppData;
 
 						// Add Input struct
 						if( m_currentDataCollector.DirtyInputs )
@@ -2373,7 +2378,7 @@ namespace AmplifyShaderEditor
 						ShaderBody += "\t\t\t\tUNITY_VERTEX_INPUT_INSTANCE_ID\n";
 						ShaderBody += "\t\t\t};\n";
 
-						ShaderBody += "\t\t\tv2f vert( appdata_full v )\n";
+						ShaderBody += "\t\t\tv2f vert( "+m_currentDataCollector.CustomAppDataName + " v )\n";
 						ShaderBody += "\t\t\t{\n";
 						ShaderBody += "\t\t\t\tv2f o;\n";
 

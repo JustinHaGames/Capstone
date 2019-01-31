@@ -35,7 +35,9 @@ namespace AmplifyShaderEditor
 		TEXCOORD15,
 		NORMAL,
 		TANGENT,
-		VFACE
+		VFACE,
+		SV_VertexID,
+		SV_PrimitiveID
 	}
 
 	public enum TemplateInfoOnSematics
@@ -48,6 +50,10 @@ namespace AmplifyShaderEditor
 		TEXTURE_COORDINATES1,
 		TEXTURE_COORDINATES2,
 		TEXTURE_COORDINATES3,
+		TEXTURE_COORDINATES4,
+		TEXTURE_COORDINATES5,
+		TEXTURE_COORDINATES6,
+		TEXTURE_COORDINATES7,
 		NORMAL,
 		TANGENT,
 		WORLD_NORMAL,
@@ -334,31 +340,53 @@ namespace AmplifyShaderEditor
 		public AvailableBlendOps BlendOpAlpha = AvailableBlendOps.OFF;
 		public string BlendOpAlphaInline;
 		public int BlendOpStartIndex;
+
+		public bool IndependentAlphaToMask = false;
+		public bool ValidAlphaToMask = false;
+		public bool AlphaToMaskValue = false;
+		public string AlphaToMaskId;
+
 		public override void SetAllModulesDefault()
 		{
 			base.SetAllModulesDefault();
-			ValidBlendMode = true;
-			BlendModeOff = true;
-			BlendModeId = string.Empty;
-			SeparateBlendFactors = false;
-			SourceFactorRGB = AvailableBlendFactor.One;
-			SourceFactorRGBInline = string.Empty;
-			DestFactorRGB = AvailableBlendFactor.Zero;
-			DestFactorRGBInline = string.Empty;
-			BlendModeStartIndex = -1;
-			SourceFactorAlpha = AvailableBlendFactor.One;
-			SourceFactorAlphaInline = string.Empty;
-			DestFactorAlpha = AvailableBlendFactor.Zero;
-			DestFactorAlphaInline = string.Empty;
 
-			ValidBlendOp = true;
-			BlendOpId = string.Empty;
-			SeparateBlendOps = false;
-			BlendOpRGB = AvailableBlendOps.OFF;
-			BlendOpRGBInline = string.Empty;
-			BlendOpAlpha = AvailableBlendOps.OFF;
-			BlendOpAlphaInline = string.Empty;
-			BlendOpStartIndex = -1;
+			if( !ValidAlphaToMask )
+			{
+				ValidAlphaToMask = true;
+				AlphaToMaskValue = false;
+				AlphaToMaskId = string.Empty;
+			}
+
+			if( !ValidBlendMode )
+			{
+				ValidBlendMode = true;
+				BlendModeOff = true;
+				BlendModeId = string.Empty;
+				SeparateBlendFactors = false;
+				SourceFactorRGB = AvailableBlendFactor.One;
+				SourceFactorRGBInline = string.Empty;
+				DestFactorRGB = AvailableBlendFactor.Zero;
+				DestFactorRGBInline = string.Empty;
+				BlendModeStartIndex = -1;
+				SourceFactorAlpha = AvailableBlendFactor.One;
+				SourceFactorAlphaInline = string.Empty;
+				DestFactorAlpha = AvailableBlendFactor.Zero;
+				DestFactorAlphaInline = string.Empty;
+			}
+
+			if( !ValidBlendOp )
+			{
+				ValidBlendOp = true;
+				BlendOpId = string.Empty;
+				SeparateBlendOps = false;
+				BlendOpRGB = AvailableBlendOps.OFF;
+				BlendOpRGBInline = string.Empty;
+				BlendOpAlpha = AvailableBlendOps.OFF;
+				BlendOpAlphaInline = string.Empty;
+				BlendOpStartIndex = -1;
+			}
+
+			DataCheck = TemplateDataCheck.Valid;
 		}
 
 	}
@@ -492,28 +520,30 @@ namespace AmplifyShaderEditor
 
 		public static readonly Dictionary<TemplateSemantics, string> SemanticsDefaultName = new Dictionary<TemplateSemantics, string>
 		{
-			{TemplateSemantics.COLOR        ,"ase_color"},
-			{TemplateSemantics.NORMAL       ,"ase_normal"},
-			{TemplateSemantics.POSITION     ,"ase_position"},
-			{TemplateSemantics.SV_POSITION  ,"ase_sv_position"},
-			{TemplateSemantics.TANGENT      ,"ase_tangent"},
-			{TemplateSemantics.VFACE        ,"ase_vface"},
-			{TemplateSemantics.TEXCOORD0    ,"ase_tex_coord0"},
-			{TemplateSemantics.TEXCOORD1    ,"ase_tex_coord1"},
-			{TemplateSemantics.TEXCOORD2    ,"ase_tex_coord2"},
-			{TemplateSemantics.TEXCOORD3    ,"ase_tex_coord3"},
-			{TemplateSemantics.TEXCOORD4    ,"ase_tex_coord4"},
-			{TemplateSemantics.TEXCOORD5    ,"ase_tex_coord5"},
-			{TemplateSemantics.TEXCOORD6    ,"ase_tex_coord6"},
-			{TemplateSemantics.TEXCOORD7    ,"ase_tex_coord7"},
-			{TemplateSemantics.TEXCOORD8    ,"ase_tex_coord8"},
-			{TemplateSemantics.TEXCOORD9    ,"ase_tex_coord9"},
-			{TemplateSemantics.TEXCOORD10    ,"ase_tex_coord10"},
-			{TemplateSemantics.TEXCOORD11    ,"ase_tex_coord11"},
-			{TemplateSemantics.TEXCOORD12    ,"ase_tex_coord12"},
-			{TemplateSemantics.TEXCOORD13    ,"ase_tex_coord13"},
-			{TemplateSemantics.TEXCOORD14    ,"ase_tex_coord14"},
-			{TemplateSemantics.TEXCOORD15    ,"ase_tex_coord15"},
+			{TemplateSemantics.COLOR			,"ase_color"},
+			{TemplateSemantics.NORMAL			,"ase_normal"},
+			{TemplateSemantics.POSITION			,"ase_position"},
+			{TemplateSemantics.SV_POSITION		,"ase_sv_position"},
+			{TemplateSemantics.TANGENT			,"ase_tangent"},
+			{TemplateSemantics.VFACE			,"ase_vface"},
+			{TemplateSemantics.SV_VertexID		,"ase_vertexId"},
+			{TemplateSemantics.SV_PrimitiveID   ,"ase_primitiveId"},
+			{TemplateSemantics.TEXCOORD0		,"ase_tex_coord0"},
+			{TemplateSemantics.TEXCOORD1		,"ase_tex_coord1"},
+			{TemplateSemantics.TEXCOORD2		,"ase_tex_coord2"},
+			{TemplateSemantics.TEXCOORD3		,"ase_tex_coord3"},
+			{TemplateSemantics.TEXCOORD4		,"ase_tex_coord4"},
+			{TemplateSemantics.TEXCOORD5		,"ase_tex_coord5"},
+			{TemplateSemantics.TEXCOORD6		,"ase_tex_coord6"},
+			{TemplateSemantics.TEXCOORD7		,"ase_tex_coord7"},
+			{TemplateSemantics.TEXCOORD8		,"ase_tex_coord8"},
+			{TemplateSemantics.TEXCOORD9		,"ase_tex_coord9"},
+			{TemplateSemantics.TEXCOORD10		,"ase_tex_coord10"},
+			{TemplateSemantics.TEXCOORD11		,"ase_tex_coord11"},
+			{TemplateSemantics.TEXCOORD12		,"ase_tex_coord12"},
+			{TemplateSemantics.TEXCOORD13		,"ase_tex_coord13"},
+			{TemplateSemantics.TEXCOORD14		,"ase_tex_coord14"},
+			{TemplateSemantics.TEXCOORD15		,"ase_tex_coord15"},
 		};
 
 		public static readonly Dictionary<int, TemplateInfoOnSematics> IntToInfo = new Dictionary<int, TemplateInfoOnSematics>
@@ -522,6 +552,10 @@ namespace AmplifyShaderEditor
 			{1,TemplateInfoOnSematics.TEXTURE_COORDINATES1 },
 			{2,TemplateInfoOnSematics.TEXTURE_COORDINATES2 },
 			{3,TemplateInfoOnSematics.TEXTURE_COORDINATES3 },
+			{4,TemplateInfoOnSematics.TEXTURE_COORDINATES4 },
+			{5,TemplateInfoOnSematics.TEXTURE_COORDINATES5 },
+			{6,TemplateInfoOnSematics.TEXTURE_COORDINATES6 },
+			{7,TemplateInfoOnSematics.TEXTURE_COORDINATES7 },
 		};
 
 		public static readonly Dictionary<string, TemplateInfoOnSematics> ShortcutToInfo = new Dictionary<string, TemplateInfoOnSematics>
@@ -587,7 +621,11 @@ namespace AmplifyShaderEditor
 			{0,TemplateInfoOnSematics.TEXTURE_COORDINATES0 },
 			{1,TemplateInfoOnSematics.TEXTURE_COORDINATES1 },
 			{2,TemplateInfoOnSematics.TEXTURE_COORDINATES2 },
-			{3,TemplateInfoOnSematics.TEXTURE_COORDINATES3 }
+			{3,TemplateInfoOnSematics.TEXTURE_COORDINATES3 },
+			{4,TemplateInfoOnSematics.TEXTURE_COORDINATES4 },
+			{5,TemplateInfoOnSematics.TEXTURE_COORDINATES5 },
+			{6,TemplateInfoOnSematics.TEXTURE_COORDINATES6 },
+			{7,TemplateInfoOnSematics.TEXTURE_COORDINATES7 }
 		};
 
 		public static readonly Dictionary<int, TemplateSemantics> IntToSemantic = new Dictionary<int, TemplateSemantics>
@@ -717,12 +755,17 @@ namespace AmplifyShaderEditor
 			{ "LightweightPipeline",TemplateSRPType.Lightweight },
 			{ "HDRenderPipeline",TemplateSRPType.HD }
 		};
-
+#if UNITY_2018_3_OR_NEWER
+		public static string CoreColorLib = "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl";
+		public static string CoreCommonLib = "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl";
+#else
+		public static string CoreCommonLib = "CoreRP/ShaderLibrary/Common.hlsl";
 		public static string CoreColorLib = "CoreRP/ShaderLibrary/Color.hlsl";
-
+#endif
 		public static string HidePassPattern = @"\/\*ase_hide_pass[:]*([a-zA-Z:]*)\*\/";
 		public static string BlendWholeWordPattern = @"\bBlend\b";
 		public static string BlendOpWholeWordPattern = @"\bBlendOp\b";
+		public static string ALphaToMaskPattern = @"\bAlphaToMask (\w*)";
 		public static string CullWholeWordPattern = @"\bCull\b";
 		public static string ColorMaskWholeWordPattern = @"\bColorMask\b";
 		public static string StencilWholeWordPattern = @"\bStencil\b";
@@ -780,6 +823,7 @@ namespace AmplifyShaderEditor
 		public static readonly string TexFullSemantic = "float4 {0} : {1};";
 		public static readonly string InterpFullSemantic = "{0} {1} : {2};";
 		public static readonly string BaseInterpolatorName = "ase_texcoord";
+		public static readonly string TexUVFullSemantic = "float4 ase_texcoord{0} : TEXCOORD{0};";
 		public static readonly string InterpMacro = "{0}({1})";
 
 		public static readonly string InterpolatorDecl = Constants.VertexShaderOutputStr + ".{0} = " + Constants.VertexShaderInputStr + ".{0};";
@@ -2033,8 +2077,11 @@ namespace AmplifyShaderEditor
 
 		public static readonly string FetchDefaultDepthFormat = "UNITY_SAMPLE_DEPTH(tex2Dproj(_CameraDepthTexture,UNITY_PROJ_COORD( {0} )))";
 		public static readonly string FetchLWDepthFormat = "tex2Dproj( _CameraDepthTexture, {0} ).r";
+#if UNITY_2018_3_OR_NEWER
+		public static readonly string FetchHDDepthFormat = " SampleCameraDepth( {0}.xy/{0}.w ).r";
+#else
 		public static readonly string FetchHDDepthFormat = " SAMPLE_TEXTURE2D( _CameraDepthTexture, s_point_clamp_sampler,{0}.xy/{0}.w ).r";
-
+#endif
 		public static string CreateDepthFetch( MasterNodeDataCollector dataCollector, string screenPos )
 		{
 			string screenDepthInstruction = string.Empty;

@@ -12,6 +12,7 @@ namespace AmplifyShaderEditor
 		ModuleShaderModel,
 		ModuleBlendMode,
 		ModuleBlendOp,
+		ModuleAlphaToMask,
 		ModuleCullMode,
 		ModuleColorMask,
 		ModuleStencil,
@@ -187,9 +188,26 @@ namespace AmplifyShaderEditor
 						propertyContainer.AddId( subBody, blendOpParams, false );
 					}
 				}
-
-				m_blendData.DataCheck = ( m_blendData.ValidBlendMode || m_blendData.ValidBlendOp ) ? TemplateDataCheck.Valid : TemplateDataCheck.Invalid;
+				
 			}
+
+			//ALPHA TO MASK
+			{
+				Match alphaToMaskMatch = Regex.Match( subBody, TemplateHelperFunctions.ALphaToMaskPattern );
+				if( alphaToMaskMatch.Success )
+				{
+					m_blendData.ValidAlphaToMask = true;
+					m_blendData.AlphaToMaskId = alphaToMaskMatch.Groups[ 0 ].Value;
+					if( alphaToMaskMatch.Groups.Count > 1 )
+						m_blendData.AlphaToMaskValue = alphaToMaskMatch.Groups[ 1 ].Value.Equals( "On" ) ? true : false;
+					m_blendData.IndependentAlphaToMask = true;
+					idManager.RegisterId( offsetIdx + alphaToMaskMatch.Index, uniquePrefix + m_blendData.AlphaToMaskId, m_blendData.AlphaToMaskId );
+					propertyContainer.AddId( subBody, m_blendData.AlphaToMaskId, false );
+				}
+
+				m_blendData.DataCheck = ( m_blendData.ValidBlendMode || m_blendData.ValidBlendOp || m_blendData.ValidAlphaToMask ) ? TemplateDataCheck.Valid : TemplateDataCheck.Invalid;
+			}
+
 			//CULL MODE
 			{
 				Match cullMatch = Regex.Match( subBody, TemplateHelperFunctions.CullWholeWordPattern );
@@ -376,8 +394,8 @@ namespace AmplifyShaderEditor
 				//ONLY REGISTER MISSING TAGS
 				ConfigureCommonTag( m_allModulesTag, propertyContainer, idManager, uniquePrefix, offsetIdx, subBody );
 				m_allModulesMode = true;
-				if( !m_blendData.IsValid )
-					m_blendData.SetAllModulesDefault();
+				
+				m_blendData.SetAllModulesDefault();
 
 				if( !m_cullModeData.IsValid )
 					m_cullModeData.SetAllModulesDefault();
@@ -431,7 +449,7 @@ namespace AmplifyShaderEditor
 		public TemplateTagData InputsVertTag { get { return m_inputsVertTag; } }
 		public TemplateTagData InputsFragTag { get { return m_inputsFragTag; } }
 		public TemplateShaderModelData ShaderModel { get { return m_shaderModel; } }
-		public TemplateSRPType SRPType { get { return m_srpType; } }
+		public TemplateSRPType SRPType { get { return m_srpType; } set { m_srpType = value; } }
 		public bool SRPIsPBR { get { return m_srpIsPBR; } set { m_srpIsPBR = value; } }
 		public bool SRPIsPBRHD { get { return m_srpIsPBR && m_srpType == TemplateSRPType.HD; }  }
 		public string UniquePrefix { get { return m_uniquePrefix; } }

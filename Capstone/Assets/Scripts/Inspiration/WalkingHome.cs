@@ -7,10 +7,7 @@ public class WalkingHome : MonoBehaviour {
 	Vector2 vel; 
 
 	Rigidbody2D rb; 
-	BoxCollider2D box; 
 	SpriteRenderer sprite; 
-
-	bool grounded;
 
 	public float accel;
 	public float maxAccel;
@@ -20,7 +17,6 @@ public class WalkingHome : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
-		box = GetComponent<BoxCollider2D>();
 		sprite = GetComponent<SpriteRenderer> ();
 		sprite.flipX = true;
 	}
@@ -57,7 +53,7 @@ public class WalkingHome : MonoBehaviour {
 			GameManager.instance.switchScene = true;
 			GameManager.instance.fadeIn = false; 
 			vel.x = 0; 
-			if (GameManager.instance.sceneID == 3) {
+			if (GameManager.instance.sceneName == "GoingToSleep") {
 				sprite.enabled = false; 
 			}
 		}

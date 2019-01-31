@@ -252,11 +252,14 @@ namespace AmplifyShaderEditor
 			if( m_usePass == null )
 			{
 				m_usePass = ScriptableObject.CreateInstance<UsePassHelper>();
-				m_usePass.ModuleName = " Additional Use Passes";
+				m_usePass.Init(" Additional Use Passes" );
 			}
 
 			if( m_fallbackHelper == null )
+			{
 				m_fallbackHelper = ScriptableObject.CreateInstance<FallbackPickerHelper>();
+				m_fallbackHelper.Init();
+			}
 		}
 
 		protected override void OnUniqueIDAssigned()
@@ -382,7 +385,7 @@ namespace AmplifyShaderEditor
 			if( m_invalidNode )
 				return;
 
-			if( m_templateMultiPass.SRPIsPBRHD )
+			if( m_templateMultiPass.SubShaders[m_subShaderIdx].Passes[m_passIdx].Modules.SRPIsPBRHD )
 				ConfigHDPorts();
 		}
 
@@ -847,7 +850,7 @@ namespace AmplifyShaderEditor
 		void AddHDKeywords()
 		{
 			if( m_templateMultiPass.SubShaders[ m_subShaderIdx ].Modules.SRPType != TemplateSRPType.HD ||
-				!m_templateMultiPass.SubShaders[ m_subShaderIdx ].Modules.SRPIsPBR )
+				!m_templateMultiPass.SubShaders[ m_subShaderIdx ].Passes[m_passIdx].Modules.SRPIsPBR )
 				return;
 
 			switch( m_hdSrpMaterialType )
@@ -918,7 +921,7 @@ namespace AmplifyShaderEditor
 		void ConfigHDPorts()
 		{
 			if( m_templateMultiPass.SubShaders[ m_subShaderIdx ].Modules.SRPType != TemplateSRPType.HD ||
-				!m_templateMultiPass.SubShaders[ m_subShaderIdx ].Modules.SRPIsPBR )
+				!m_templateMultiPass.SubShaders[ m_subShaderIdx ].Passes[ m_passIdx ].Modules.SRPIsPBR )
 				return;
 
 			FetchHDPorts();
@@ -1040,7 +1043,7 @@ namespace AmplifyShaderEditor
 				DrawShaderName();
 				DrawCurrentShaderType();
 #if SHOW_HD_SRP
-				if( m_templateMultiPass.SRPIsPBRHD )
+				if( m_templateMultiPass.SubShaders[ m_subShaderIdx ].Passes[ m_passIdx ].Modules.SRPIsPBRHD )
 				{
 					EditorGUI.BeginChangeCheck();
 					CurrentHDMaterialType = (HDSRPMaterialType)EditorGUILayoutEnumPopup( HDSRPMaterialTypeStr, m_hdSrpMaterialType );
@@ -1408,10 +1411,7 @@ namespace AmplifyShaderEditor
 				m_currentDataCollector.InstancedPropertiesList.Add( new PropertyDataCollector( -1, cBufferEnd ) );
 				m_currentDataCollector.UniformsList.AddRange( m_currentDataCollector.InstancedPropertiesList );
 			}
-
-			//Add Functions
-			if( !m_templateMultiPass.SubShaders[m_subShaderIdx].Passes[m_passIdx].Modules.FunctionsTag.IsValid )
-				m_currentDataCollector.UniformsList.AddRange( m_currentDataCollector.FunctionsList );
+		
 		}
 
 		public void FillPropertyData( MasterNodeDataCollector dataCollector = null )
@@ -1478,11 +1478,20 @@ namespace AmplifyShaderEditor
 				m_templateMultiPass.SetPassData( TemplateModuleDataType.ModulePragma, m_subShaderIdx, m_passIdx, includePragmaDefineList );
 
 				m_currentDataCollector.TemplateDataCollectorInstance.CloseLateDirectives();
-				m_currentDataCollector.TemplateDataCollectorInstance.LateDirectivesList.AddRange( m_currentDataCollector.UniformsList );
 
-				m_templateMultiPass.SetPassData( TemplateModuleDataType.ModuleGlobals, m_subShaderIdx, m_passIdx, m_currentDataCollector.TemplateDataCollectorInstance.LateDirectivesList );
+				//Add Functions
 				if( m_templateMultiPass.SubShaders[ m_subShaderIdx ].Passes[ m_passIdx ].Modules.FunctionsTag.IsValid )
-					m_templateMultiPass.SetPassData( TemplateModuleDataType.ModuleFunctions, m_subShaderIdx, m_passIdx, m_currentDataCollector.FunctionsList);
+				{
+					m_currentDataCollector.FunctionsList.InsertRange( 0, m_currentDataCollector.TemplateDataCollectorInstance.LateDirectivesList );
+					m_templateMultiPass.SetPassData( TemplateModuleDataType.ModuleFunctions, m_subShaderIdx, m_passIdx, m_currentDataCollector.FunctionsList );
+				}
+				else
+				{
+					m_currentDataCollector.UniformsList.InsertRange(0, m_currentDataCollector.TemplateDataCollectorInstance.LateDirectivesList );
+					m_currentDataCollector.UniformsList.AddRange( m_currentDataCollector.FunctionsList );
+				}
+
+				m_templateMultiPass.SetPassData( TemplateModuleDataType.ModuleGlobals, m_subShaderIdx, m_passIdx, m_currentDataCollector.UniformsList );
 
 				m_templateMultiPass.SetPassData( TemplateModuleDataType.ModuleInputVert, m_subShaderIdx, m_passIdx, m_currentDataCollector.TemplateDataCollectorInstance.VertexInputParamsStr );
 				m_templateMultiPass.SetPassData( TemplateModuleDataType.ModuleInputFrag, m_subShaderIdx, m_passIdx, m_currentDataCollector.TemplateDataCollectorInstance.FragInputParamsStr );
@@ -1614,6 +1623,11 @@ namespace AmplifyShaderEditor
 					m_templateMultiPass.SetSubShaderData( TemplateModuleDataType.ModuleBlendOp, m_subShaderIdx, module.BlendOpHelper.CurrentBlendOp );
 				}
 
+				if( module.BlendOpHelper.AlphaToMaskIndependent && module.BlendOpHelper.ValidAlphaToMask )
+				{
+					m_templateMultiPass.SetSubShaderData( TemplateModuleDataType.ModuleAlphaToMask, m_subShaderIdx, module.BlendOpHelper.CurrentAlphaToMask );
+				}
+
 				if( module.CullModeHelper.ValidAndIndependent )
 				{
 					m_templateMultiPass.SetSubShaderData( TemplateModuleDataType.ModuleCullMode, m_subShaderIdx, module.CullModeHelper.GenerateShaderData( isSubShader ) );
@@ -1701,6 +1715,11 @@ namespace AmplifyShaderEditor
 				if( module.BlendOpHelper.IndependentModule && module.BlendOpHelper.ValidBlendOp )
 				{
 					m_templateMultiPass.SetPassData( TemplateModuleDataType.ModuleBlendOp, m_subShaderIdx, m_passIdx, module.BlendOpHelper.CurrentBlendOp );
+				}
+
+				if( module.BlendOpHelper.AlphaToMaskIndependent && module.BlendOpHelper.ValidAlphaToMask )
+				{
+					m_templateMultiPass.SetPassData( TemplateModuleDataType.ModuleAlphaToMask, m_subShaderIdx, m_passIdx, module.BlendOpHelper.CurrentAlphaToMask );
 				}
 
 				if( module.CullModeHelper.ValidAndIndependent )
@@ -2025,7 +2044,7 @@ namespace AmplifyShaderEditor
 		{
 			base.RefreshExternalReferences();
 			CheckTemplateChanges();
-			if( m_templateMultiPass != null && m_templateMultiPass.SRPIsPBRHD && UIUtils.CurrentShaderVersion() < 15410 )
+			if( m_templateMultiPass != null && m_templateMultiPass.SubShaders[ m_subShaderIdx ].Passes[ m_passIdx ].Modules.SRPIsPBRHD && UIUtils.CurrentShaderVersion() < 15410 )
 			{
 				FetchHDPorts();
 				m_hdSrpMaterialType = ( m_specularPort != null && m_specularPort.HasOwnOrLinkConnection ) ? HDSRPMaterialType.Specular : HDSRPMaterialType.Standard;

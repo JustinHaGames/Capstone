@@ -286,6 +286,10 @@ namespace AmplifyShaderEditor
 				case TemplateModuleDataType.ModuleBlendOp:
 				{
 					m_templateIdManager.SetReplacementText( prefix + m_subShaders[ subShaderId ].Modules.BlendData.BlendOpId, text );
+				}break;
+				case TemplateModuleDataType.ModuleAlphaToMask:
+				{
+					m_templateIdManager.SetReplacementText( prefix + m_subShaders[ subShaderId ].Modules.BlendData.AlphaToMaskId, text );
 				}
 				break;
 				case TemplateModuleDataType.ModuleCullMode:
@@ -392,6 +396,11 @@ namespace AmplifyShaderEditor
 					prefix = addPrefix ? m_subShaders[ subShaderId ].Modules.UniquePrefix : string.Empty;
 					return prefix + m_subShaders[ subShaderId ].Modules.BlendData.BlendOpId;
 				}
+				case TemplateModuleDataType.ModuleAlphaToMask:
+				{
+					prefix = addPrefix ? m_subShaders[ subShaderId ].Modules.UniquePrefix : string.Empty;
+					return prefix + m_subShaders[ subShaderId ].Modules.BlendData.AlphaToMaskId;
+				}
 				case TemplateModuleDataType.ModuleCullMode:
 				{
 					prefix = addPrefix ? m_subShaders[ subShaderId ].Modules.UniquePrefix : string.Empty;
@@ -483,6 +492,11 @@ namespace AmplifyShaderEditor
 				{
 					prefix = addPrefix ? m_subShaders[ subShaderId ].Passes[ passId ].Modules.UniquePrefix : string.Empty;
 					return prefix + m_subShaders[ subShaderId ].Passes[ passId ].Modules.BlendData.BlendOpId;
+				}
+				case TemplateModuleDataType.ModuleAlphaToMask:
+				{
+					prefix = addPrefix ? m_subShaders[ subShaderId ].Passes[ passId ].Modules.UniquePrefix : string.Empty;
+					return prefix + m_subShaders[ subShaderId ].Passes[ passId ].Modules.BlendData.AlphaToMaskId;
 				}
 				case TemplateModuleDataType.ModuleCullMode:
 				{
@@ -631,6 +645,12 @@ namespace AmplifyShaderEditor
 				{
 					prefix = m_subShaders[ subShaderId ].Passes[ passId ].Modules.UniquePrefix;
 					m_templateIdManager.SetReplacementText( prefix + m_subShaders[ subShaderId ].Passes[ passId ].Modules.BlendData.BlendOpId, text );
+				}
+				break;
+				case TemplateModuleDataType.ModuleAlphaToMask:
+				{
+					prefix = m_subShaders[ subShaderId ].Passes[ passId ].Modules.UniquePrefix;
+					m_templateIdManager.SetReplacementText( prefix + m_subShaders[ subShaderId ].Passes[ passId ].Modules.BlendData.AlphaToMaskId, text );
 				}
 				break;
 				case TemplateModuleDataType.ModuleCullMode:
@@ -987,7 +1007,7 @@ namespace AmplifyShaderEditor
 		}
 
 		public TemplateSRPType SRPtype { get { return m_subShaders[ 0 ].Modules.SRPType; } }
-		public bool SRPIsPBRHD { get { return m_subShaders[0].Modules.SRPIsPBRHD ; } }
+		//public bool SRPIsPBRHD { get { return m_subShaders[0].Modules.SRPIsPBRHD ; } }
 		public List<TemplateSubShader> SubShaders { get { return m_subShaders; } }
 		public List<TemplateShaderPropertyData> AvailableShaderProperties { get { return m_availableShaderProperties; } }
 		public TemplateTagData PropertyTag { get { return m_propertyTag; } }

@@ -909,7 +909,13 @@ namespace AmplifyShaderEditor
 			{
 				OrderIndex = m_referenceSampler.RawOrderIndex;
 				if( m_referenceSampler.TexPort.IsConnected )
+				{
 					portProperty = m_referenceSampler.TexPort.GeneratePortInstructions( ref dataCollector );
+				}
+				else
+				{
+					m_referenceSampler.RegisterProperty( ref dataCollector );
+				}
 			}
 
 			if( m_autoUnpackNormals )
@@ -1458,19 +1464,27 @@ namespace AmplifyShaderEditor
 				if( scaleOffset )
 					dataCollector.AddToUniforms( UniqueId, "float4", propertyName + "_ST" );
 
-				dataCollector.AddToProperties( UniqueId, "[HideInInspector] " + dummyPropUV + "( \"\", 2D ) = \"white\" {}", 9999 );
+				
 
 				string coordInput = string.Empty;
-				if( isVertex )
+				if( !dataCollector.IsTemplate && coordSet > 3 )
 				{
-					coordInput = Constants.VertexShaderInputStr + ".texcoord";
-					if( coordSet > 0 )
-						coordInput += coordSet.ToString();
+					coordInput = GeneratorUtils.GenerateAutoUVs( ref dataCollector, UniqueId, coordSet, null, WirePortDataType.FLOAT2 );
 				}
 				else
 				{
-					coordInput = Constants.InputVarStr + "." + dummyUV;
-					dataCollector.AddToInput( UniqueId, dummyUV, m_uvPort.DataType );
+					dataCollector.AddToProperties( UniqueId, "[HideInInspector] " + dummyPropUV + "( \"\", 2D ) = \"white\" {}", 9999 );
+					if( isVertex )
+					{
+						coordInput = Constants.VertexShaderInputStr + ".texcoord";
+						if( coordSet > 0 )
+							coordInput += coordSet.ToString();
+					}
+					else
+					{
+						coordInput = Constants.InputVarStr + "." + dummyUV;
+						dataCollector.AddToInput( UniqueId, dummyUV, m_uvPort.DataType );
+					}
 				}
 
 				if( dataCollector.MasterNodeCategory == AvailableShaderTypes.Template )
@@ -1777,9 +1791,14 @@ namespace AmplifyShaderEditor
 		public override void PropagateNodeData( NodeData nodeData, ref MasterNodeDataCollector dataCollector )
 		{
 			base.PropagateNodeData( nodeData, ref dataCollector );
-			if( dataCollector.IsTemplate && !m_texPort.IsConnected)
+			if( dataCollector.IsTemplate )
 			{
-				dataCollector.TemplateDataCollectorInstance.SetUVUsage( m_textureCoordSet, m_uvPort.DataType );
+				if( !m_texPort.IsConnected )
+					dataCollector.TemplateDataCollectorInstance.SetUVUsage( m_textureCoordSet, m_uvPort.DataType );
+			}
+			else if( m_textureCoordSet > 3 )
+			{
+				dataCollector.AddCustomAppData( string.Format( TemplateHelperFunctions.TexUVFullSemantic, m_textureCoordSet ) );
 			}
 		}
 

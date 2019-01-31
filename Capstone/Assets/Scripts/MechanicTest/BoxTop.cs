@@ -10,7 +10,7 @@ public class BoxTop : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        box = GetComponent<BoxCollider2D>();
 	}
 	
 	// Update is called once per frame

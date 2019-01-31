@@ -7,10 +7,8 @@ public class RealityPlayerMovement : MonoBehaviour {
 	Vector2 vel; 
 
 	Rigidbody2D rb; 
-	BoxCollider2D box; 
 	SpriteRenderer sprite; 
 
-	bool grounded;
 
 	public float accel;
 	public float maxAccel;
@@ -23,13 +21,9 @@ public class RealityPlayerMovement : MonoBehaviour {
 
 	public GameObject heldObject;
 
-	bool lastR; 
-	bool lastL; 
-
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
-		box = GetComponent<BoxCollider2D>();
 		sprite = GetComponent<SpriteRenderer> ();
 
 		inactive = false;
@@ -51,16 +45,12 @@ public class RealityPlayerMovement : MonoBehaviour {
 			//If right or left if pressed, accel in that direction
 			if (right) {
 				vel.x += accel;
-				lastR = true;
-				lastL = false;
 				if (!left) {
 					sprite.flipX = false;
 				}
 			}
 			if (left) {
 				vel.x -= accel;
-				lastR = false;
-				lastL = true;
 				if (!right) {
 					sprite.flipX = true;
 				}

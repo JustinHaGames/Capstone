@@ -116,6 +116,7 @@ namespace AmplifyShaderEditor
 
 		private List<InputCoordsCollector> m_customShadowCoordsList;
 		private List<int> m_packSlotsList;
+		private string m_customAppDataItems;
 
 		private Dictionary<string, PropertyDataCollector> m_inputDict;
 		private Dictionary<string, PropertyDataCollector> m_customInputDict;
@@ -138,11 +139,13 @@ namespace AmplifyShaderEditor
 		private Dictionary<string, PropertyDataCollector> m_customOutputDict;
 		private Dictionary<string, string> m_localFunctions;
 		private Dictionary<string, string> m_grabPassDict;
+		private Dictionary<string, string> m_customAppDataItemsDict;
 
 		private Dictionary<string, InputCoordsCollector> m_customShadowCoordsDict;
 
 		private TextureChannelUsage[] m_requireTextureProperty = { TextureChannelUsage.Not_Used, TextureChannelUsage.Not_Used, TextureChannelUsage.Not_Used, TextureChannelUsage.Not_Used };
 
+		private bool m_dirtyAppData;
 		private bool m_dirtyInputs;
 		private bool m_dirtyCustomInputs;
 		private bool m_dirtyFunctions;
@@ -231,7 +234,7 @@ namespace AmplifyShaderEditor
 			m_localVariables = string.Empty;
 			m_specialLocalVariables = string.Empty;
 			m_customOutput = string.Empty;
-
+			
 			m_inputList = new List<PropertyDataCollector>();
 			m_customInputList = new List<PropertyDataCollector>();
 			m_propertiesList = new List<PropertyDataCollector>();
@@ -250,7 +253,8 @@ namespace AmplifyShaderEditor
 			m_customOutputList = new List<PropertyDataCollector>();
 			m_functionsList = new List<PropertyDataCollector>();
 			m_grabPassList = new List<PropertyDataCollector>();
-
+			m_customAppDataItems = string.Empty;
+			m_customAppDataItemsDict = new Dictionary<string, string>();
 			m_customShadowCoordsList = new List<InputCoordsCollector>();
 			m_packSlotsList = new List<int>();
 
@@ -279,6 +283,7 @@ namespace AmplifyShaderEditor
 
 			m_customShadowCoordsDict = new Dictionary<string, InputCoordsCollector>();
 
+			m_dirtyAppData = false;
 			m_dirtyInputs = false;
 			m_dirtyCustomInputs = false;
 			m_dirtyProperties = false;
@@ -328,17 +333,18 @@ namespace AmplifyShaderEditor
 
 		public void OpenPerVertexHeader( bool includeCustomData )
 		{
+			string appData ="inout " + (m_dirtyAppData ? Constants.CustomAppDataFullName : Constants.AppDataFullName)+" ";
 			if( m_dirtyPerVertexData )
 				return;
 
 			m_dirtyPerVertexData = true;
 			if( m_tesselationActive )
 			{
-				m_vertexData = "\t\tvoid " + Constants.VertexDataFunc + "( inout appdata_full " + Constants.VertexShaderInputStr + " )\n\t\t{\n";
+				m_vertexData = "\t\tvoid " + Constants.VertexDataFunc + "( "+ appData + Constants.VertexShaderInputStr + " )\n\t\t{\n";
 			}
 			else
 			{
-				m_vertexData = "\t\tvoid " + Constants.VertexDataFunc + "( inout appdata_full " + Constants.VertexShaderInputStr + ( includeCustomData ? ( string.Format( ", out Input {0}", Constants.VertexShaderOutputStr ) ) : string.Empty ) + " )\n\t\t{\n";
+				m_vertexData = "\t\tvoid " + Constants.VertexDataFunc + "( "+ appData + Constants.VertexShaderInputStr + ( includeCustomData ? ( string.Format( ", out Input {0}", Constants.VertexShaderOutputStr ) ) : string.Empty ) + " )\n\t\t{\n";
 				if( includeCustomData )
 					m_vertexData += string.Format( "\t\t\tUNITY_INITIALIZE_OUTPUT( Input, {0} );\n", Constants.VertexShaderOutputStr );
 			}
@@ -737,7 +743,10 @@ namespace AmplifyShaderEditor
 
 		public void SoftRegisterUniform( TemplateShaderPropertyData data )
 		{
-			string uniformName = UIUtils.GenerateUniformName( data.PropertyDataType, data.PropertyName );
+			
+			bool excludeUniformKeyword = ( data.PropertyType == PropertyType.InstancedProperty ) || IsSRP;
+
+			string uniformName = UIUtils.GenerateUniformName( excludeUniformKeyword, data.PropertyDataType, data.PropertyName );
 			if( !m_uniformsDict.ContainsKey( uniformName ) )
 			{
 				m_uniformsDict.Add( uniformName, new PropertyDataCollector( -1, uniformName ) );
@@ -749,7 +758,7 @@ namespace AmplifyShaderEditor
 			if( string.IsNullOrEmpty( dataName ) || string.IsNullOrEmpty( dataType ) )
 				return;
 
-			string value = UIUtils.GenerateUniformName( dataType, dataName );
+			string value = UIUtils.GenerateUniformName( IsSRP, dataType, dataName );
 			if( !m_uniformsDict.ContainsKey( value ) && !m_uniformsDict.ContainsKey( dataName ) )
 			{
 				m_uniforms += "\t\t" + value + '\n';
@@ -1391,9 +1400,34 @@ namespace AmplifyShaderEditor
 			importer.SaveAndReimport();
 		}
 
+		public void AddCustomAppData( string value )
+		{
+			if( m_customAppDataItemsDict.ContainsKey( value ) )
+				return;
+
+			m_customAppDataItemsDict.Add( value, value );
+			m_customAppDataItems += "\t\t\t"+value+"\n";
+			m_dirtyAppData = true;
+		}
+		public string CustomAppDataName { get { return m_dirtyAppData ? Constants.CustomAppDataFullName : Constants.AppDataFullName; } }
+		
+		public string CustomAppData
+		{
+			get
+			{
+				if( m_dirtyPerVertexData )
+					return Constants.CustomAppDataFullBody + m_customAppDataItems + "\t\t};\n";
+
+				return string.Empty;
+			}
+		}
+
 		public void Destroy()
 		{
 			m_masterNode = null;
+
+			m_customAppDataItemsDict.Clear();
+			m_customAppDataItemsDict = null;
 
 			m_inputList.Clear();
 			m_inputList = null;
@@ -1573,6 +1607,7 @@ namespace AmplifyShaderEditor
 		public string CustomOutput { get { return m_customOutput; } }
 		public string Functions { get { return m_functions; } }
 		public string GrabPass { get { return m_grabPass; } }
+		public bool DirtyAppData { get { return m_dirtyAppData; } }
 		public bool DirtyInstructions { get { return m_dirtyInstructions; } }
 		public bool DirtyUniforms { get { return m_dirtyUniforms; } }
 		public bool DirtyProperties { get { return m_dirtyProperties; } }
@@ -1784,6 +1819,7 @@ namespace AmplifyShaderEditor
 				return body;
 			}
 		}
+
 		public List<PropertyDataCollector> InputList { get { return m_inputList; } }
 		public List<PropertyDataCollector> CustomInputList { get { return m_customInputList; } }
 		public List<PropertyDataCollector> PropertiesList { get { return m_propertiesList; } }

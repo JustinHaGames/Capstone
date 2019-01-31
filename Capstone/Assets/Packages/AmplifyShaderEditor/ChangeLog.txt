@@ -1,4 +1,145 @@
 Release Notes:
+v1.6.2 rev 00 / v1.6.1 rev 05:
+* New Template:
+    * Unlit Lightmap
+
+* New Sample:
+    * Unlit With Lightmap
+
+* Fixes:
+    * Fixed issue on 'Depth Fade' node with custom Vertex Positions
+    * Fixed issue with using the X,Y,Z,W output ports on 'Object To World' node
+
+v1.6.1 rev 04:
+* New Node:
+    * Linear Depth
+        * Converts values given on logarithmic space to linear
+
+* Improvements:
+    * Minor improvement on nodes loading time when initializing ASE
+
+* Fixes:
+    * Fixed local variable duplicate issue when using 'Depth Fade' and 'Screen Position' nodes
+    * Fixed serialization issue with Additional Use Passes and Fallback data when going into play mode
+    * Fixed HDRP issues on Motion Vectors pass
+    * Fixed issue with uniform keyword usage inside cbuffers (SRP templates) over PS4
+    * Fixed issue with 'Common Transform Matrices' node over SRP templates
+    * Fixed object to world/world to object space transform on transform nodes over HD templates
+        * 'Transform Position', 'Object To World' and 'World To Object' nodes 
+        * They now take SHADEROPTIONS_CAMERA_RELATIVE_RENDERING keyword into account
+    * Fixed issue with 'Pixelate UV' node when used over vertex functions
+    * Fixed foldout issue between Additional Surface Options and Custom SubShader Tags on Surface node properties
+
+v1.6.1 rev 03:
+* New Shader Functions:
+    * Terrain Wind Value
+    * Terrain Wind Animate Vertex
+        * Updated Simple Terrain sample to use this shader function
+
+* Improvements:
+    * Updated HDRP PBR template to v4.6.0
+    * Added Alpha To Coverage/Alpha To Mask option into templates
+        * Set under the Blend Mode area
+
+* Fixes:
+    * Fixed issue on Emission color being added over Forward Add pass when using 'Standard Surface Light' node
+
+v1.6.1 rev 02:
+* Fixes:
+    * Fixed issue with reordering material properties for Translucency and Refraction port's properties
+    * Fixed issue with 'Texture Sample' node when referencing an unconnected node
+
+v1.6.1 rev 01:
+* Improvements:
+    * Updated HDRP templates to v4.3.0
+    * 'Vertex Tangent' node now has Size option
+    * Added access to all 8 UV sets on Surface shaders
+    * Re-added 'Clip' node
+        * First Input Port acts as a relay
+        * Clip uses difference between Alpha and Threshold ( Alpha - Threshold )
+
+* Fixes:
+    * Fixed issue with late directives being injected on globals tag when functions area is available
+        * Affected usage of 'World Space Light' nodes on HDRP templates
+    * Fixed division by 0 issue on 'Triplanar Sample' node
+    * Fixed incorrect directional light vector usage on HDRP templates
+
+v1.6.1 rev 00:
+* Fixes:
+    * Excluding Primitive ID source code from MacOS 
+
+v1.6.0 rev 00:
+* Improvements:
+    * Updated SRP templates to v4.2.0
+
+* Fixes:
+    * Fixed issue on GBuffer pass over HD PBR template
+    * Fixed alpha clip issues on Legacy HD PBR template
+
+v1.5.9 rev 02:
+* New Nodes:
+    * Vertex Id
+    * Primitive ID
+
+* New Shader Functions:
+    * Perturb Normal HQ
+    * Prepare Perturb Normal HQ
+
+* Improvements:
+    * Matrix type nodes can now be GPU instanced
+
+* Fixes:
+    * Fixed issue with 'Fresnel' node with Tangent Normal vectors on Surface shaders
+    * Fixed issues on Motion Vector pass on both 3.x.x. and 4.x.x templates
+    * Fixed issue with world pos generation on HD 4.x.x
+
+v1.5.9 rev 01:
+* Improvements:
+    * Added Auto Gamma to Linear option into 'Color' nodes when set to Constant
+    * Added access to all 8 uv channels on 'Texture Coordinates' and 'Vertex TexCoord' nodes
+        * Only for 2018.2 and above
+
+* Fixes:
+    * Fixed 'Gamma To Linear' and 'Linear To Gamma' compiler errors on SRP v.4.x.x
+
+v1.5.9 rev 00:
+* Fixes:
+    * 'Grab Screen Color' node now also working on Lightweight SRP v3.x.x
+    * Fixed possible issue with Shader Function creation callback not being inside AmplifyShaderEditor namespace 
+
+v1.5.8 rev 03:
+* Fixes:
+    * Fixed multiple issues in both PBR and Unlit templates for HD SRP v4.x.x
+    * Fixed issue over clip space transforms on HD SRP
+    * Fixed issue on sampling depth buffer on HD SRP
+
+v1.5.8 rev 02:
+* Improvements:
+    * Multiple improvements over 'Global Array' node
+        * Added support for jagged arrays
+        * Added Auto-Register toggle
+        * Can reference other nodes through new Mode dropdown ( similar to 'Grab Screen Color' node )
+
+* Fixes:
+    * Fixed memory leak over 'Template Local Var' node
+    * Fixed HD templates issues over new HD 4.1.0
+
+v1.5.8 rev 01:
+* Fixes:
+    * Fixed issue on Live Mode writing on non ase shaders when loaded into canvas
+    * Fixed issue on MacOS with scroll bar over Texture Array Creator tool
+    * Fixed issue on MacOS with 'Function Input' node generated default Sampler 2D value
+
+* New Shader Function:
+    * Substance Blend Metallic
+
+* Improvements:
+    * 'Grab Screen Color' node is now supported on LW SRP
+        * Uses the new _CameraOpaqueTexture which must be requested on the pipeline asset
+            * Must toggle on the Opaque Texture option over its General foldout
+    * Added Clip and Tangent spaces into 'Transform Direction' node
+    * Added Tangent space into 'Transform Position' node
+
 v1.5.8 rev 00:
 * New Sample:
     * Substance 2018

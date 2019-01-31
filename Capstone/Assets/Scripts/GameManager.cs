@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour {
 	public bool monarchFlying; 
 
 	public int sceneID;
+    public string sceneName;
 
 	AudioSource audio; 
 
@@ -92,9 +93,10 @@ public class GameManager : MonoBehaviour {
 
 		//Get the current scene you are on
 		sceneID = SceneManager.GetActiveScene ().buildIndex;
+        sceneName = SceneManager.GetActiveScene().name;
 
 		//Only things done in scene 3
-		if (sceneID == 4) {
+		if (sceneName == "Dream1") {
 			if (playFlying) {
 				if (!audio.isPlaying) {
 					audio.Play ();
@@ -102,7 +104,7 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
-		if (sceneID == 6) {
+		if (sceneName == "Dream2") {
 			if (specialBoxPickedUp) {
 				monarchFlying = true;
 				playFlying = true;
@@ -116,7 +118,7 @@ public class GameManager : MonoBehaviour {
 		}
 			
 		//Only things done in scene 4
-		if (sceneID == 5) {
+		if (sceneName == "BoxCloset") {
 
 			switch (targetHit) {
 			case 0: 

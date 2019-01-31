@@ -87,7 +87,7 @@ namespace AmplifyShaderEditor
 
 		private readonly List<string> m_functionSamplingBodyProj = new List<string>() {
 			"float3 projNormal = ( pow( abs( worldNormal ), falloff ) );",
-			"projNormal /= projNormal.x + projNormal.y + projNormal.z;",
+			"projNormal /= ( projNormal.x + projNormal.y + projNormal.z ) + 0.00001;",// 0.00001 is to prevent division by 0
 			"float3 nsign = sign( worldNormal );"
 		};
 

@@ -59,7 +59,13 @@ namespace AmplifyShaderEditor
 		private Material m_dummyMaterial;
 		private MenuCommand m_dummyCommand;
 		private int m_currentUsePassIdx = 0;
-		
+
+		public void Init( string moduleName )
+		{
+			hideFlags = HideFlags.HideAndDontSave;
+			m_moduleName = moduleName;
+		}
+
 		void DrawButtons()
 		{
 			EditorGUILayout.Separator();
@@ -313,7 +319,7 @@ namespace AmplifyShaderEditor
 			}
 		}
 
-		public string ModuleName { set { m_moduleName = value; } }
+		//public string ModuleName { set { m_moduleName = value; } }
 		public void Destroy()
 		{
 			m_owner = null;
