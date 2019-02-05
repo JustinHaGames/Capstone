@@ -1668,7 +1668,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 16.038927, y: 1, z: 9.121251}
+    m_Scale: {x: 20, y: 1, z: 30}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -1866,7 +1866,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 20
+      scalar: 200
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -5736,6 +5736,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114930787554727444, guid: 9dfcfc2392df940a3a578588d8a3cc82,
+        type: 3}
+      propertyPath: wallFriction
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114930787554727444, guid: 9dfcfc2392df940a3a578588d8a3cc82,
+        type: 3}
+      propertyPath: wallJumpX
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114930787554727444, guid: 9dfcfc2392df940a3a578588d8a3cc82,
+        type: 3}
+      propertyPath: wallJumpY
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dfcfc2392df940a3a578588d8a3cc82, type: 3}
 --- !u!4 &1550072857 stripped
@@ -5944,7 +5959,7 @@ PrefabInstance:
     - target: {fileID: 108000389106011940, guid: f166ab1aba3394eefb5770289fa84f5f,
         type: 3}
       propertyPath: m_Intensity
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f166ab1aba3394eefb5770289fa84f5f, type: 3}

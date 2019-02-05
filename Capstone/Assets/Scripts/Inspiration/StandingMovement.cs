@@ -86,8 +86,8 @@ public class StandingMovement : MonoBehaviour {
 
 		}
 
-		//Do this in the 4th scene
-		if (GameManager.instance.sceneName == "BoxCloset") {
+        //Do this in the 4th scene
+        if (GameManager.instance.sceneName == "BoxCloset") {
 			
 			if (left) {
 				transform.Translate (Vector3.left * Time.deltaTime * 2f);

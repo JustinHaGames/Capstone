@@ -22,7 +22,7 @@ public class DreamCamera : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (GameManager.instance.sceneID == 4) {
+		if (GameManager.instance.sceneName == "Dream1") {
 
 			if (!GameManager.instance.playerFallen) {
 				transform.position = new Vector3 (player.position.x, transform.position.y, transform.position.z);
@@ -40,7 +40,7 @@ public class DreamCamera : MonoBehaviour {
 			}
 		}
 
-		if (GameManager.instance.sceneID == 6) {
+		if (GameManager.instance.sceneName == "Dream2") {
 
 			Vector3 movePosition = new Vector3 (0, transform.position.y, transform.position.z);
 
@@ -60,7 +60,13 @@ public class DreamCamera : MonoBehaviour {
 				timer = 0;
 			}
 
-			transform.position = movePosition;
-		}
+            //transform.position = movePosition;
+            transform.position = new Vector3(transform.position.x, player.position.y, transform.position.z);
+
+            if (transform.position.y <= 0)
+            {
+                transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+            }
+        }
 	}
 }
