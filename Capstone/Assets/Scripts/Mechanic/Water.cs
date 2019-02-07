@@ -6,6 +6,7 @@ public class Water : MonoBehaviour {
 
 	bool rising;
 
+    public float waterSpeed;
 	// Use this for initialization
 	void Start () {
 		
@@ -39,7 +40,7 @@ public class Water : MonoBehaviour {
 
 
         if (rising) {
-			transform.Translate ((Vector3.down * Time.deltaTime) * -.25f);
+			transform.Translate ((Vector3.down * Time.deltaTime) * -waterSpeed);
 		}
 	}
 }
