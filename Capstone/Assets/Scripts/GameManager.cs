@@ -50,6 +50,8 @@ public class GameManager : MonoBehaviour {
 
 	public bool playerFallen;
 
+    public bool dreamStarted;
+
 	// Use this for initialization
 	void Start () {
 		Cursor.visible = false;

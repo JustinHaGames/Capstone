@@ -57,8 +57,6 @@ public class MonarchMovement : MonoBehaviour {
 
 		if (GameManager.instance.playerFallen || GameManager.instance.sceneName == "Dream2"){
 
-			timer += Time.deltaTime;
-
 			if (GameManager.instance.monarchFlying) {
 				if (transform.position.x <= -7f) {
 					right = true; 
@@ -79,11 +77,6 @@ public class MonarchMovement : MonoBehaviour {
 				if (transform.position.y <= player.transform.position.y + 2f) {
 					transform.position = new Vector3 (transform.position.x, player.transform.position.y + 2f, transform.position.z);
 				}
-			}
-
-			if (timer >= 40f && GameManager.instance.sceneName == "Dream1") {
-				GameManager.instance.switchScene = true;
-				GameManager.instance.fadeIn = false; 
 			}
 		}
 	}

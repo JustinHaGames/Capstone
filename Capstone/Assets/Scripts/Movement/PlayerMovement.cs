@@ -403,6 +403,7 @@ public class PlayerMovement : MonoBehaviour
         {
             waterSpeed = 3;
             vel.y = vel.y / 3;
+            slideVel = 0;
             swim = true;
         }
     }

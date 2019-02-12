@@ -17,7 +17,7 @@ public class MonarchComeAlive : MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
-		if (GameManager.instance.sceneID == 4) {
+		if (GameManager.instance.sceneName == "Dream1") {
 			if (player.transform.position.x >= transform.position.x - 5f) {
 				timer += 1 * Time.deltaTime; 
 				GameManager.instance.monarchComeAlive = true; 
