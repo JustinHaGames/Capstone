@@ -57,6 +57,8 @@ public class PlayerMovement : MonoBehaviour
     public Material playerMat;
     public Material defaultMat;
 
+    LineRenderer hook;
+
     // Use this for initialization
     void Start()
     {
@@ -65,6 +67,8 @@ public class PlayerMovement : MonoBehaviour
         box = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+
+        hook = GetComponent<LineRenderer>();
 
         lastR = true;
         lastL = false;
@@ -304,6 +308,13 @@ public class PlayerMovement : MonoBehaviour
                 vel.y = wallJumpY;
                 onWall = false;
             }
+        }
+
+        //Hook Code
+        if (lastR)
+        {
+            //Hook code will be throwing a projectile and drawing a linerenderer between the player and the projectile
+            //Projectile will stop after a certain distance between the player
         }
 
         if (GameManager.instance.sceneName == "Dream1")
