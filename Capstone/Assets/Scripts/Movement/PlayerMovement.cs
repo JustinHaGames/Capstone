@@ -95,14 +95,14 @@ public class PlayerMovement : MonoBehaviour
 
         if (canJump || swim)
         {
-            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z)) && !jump)
+            if (Input.GetButtonDown("Fire1") && !jump)
             {
                 jump = true;
             }
         }
 
         //When you let go of the jump buttons, make jump false and fall
-        if ((Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.Z)))
+        if (Input.GetButtonUp("Fire1"))
         {
             jump = false;
             jumpCounter = 0;
@@ -202,11 +202,11 @@ public class PlayerMovement : MonoBehaviour
         wallCast();
 
         //Press the left and right keys to move
-        bool right = Input.GetKey(KeyCode.RightArrow);
-        bool left = Input.GetKey(KeyCode.LeftArrow);
+
+        float xInput = Input.GetAxis("Horizontal");
 
         //If right or left if pressed, accel in that direction
-        if (right)
+        if (xInput > 0)
         {
             vel.x += accel / waterSpeed;
             lastR = true;
@@ -220,7 +220,7 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-        if (left)
+        if (xInput < 0)
         {
             vel.x -= accel / waterSpeed;
             lastL = true;
@@ -239,7 +239,7 @@ public class PlayerMovement : MonoBehaviour
         vel.x = Mathf.Max(Mathf.Min(vel.x, maxAccel), -maxAccel);
 
         //If you don't move right or left, then don't move
-        if ((!right && !left) || (right && left) || inactive)
+        if ( Mathf.Abs(xInput) < 0.1f || inactive)
         {
             if (grounded)
             {
@@ -252,7 +252,7 @@ public class PlayerMovement : MonoBehaviour
         if (jump)
         {
             anim.Play("Jump");
-            if ((Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Z)))
+            if (Input.GetButton("Fire1"))
             {
                 switch (jumpCounter)
                 {
@@ -302,7 +302,7 @@ public class PlayerMovement : MonoBehaviour
                 vel.x = Mathf.Max(vel.x, 0);
             if (onWallRight)
                 vel.x = Mathf.Min(vel.x, 0);
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetButtonDown("Fire1"))
             {
                 vel.x += onWallLeft ? wallJumpX : -wallJumpX;
                 vel.y = wallJumpY;
