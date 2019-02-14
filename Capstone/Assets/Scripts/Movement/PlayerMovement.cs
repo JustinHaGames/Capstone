@@ -109,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Pickup objects
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetButtonDown("Fire2"))
         {
             //Box kicking test
             if (heldObject == null)
@@ -156,7 +156,7 @@ public class PlayerMovement : MonoBehaviour
                     heldObject.SendMessage("Left", SendMessageOptions.DontRequireReceiver);
                     heldObject = null;
                 }
-                else if (Input.GetKeyDown(KeyCode.X))
+                else if (Input.GetButtonDown("Fire2"))
                 {
                     heldObject.SendMessage("Drop", SendMessageOptions.DontRequireReceiver);
                     heldObject = null;
@@ -195,7 +195,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-    
+
+        Debug.Log(Input.GetAxis("Fire3"));
+
         //run Grounded function to see if you're grounded every frame
         Grounded();
         //run wallCast function to see if you're touching a wall
