@@ -7,6 +7,7 @@ Shader "DeepBlueShader"
 		_Transparency("Transparency", Float) = 0
 		_Blue("Blue", Color) = (0,0,0,0)
 		_DeepBlue("DeepBlue", Color) = (0,0,0,0)
+		_BlueLerp("BlueLerp", Float) = 0
 		[HideInInspector] _texcoord( "", 2D ) = "white" {}
 		[HideInInspector] __dirty( "", Int ) = 1
 	}
@@ -24,6 +25,7 @@ Shader "DeepBlueShader"
 			float2 uv_texcoord;
 		};
 
+		uniform float _BlueLerp;
 		uniform float4 _DeepBlue;
 		uniform float4 _Blue;
 		uniform float _Transparency;
@@ -31,7 +33,7 @@ Shader "DeepBlueShader"
 		void surf( Input i , inout SurfaceOutputStandard o )
 		{
 			float4 lerpResult5 = lerp( _DeepBlue , _Blue , i.uv_texcoord.y);
-			o.Emission = lerpResult5.rgb;
+			o.Emission = ( _BlueLerp * lerpResult5 ).rgb;
 			o.Alpha = _Transparency;
 		}
 
@@ -53,7 +55,7 @@ Shader "DeepBlueShader"
 			#pragma multi_compile UNITY_PASS_SHADOWCASTER
 			#pragma skip_variants FOG_LINEAR FOG_EXP FOG_EXP2
 			#include "HLSLSupport.cginc"
-			#if ( SHADER_API_D3D11 || SHADER_API_GLCORE || SHADER_API_GLES3 || SHADER_API_METAL || SHADER_API_VULKAN )
+			#if ( SHADER_API_D3D11 || SHADER_API_GLCORE || SHADER_API_GLES || SHADER_API_GLES3 || SHADER_API_METAL || SHADER_API_VULKAN )
 				#define CAN_SKIP_VPOS
 			#endif
 			#include "UnityCG.cginc"
@@ -111,18 +113,22 @@ Shader "DeepBlueShader"
 	CustomEditor "ASEMaterialInspector"
 }
 /*ASEBEGIN
-Version=15800
-0;45;1280;698;985.985;260.9652;1.149591;True;False
-Node;AmplifyShaderEditor.ColorNode;4;-435.3312,108.0534;Float;False;Property;_DeepBlue;DeepBlue;2;0;Create;True;0;0;False;0;0,0,0,0;0.04757784,0.06006703,0.1617647,0;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-Node;AmplifyShaderEditor.ColorNode;3;-573.2821,-64.38517;Float;False;Property;_Blue;Blue;1;0;Create;True;0;0;False;0;0,0,0,0;0.09803922,0.1254902,0.3490196,0;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Version=16200
+0;23;1280;698;1186.489;418.2882;1.42301;True;False
 Node;AmplifyShaderEditor.TextureCoordinatesNode;6;-715.831,136.7933;Float;False;0;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.ColorNode;3;-573.2821,-64.38517;Float;False;Property;_Blue;Blue;1;0;Create;True;0;0;False;0;0,0,0,0;0,0.02506686,0.1838235,0;False;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.ColorNode;4;-435.3312,108.0534;Float;False;Property;_DeepBlue;DeepBlue;2;0;Create;True;0;0;False;0;0,0,0,0;0.00535251,0.01200513,0.06617647,0;False;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.RangedFloatNode;7;-137.7309,-173.5304;Float;False;Property;_BlueLerp;BlueLerp;3;0;Create;True;0;0;False;0;0;0;0;0;0;1;FLOAT;0
+Node;AmplifyShaderEditor.LerpOp;5;-331.4642,-97.44987;Float;False;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;FLOAT;0;False;1;COLOR;0
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;8;-82.23354,-72.4968;Float;False;2;2;0;FLOAT;0;False;1;COLOR;0,0,0,0;False;1;COLOR;0
 Node;AmplifyShaderEditor.RangedFloatNode;1;-412.3591,307.167;Float;False;Property;_Transparency;Transparency;0;0;Create;True;0;0;False;0;0;0.78;0;0;0;1;FLOAT;0
-Node;AmplifyShaderEditor.LerpOp;5;-231.8535,-98.87288;Float;False;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;FLOAT;0;False;1;COLOR;0
 Node;AmplifyShaderEditor.StandardSurfaceOutputNode;0;0,0;Float;False;True;2;Float;ASEMaterialInspector;0;0;Standard;DeepBlueShader;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;False;False;False;False;False;Back;0;False;-1;0;False;-1;False;0;False;-1;0;False;-1;False;0;Transparent;0.5;True;True;0;False;Transparent;;Transparent;All;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;True;0;False;-1;False;0;False;-1;255;False;-1;255;False;-1;0;False;-1;0;False;-1;0;False;-1;0;False;-1;0;False;-1;0;False;-1;0;False;-1;0;False;-1;False;2;15;10;25;False;0.5;True;2;5;False;-1;10;False;-1;0;0;False;-1;0;False;-1;0;False;-1;0;False;-1;0;False;0;0,0,0,0;VertexOffset;True;False;Cylindrical;False;Relative;0;;-1;-1;-1;-1;0;False;0;0;False;-1;-1;0;False;-1;0;0;0;16;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;2;FLOAT3;0,0,0;False;3;FLOAT;0;False;4;FLOAT;0;False;5;FLOAT;0;False;6;FLOAT3;0,0,0;False;7;FLOAT3;0,0,0;False;8;FLOAT;0;False;9;FLOAT;0;False;10;FLOAT;0;False;13;FLOAT3;0,0,0;False;11;FLOAT3;0,0,0;False;12;FLOAT3;0,0,0;False;14;FLOAT4;0,0,0,0;False;15;FLOAT3;0,0,0;False;0
 WireConnection;5;0;4;0
 WireConnection;5;1;3;0
 WireConnection;5;2;6;2
-WireConnection;0;2;5;0
+WireConnection;8;0;7;0
+WireConnection;8;1;5;0
+WireConnection;0;2;8;0
 WireConnection;0;9;1;0
 ASEEND*/
-//CHKSM=FF1FB3E7A7373C33B8B1742F7D83A8CCCDB4E8A0
+//CHKSM=1CB959120A3ED70BB83F3AF9B10D9347002898DA

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class MonarchMovement : MonoBehaviour {
 
-	bool ascend; 
-
 	float timer; 
 
 	bool right; 
@@ -16,6 +14,12 @@ public class MonarchMovement : MonoBehaviour {
 	GameObject player; 
 
 	bool flyingRight;
+
+    public Light monarchLight;
+    public Color farLightColor;
+    public Color closeLightColor;
+
+    float shineTimer;
 
 	// Use this for initialization
 	void Start () {
@@ -31,15 +35,13 @@ public class MonarchMovement : MonoBehaviour {
 			timer += Time.deltaTime;
 
 			if (GameManager.instance.monarchComeAlive) {
-			
-				ascend = true; 
+
 				GameManager.instance.monarchFlying = true; 
 
 				if (timer < 6.5f) {
 					transform.Translate (Vector3.up * Time.deltaTime);
 
 				} else {
-					ascend = false; 
 					GameManager.instance.monarchFlying = false; 
 					GameManager.instance.monarchComeAlive = false; 
 					flyingRight = true; 
@@ -74,10 +76,38 @@ public class MonarchMovement : MonoBehaviour {
 
 				player = GameObject.FindGameObjectWithTag ("Player");
 
-				if (transform.position.y <= player.transform.position.y + 2f) {
-					transform.position = new Vector3 (transform.position.x, player.transform.position.y + 2f, transform.position.z);
-				}
-			}
+                if (transform.position.y <= player.transform.position.y + 2f) {
+                	transform.position = new Vector3 (transform.position.x, player.transform.position.y + 2f, transform.position.z);
+                }
+
+                float distance = Vector3.Distance(player.transform.position, transform.position);
+                if (distance <= 5f)
+                {
+                    shineTimer += 1 * Time.deltaTime;
+                    Time.timeScale = .5f;
+                    monarchLight.intensity += .25f;
+                    monarchLight.color = Color.Lerp(farLightColor, closeLightColor, shineTimer / 1f);
+                }
+                else
+                {
+                    shineTimer -= 1 * Time.deltaTime;
+                    Time.timeScale = 1;
+                    monarchLight.intensity -= .25f;
+                    monarchLight.color = Color.Lerp(closeLightColor, farLightColor, shineTimer / 1f);
+                    if (shineTimer <= 0)
+                    {
+                        shineTimer = 0;
+                    }
+                }
+
+                monarchLight.color = Color.Lerp(farLightColor, closeLightColor, shineTimer / 2f);
+
+                if (monarchLight.intensity <= 8f)
+                {
+                    monarchLight.intensity = 8f;
+                }
+
+            }
 		}
 	}
 }
