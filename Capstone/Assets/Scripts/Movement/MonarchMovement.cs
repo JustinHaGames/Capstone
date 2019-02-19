@@ -19,8 +19,6 @@ public class MonarchMovement : MonoBehaviour {
     public Color farLightColor;
     public Color closeLightColor;
 
-    float shineTimer;
-
 	// Use this for initialization
 	void Start () {
 		right = true; 
@@ -81,26 +79,18 @@ public class MonarchMovement : MonoBehaviour {
                 }
 
                 float distance = Vector3.Distance(player.transform.position, transform.position);
-                if (distance <= 5f)
+                if (distance <= 4f)
                 {
-                    shineTimer += 1 * Time.deltaTime;
                     Time.timeScale = .5f;
                     monarchLight.intensity += .25f;
-                    monarchLight.color = Color.Lerp(farLightColor, closeLightColor, shineTimer / 1f);
                 }
                 else
                 {
-                    shineTimer -= 1 * Time.deltaTime;
                     Time.timeScale = 1;
                     monarchLight.intensity -= .25f;
-                    monarchLight.color = Color.Lerp(closeLightColor, farLightColor, shineTimer / 1f);
-                    if (shineTimer <= 0)
-                    {
-                        shineTimer = 0;
-                    }
                 }
 
-                monarchLight.color = Color.Lerp(farLightColor, closeLightColor, shineTimer / 2f);
+                monarchLight.color = Color.Lerp(farLightColor, closeLightColor, .1f);
 
                 if (monarchLight.intensity <= 8f)
                 {

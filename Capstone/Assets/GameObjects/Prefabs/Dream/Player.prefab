@@ -149,7 +149,7 @@ MonoBehaviour:
   baseJumpVel: 5
   jumpVel: 5
   maxJumpVel: 8
-  wallFriction: 0.75
+  wallFriction: 0.15
   heldObject: {fileID: 0}
   blockMask:
     serializedVersion: 2
@@ -158,10 +158,12 @@ MonoBehaviour:
   wallMask:
     serializedVersion: 2
     m_Bits: 65536
-  wallJumpX: 20
+  wallJumpX: 25
   wallJumpY: 12
   playerMat: {fileID: 2100000, guid: 647780f8ea89a44e4a19fd636a1c7b22, type: 2}
   defaultMat: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  hookShot: {fileID: 3066049278302324270, guid: 8d0c74c74dd9b4c09907303cf7364c2e,
+    type: 3}
 --- !u!95 &95109508893084588
 Animator:
   serializedVersion: 3

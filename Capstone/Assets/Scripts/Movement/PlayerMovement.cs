@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InControl;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -57,7 +58,8 @@ public class PlayerMovement : MonoBehaviour
     public Material playerMat;
     public Material defaultMat;
 
-    LineRenderer hook;
+    public GameObject hookShot;
+    bool shot;
 
     // Use this for initialization
     void Start()
@@ -67,8 +69,6 @@ public class PlayerMovement : MonoBehaviour
         box = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-
-        hook = GetComponent<LineRenderer>();
 
         lastR = true;
         lastL = false;
@@ -195,9 +195,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
-        Debug.Log(Input.GetAxis("Fire3"));
-
         //run Grounded function to see if you're grounded every frame
         Grounded();
         //run wallCast function to see if you're touching a wall
@@ -313,10 +310,21 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Hook Code
-        if (lastR)
+        //Hook code will be throwing a projectile and drawing a linerenderer between the player and the projectile
+        //Projectile will stop after a certain distance between the player
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !shot)
         {
-            //Hook code will be throwing a projectile and drawing a linerenderer between the player and the projectile
-            //Projectile will stop after a certain distance between the player
+            if (lastR)
+            {
+                Instantiate(hookShot, new Vector3(transform.position.x + .25f, transform.position.y + .25f, transform.position.z), Quaternion.identity);
+                shot = true;
+            }
+
+            if (lastL)
+            {
+                Instantiate(hookShot, new Vector3(transform.position.x - .25f, transform.position.y + .25f, transform.position.z), Quaternion.identity);
+                shot = true;
+            }
         }
 
         if (GameManager.instance.sceneName == "Dream1")
@@ -459,6 +467,11 @@ public class PlayerMovement : MonoBehaviour
         onWallRight = Physics2D.Raycast(top, Vector2.right, box.size.x * .75f, wallMask) || Physics2D.Raycast(bot, Vector2.right, box.size.x * .75f, wallMask);
         onWall = onWallLeft || onWallRight;
 
+    }
+
+    public void Retracted()
+    {
+        shot = false;
     }
 
 }

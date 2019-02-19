@@ -16,6 +16,7 @@ TagManager:
   - SpecialBox
   - PlayerTop
   - BrokenFloor
+  - HookShot
   layers:
   - Default
   - TransparentFX
@@ -37,7 +38,7 @@ TagManager:
   - PlayerTop
   - BoxPusher
   - Barrier
-  - 
+  - HookShot
   - 
   - 
   - 
