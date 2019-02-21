@@ -75,8 +75,11 @@ public class EnemyMovement : MonoBehaviour {
 	}
 		
 	void OnCollisionEnter2D(Collision2D coll){
-
-	}
+        if (coll.gameObject.tag == "BoxPusher" || coll.gameObject.tag == "BoxTop" || coll.gameObject.tag == "Box") 
+        {
+            Dead();
+        }
+    }
 
 	public void Dead (){
 		Instantiate (box, transform.position, Quaternion.identity);

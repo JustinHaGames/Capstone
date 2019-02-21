@@ -14,8 +14,11 @@ public class HookShot : MonoBehaviour
     public float length;
 
     bool retract;
+    bool stop;
 
     LineRenderer hookLine;
+
+    float pullSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -32,13 +35,16 @@ public class HookShot : MonoBehaviour
 
         dist = Vector3.Distance(transform.position, player.transform.position);
 
-        if (dist <= length && !retract)
+        if (dist <= length && !retract && !stop)
         {
             transform.position += vel * speed;
         }
         else
         {
-            retract = true;
+            if (!stop)
+            {
+                retract = true;
+            }
         }
 
         if (retract)
@@ -47,7 +53,7 @@ public class HookShot : MonoBehaviour
             transform.position -= vel * speed;
         }
 
-        Vector3 hookShotPos = GameObject.FindWithTag("HookShot").transform.position;
+        //Draws the hookshot line
         hookLine.SetPosition(0, player.transform.position);
         hookLine.SetPosition(1, transform.position);
 
@@ -56,5 +62,25 @@ public class HookShot : MonoBehaviour
             player.SendMessage("Retracted", SendMessageOptions.DontRequireReceiver);
             Destroy(gameObject);
         }
+    }
+
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.tag == "Wall")
+        {
+            stop = true;
+            player.GetComponent<PlayerMovement>().pull = true;
+
+        }
+
+        if (coll.gameObject.tag == "BoxPusher")
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void DestroySelf()
+    {
+        Destroy(gameObject);
     }
 }

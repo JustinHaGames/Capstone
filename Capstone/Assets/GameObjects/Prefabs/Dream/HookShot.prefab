@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2364911264195023105}
   - component: {fileID: 3404878329594580358}
   - component: {fileID: 1097045120788615614}
+  - component: {fileID: 8869831478003441733}
   m_Layer: 20
   m_Name: HookShot
   m_TagString: HookShot
@@ -41,7 +42,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3066049278302324270}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -96,7 +97,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.3
   length: 5
-  hookShot: {fileID: 0}
 --- !u!58 &3404878329594580358
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -208,3 +208,24 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!50 &8869831478003441733
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3066049278302324270}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0

@@ -754,7 +754,7 @@ GameObject:
   - component: {fileID: 792343430}
   m_Layer: 0
   m_Name: Water
-  m_TagString: Untagged
+  m_TagString: Water
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -855,6 +855,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1418744819500684, guid: 9f4083a79aff84e10b330a765b84630e, type: 3}
+      propertyPath: m_Name
+      value: StoneWalls
+      objectReference: {fileID: 0}
     - target: {fileID: 4629180840555572, guid: 9f4083a79aff84e10b330a765b84630e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.45
@@ -886,6 +890,18 @@ PrefabInstance:
     - target: {fileID: 4629180840555572, guid: 9f4083a79aff84e10b330a765b84630e, type: 3}
       propertyPath: m_RootOrder
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629180840555572, guid: 9f4083a79aff84e10b330a765b84630e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629180840555572, guid: 9f4083a79aff84e10b330a765b84630e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629180840555572, guid: 9f4083a79aff84e10b330a765b84630e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114212718009543852, guid: 9f4083a79aff84e10b330a765b84630e,
         type: 3}
@@ -5981,6 +5997,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114930787554727444, guid: 9dfcfc2392df940a3a578588d8a3cc82,
+        type: 3}
+      propertyPath: pullSpeed
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dfcfc2392df940a3a578588d8a3cc82, type: 3}
 --- !u!4 &1550072857 stripped
@@ -6124,6 +6145,18 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4629180840555572, guid: 9f4083a79aff84e10b330a765b84630e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629180840555572, guid: 9f4083a79aff84e10b330a765b84630e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629180840555572, guid: 9f4083a79aff84e10b330a765b84630e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114212718009543852, guid: 9f4083a79aff84e10b330a765b84630e,
         type: 3}
       propertyPath: player
@@ -6263,7 +6296,7 @@ PrefabInstance:
     - target: {fileID: 8662098157648806595, guid: 40eff41134821445e90df440d81924ec,
         type: 3}
       propertyPath: timeSpeed
-      value: 8
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40eff41134821445e90df440d81924ec, type: 3}

@@ -60,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject hookShot;
     bool shot;
+    public float pullSpeed;
+    public bool pull;
 
     // Use this for initialization
     void Start()
@@ -312,6 +314,9 @@ public class PlayerMovement : MonoBehaviour
         //Hook Code
         //Hook code will be throwing a projectile and drawing a linerenderer between the player and the projectile
         //Projectile will stop after a certain distance between the player
+
+        GameObject shotHook = GameObject.FindWithTag("HookShot");
+
         if (Input.GetKeyDown(KeyCode.LeftShift) && !shot)
         {
             if (lastR)
@@ -325,6 +330,29 @@ public class PlayerMovement : MonoBehaviour
                 Instantiate(hookShot, new Vector3(transform.position.x - .25f, transform.position.y + .25f, transform.position.z), Quaternion.identity);
                 shot = true;
             }
+        }
+
+        if (shotHook != null)
+        {
+            shot = true;
+
+            if (pull)
+            {
+                Vector3 dir = (shotHook.transform.position - transform.position).normalized;
+
+                vel = dir * pullSpeed;
+            }
+
+            if (onWall)
+            {
+                shotHook.SendMessage("DestroySelf", SendMessageOptions.DontRequireReceiver);
+                pull = false;
+                shot = false;
+            }
+        }
+        else
+        {
+            shot = false;
         }
 
         if (GameManager.instance.sceneName == "Dream1")
@@ -348,6 +376,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        //Apply the movement
         rb.MovePosition((Vector2)transform.position + vel * Time.deltaTime);
 
     }
@@ -466,7 +495,6 @@ public class PlayerMovement : MonoBehaviour
         onWallLeft = Physics2D.Raycast(top, Vector2.left, box.size.x * .75f, wallMask) || Physics2D.Raycast(bot, Vector2.left, box.size.x * .75f, wallMask);
         onWallRight = Physics2D.Raycast(top, Vector2.right, box.size.x * .75f, wallMask) || Physics2D.Raycast(bot, Vector2.right, box.size.x * .75f, wallMask);
         onWall = onWallLeft || onWallRight;
-
     }
 
     public void Retracted()
