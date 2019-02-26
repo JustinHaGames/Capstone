@@ -20,11 +20,23 @@ public class HookShot : MonoBehaviour
 
     float pullSpeed;
 
+    SpriteRenderer sprite;
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindWithTag("Player");
         vel = (transform.position - player.transform.position).normalized;
+
+        sprite = GetComponent<SpriteRenderer>();
+
+        if(player.transform.position.x > transform.position.x)
+        {
+            sprite.flipX = true;
+        } else if (player.transform.position.x < transform.position.x)
+        {
+            sprite.flipX = false; 
+        }
 
         hookLine = GetComponent<LineRenderer>();
     }
@@ -54,8 +66,8 @@ public class HookShot : MonoBehaviour
         }
 
         //Draws the hookshot line
-        hookLine.SetPosition(0, player.transform.position);
-        hookLine.SetPosition(1, transform.position);
+        hookLine.SetPosition(0, new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z + 1));
+        hookLine.SetPosition(1, new Vector3(transform.position.x, transform.position.y, transform.position.z + 1));
 
         if (dist <= .5f && retract)
         {
@@ -70,7 +82,12 @@ public class HookShot : MonoBehaviour
         {
             stop = true;
             player.GetComponent<PlayerMovement>().pull = true;
+        }
 
+        if (coll.gameObject.tag == "Enemy")
+        {
+            stop = true;
+            player.GetComponent<PlayerMovement>().pull = true;
         }
 
         if (coll.gameObject.tag == "BoxPusher")

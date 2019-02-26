@@ -20,6 +20,10 @@ public class DreamManager : MonoBehaviour
 
     bool stop;
 
+    public Color clearColor;
+    public Color fullColor;
+
+    private float showTimer;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +43,8 @@ public class DreamManager : MonoBehaviour
             dreamTimeMinOne = 0;
             timeText.text = "";
         }
+
+        timeText.color = clearColor;
     }
 
     // Update is called once per frame
@@ -85,6 +91,12 @@ public class DreamManager : MonoBehaviour
             time = (dreamTimeHour * 100) + (dreamTimeMinTen * 10) + dreamTimeMinOne;
 
             timeText.text = dreamTimeHour + ":" + dreamTimeMinTen + Mathf.FloorToInt(dreamTimeMinOne) + " AM";
+
+            if (time >= 530)
+            {
+                showTimer += Time.deltaTime;
+                timeText.color = Color.Lerp(clearColor, fullColor, showTimer / 60f);
+            }
         }
 
         if (time == alarmTime)

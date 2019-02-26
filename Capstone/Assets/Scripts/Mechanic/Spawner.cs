@@ -28,7 +28,7 @@ public class Spawner : MonoBehaviour {
 		}
 
 		if (timer >= randomNum) {
-			Instantiate (Enemy, transform.position, Quaternion.identity);
+			Instantiate (Enemy, new Vector3(transform.position.x, transform.position.y, 1), Quaternion.identity);
 			chosen = false;
 			timer = 0;
 		}

@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeText: {fileID: 0}
-  timeSpeed: 10
+  timeSpeed: 4
   alarmTime: 830
+  clearColor: {r: 1, g: 1, b: 1, a: 0}
+  fullColor: {r: 1, g: 1, b: 1, a: 1}

@@ -65,7 +65,7 @@ public class Box : MonoBehaviour {
 		}
 			
 		if (player != null) {
-			if (player.transform.position.y >= transform.position.y + 1f) {
+			if (player.transform.position.y >= transform.position.y + 1.1f) {
 				playerTopCollider.enabled = true;
 			} else {
 				playerTopCollider.enabled = false;

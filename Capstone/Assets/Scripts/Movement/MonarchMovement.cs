@@ -11,7 +11,8 @@ public class MonarchMovement : MonoBehaviour {
 
 	public float horizontalVel;
 
-	GameObject player; 
+	GameObject player;
+    GameObject boxPusher;
 
 	bool flyingRight;
 
@@ -76,6 +77,13 @@ public class MonarchMovement : MonoBehaviour {
 
                 if (transform.position.y <= player.transform.position.y + 2f) {
                 	transform.position = new Vector3 (transform.position.x, player.transform.position.y + 2f, transform.position.z);
+                }
+
+                boxPusher = GameObject.FindGameObjectWithTag("BoxPusher");
+
+                if (transform.position.y <= boxPusher.transform.position.y + 2f)
+                {
+                    transform.position = new Vector3(transform.position.x, boxPusher.transform.position.y + 2f, transform.position.z);
                 }
 
                 float distance = Vector3.Distance(player.transform.position, transform.position);

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using InControl;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -317,17 +316,17 @@ public class PlayerMovement : MonoBehaviour
 
         GameObject shotHook = GameObject.FindWithTag("HookShot");
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !shot)
+        if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetButtonDown("Fire3")) && !shot)
         {
             if (lastR)
             {
-                Instantiate(hookShot, new Vector3(transform.position.x + .25f, transform.position.y + .25f, transform.position.z), Quaternion.identity);
+                Instantiate(hookShot, new Vector3(transform.position.x + .25f, transform.position.y + .25f, transform.position.z), Quaternion.Euler(new Vector3(0,0,-45)));
                 shot = true;
             }
 
             if (lastL)
             {
-                Instantiate(hookShot, new Vector3(transform.position.x - .25f, transform.position.y + .25f, transform.position.z), Quaternion.identity);
+                Instantiate(hookShot, new Vector3(transform.position.x - .25f, transform.position.y + .25f, transform.position.z), Quaternion.Euler(new Vector3(0,0,45)));
                 shot = true;
             }
         }
@@ -347,7 +346,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 shotHook.SendMessage("DestroySelf", SendMessageOptions.DontRequireReceiver);
                 pull = false;
-                shot = false;
             }
         }
         else
@@ -414,14 +412,18 @@ public class PlayerMovement : MonoBehaviour
     void OnCollisionEnter2D(Collision2D coll)
     {
 
+        GameObject shotHook = GameObject.FindWithTag("HookShot");
+
         if (coll.gameObject.tag == "Enemy")
         {
             GameObject collidedObject = coll.collider.gameObject;
-            if (transform.position.y >= collidedObject.transform.position.y + 1f)
+            if (transform.position.y >= collidedObject.transform.position.y + 1f || pull)
             {
                 collidedObject.SendMessage("Dead", SendMessageOptions.DontRequireReceiver);
                 slideVel = 0;
                 vel.y = 20f;
+                shotHook.SendMessage("DestroySelf", SendMessageOptions.DontRequireReceiver);
+                pull = false;
             }
             else
             {
@@ -431,10 +433,18 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        if (coll.gameObject.tag == "Box")
+        {
+            shotHook.SendMessage("DestroySelf", SendMessageOptions.DontRequireReceiver);
+            pull = false;
+        }
+
         if (coll.gameObject.tag == "PlayerTop")
         {
             GameObject collidedObject = coll.collider.gameObject;
             if (transform.position.y >= collidedObject.transform.position.y + 1f)
+                shotHook.SendMessage("DestroySelf", SendMessageOptions.DontRequireReceiver);
+                pull = false;
             {
                 collidedObject.SendMessage("PickUp", SendMessageOptions.DontRequireReceiver);
             }
@@ -495,6 +505,11 @@ public class PlayerMovement : MonoBehaviour
         onWallLeft = Physics2D.Raycast(top, Vector2.left, box.size.x * .75f, wallMask) || Physics2D.Raycast(bot, Vector2.left, box.size.x * .75f, wallMask);
         onWallRight = Physics2D.Raycast(top, Vector2.right, box.size.x * .75f, wallMask) || Physics2D.Raycast(bot, Vector2.right, box.size.x * .75f, wallMask);
         onWall = onWallLeft || onWallRight;
+
+        if (onWall)
+        {
+            shot = true;
+        }
     }
 
     public void Retracted()
