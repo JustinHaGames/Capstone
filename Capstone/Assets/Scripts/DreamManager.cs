@@ -23,7 +23,8 @@ public class DreamManager : MonoBehaviour
     public Color clearColor;
     public Color fullColor;
 
-    private float showTimer;
+    public float startShowingTime;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -92,10 +93,9 @@ public class DreamManager : MonoBehaviour
 
             timeText.text = dreamTimeHour + ":" + dreamTimeMinTen + Mathf.FloorToInt(dreamTimeMinOne) + " AM";
 
-            if (time >= 530)
+            if (time >= startShowingTime)
             {
-                showTimer += Time.deltaTime;
-                timeText.color = Color.Lerp(clearColor, fullColor, showTimer / 60f);
+                timeText.color = Color.Lerp(clearColor, fullColor, Mathf.Pow(1 - ((alarmTime - time) /(alarmTime - startShowingTime)), 3));
             }
         }
 

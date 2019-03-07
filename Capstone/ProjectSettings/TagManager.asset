@@ -17,6 +17,7 @@ TagManager:
   - PlayerTop
   - BrokenFloor
   - HookShot
+  - Floor
   layers:
   - Default
   - TransparentFX

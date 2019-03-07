@@ -48,3 +48,4 @@ MonoBehaviour:
   alarmTime: 830
   clearColor: {r: 1, g: 1, b: 1, a: 0}
   fullColor: {r: 1, g: 1, b: 1, a: 1}
+  startShowingTime: 530

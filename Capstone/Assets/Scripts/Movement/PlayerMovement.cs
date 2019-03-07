@@ -62,6 +62,8 @@ public class PlayerMovement : MonoBehaviour
     public float pullSpeed;
     public bool pull;
 
+    float wallJumpTimer;
+
     // Use this for initialization
     void Start()
     {
@@ -294,20 +296,26 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Walljump code
-        if (onWall && !grounded)
+        if (onWall)
         {
             slideVel += gravity * wallFriction;
             vel.y = slideVel;
+            wallJumpTimer -= .1f;
             if (onWallLeft)
                 vel.x = Mathf.Max(vel.x, 0);
             if (onWallRight)
                 vel.x = Mathf.Min(vel.x, 0);
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && wallJumpTimer <= 0f)
             {
                 vel.x += onWallLeft ? wallJumpX : -wallJumpX;
                 vel.y = wallJumpY;
                 onWall = false;
             }
+        }
+
+        if (!onWall && !grounded)
+        {
+            wallJumpTimer = 1.25f;
         }
 
         //Hook Code

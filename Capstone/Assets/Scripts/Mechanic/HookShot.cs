@@ -9,6 +9,7 @@ public class HookShot : MonoBehaviour
     Vector3 vel;
 
     float dist;
+   // Vector2 angle;
 
     public float speed;
     public float length;
@@ -26,7 +27,24 @@ public class HookShot : MonoBehaviour
     void Start()
     {
         player = GameObject.FindWithTag("Player");
-        vel = (transform.position - player.transform.position).normalized;
+
+        float xInput = Input.GetAxis("Horizontal");
+        float yInput = Input.GetAxis("Vertical");
+
+        //angle = Mathf.Atan2(xInput, yInput) * Mathf.Rad2Deg;
+        //Vector2 ang2vec= new Vector2(
+        // Mathf.Cos(angle*Mathf.Deg2Rad),
+        // Mathf.Sin(angle* Mathf.Deg2Rad),
+        //);
+
+        if (xInput == 0 && yInput == 0)
+        {
+            vel = (transform.position - player.transform.position).normalized;
+        }
+        else
+        {
+            vel = new Vector2(xInput, yInput);
+        }
 
         sprite = GetComponent<SpriteRenderer>();
 
@@ -93,6 +111,11 @@ public class HookShot : MonoBehaviour
         if (coll.gameObject.tag == "BoxPusher")
         {
             Destroy(gameObject);
+        }
+
+        if (coll.gameObject.tag == "BoxTop" || coll.gameObject.tag == "Floor" || coll.gameObject.tag == "Box") 
+        {
+            retract = true;
         }
     }
 

@@ -20,11 +20,15 @@ public class MonarchMovement : MonoBehaviour {
     public Color farLightColor;
     public Color closeLightColor;
 
+    SpriteRenderer sprite;
+
 	// Use this for initialization
 	void Start () {
 		right = true; 
 
 		player = GameObject.FindGameObjectWithTag ("Player");
+
+        sprite = GetComponent<SpriteRenderer>();
 	}
 	
 	// Update is called once per frame
@@ -68,8 +72,10 @@ public class MonarchMovement : MonoBehaviour {
 				}
 
 				if (right) {
+                    sprite.flipX = false;
 					transform.Translate (Vector3.right * Time.deltaTime * 3f);
 				} else if (left) {
+                    sprite.flipX = true;
 					transform.Translate (Vector3.left * Time.deltaTime * 3f);
 				}
 

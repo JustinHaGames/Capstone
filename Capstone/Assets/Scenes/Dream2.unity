@@ -1376,7 +1376,7 @@ ParticleSystem:
     enabled: 1
     startLifetime:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 5
       maxCurve:
@@ -2127,7 +2127,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 200
+      scalar: 400
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -5997,11 +5997,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114930787554727444, guid: 9dfcfc2392df940a3a578588d8a3cc82,
-        type: 3}
-      propertyPath: pullSpeed
-      value: 20
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dfcfc2392df940a3a578588d8a3cc82, type: 3}
 --- !u!4 &1550072857 stripped
@@ -6068,6 +6063,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1490192828158728, guid: f4812538c725b4708a9f425bdcd8ad66, type: 3}
+      propertyPath: m_Name
+      value: StoneFloor
+      objectReference: {fileID: 0}
     - target: {fileID: 4899210920367730, guid: f4812538c725b4708a9f425bdcd8ad66, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -6099,6 +6098,18 @@ PrefabInstance:
     - target: {fileID: 4899210920367730, guid: f4812538c725b4708a9f425bdcd8ad66, type: 3}
       propertyPath: m_RootOrder
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4899210920367730, guid: f4812538c725b4708a9f425bdcd8ad66, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4899210920367730, guid: f4812538c725b4708a9f425bdcd8ad66, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4899210920367730, guid: f4812538c725b4708a9f425bdcd8ad66, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4812538c725b4708a9f425bdcd8ad66, type: 3}
