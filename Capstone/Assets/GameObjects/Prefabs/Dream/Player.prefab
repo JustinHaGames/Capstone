@@ -149,6 +149,7 @@ MonoBehaviour:
   baseJumpVel: 6
   jumpVel: 6
   maxJumpVel: 10
+  boxBoost: 40
   wallFriction: 0.15
   heldObject: {fileID: 0}
   blockMask:

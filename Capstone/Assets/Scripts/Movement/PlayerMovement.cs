@@ -25,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
     public float baseJumpVel;
     public float jumpVel;
     public float maxJumpVel;
+    public float boxBoost;
     int jumpCounter;
     bool onWall;
     bool onWallLeft;
@@ -429,7 +430,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 collidedObject.SendMessage("Dead", SendMessageOptions.DontRequireReceiver);
                 slideVel = 0;
-                vel.y = 20f;
+                vel.y = boxBoost;
                 shotHook.SendMessage("DestroySelf", SendMessageOptions.DontRequireReceiver);
                 pull = false;
             }
