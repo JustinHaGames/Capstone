@@ -7,7 +7,9 @@ public class WalkingHome : MonoBehaviour {
 	Vector2 vel; 
 
 	Rigidbody2D rb; 
-	SpriteRenderer sprite; 
+	SpriteRenderer sprite;
+
+    Animator anim;
 
 	public float accel;
 	public float maxAccel;
@@ -18,38 +20,40 @@ public class WalkingHome : MonoBehaviour {
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
 		sprite = GetComponent<SpriteRenderer> ();
+        anim = GetComponent<Animator>();
 		sprite.flipX = true;
-	}
-
-	void Update(){
 	}
 
 	// Update is called once per frame
 	void FixedUpdate () {
+    
+        float xInput = Input.GetAxis("Horizontal");
 
-			//Press the left and right keys to move
-			bool left = Input.GetKey (KeyCode.LeftArrow);
-			bool right = Input.GetKey (KeyCode.RightArrow);
-
-		if (left) {
+        //Move Left
+        if (xInput < 0) {
+            anim.Play("ButtonDownPlayerWalking");
 			vel.x -= accel;
 			sprite.flipX = true;
 		}
 
-		if (right) {
-			vel.x += accel;
+        //Move Right
+		if (xInput > 0) {
+            anim.Play("ButtonDownPlayerWalking");
+            vel.x += accel;
 			sprite.flipX = false;
 		}
 
-			//Limit the player's max velocity
-			vel.x = Mathf.Max (Mathf.Min (vel.x, maxAccel), -maxAccel);
+		//Limit the player's max velocity
+        vel.x = Mathf.Max (Mathf.Min (vel.x, maxAccel), -maxAccel);
+        Debug.Log(Mathf.Abs(xInput));
+        //If you don't move right or left, then don't move
+        if (Mathf.Abs(xInput) < 0.1f)
+        {
+            anim.Play("ButtonDownPlayerIdle");
+            vel.x = 0;
+        }
 
-			//If you don't move right or left, then don't move
-		if (!left && !right) {
-				vel.x = 0;
-			}
-			
-		if (transform.position.x <= sceneChangeSpot) {
+        if (transform.position.x <= sceneChangeSpot) {
 			GameManager.instance.switchScene = true;
 			GameManager.instance.fadeIn = false; 
 			vel.x = 0; 

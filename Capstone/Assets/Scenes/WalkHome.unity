@@ -290,6 +290,27 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 212869956117402876, guid: 6a766d2633c2445b08cd4f6bae2cc228,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e32baa25f8aa74a2eb385b275a9e7fa7,
+        type: 3}
+    - target: {fileID: 212869956117402876, guid: 6a766d2633c2445b08cd4f6bae2cc228,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 3.1999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 212869956117402876, guid: 6a766d2633c2445b08cd4f6bae2cc228,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 3.1999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 212869956117402876, guid: 6a766d2633c2445b08cd4f6bae2cc228,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114234708850004178, guid: 6a766d2633c2445b08cd4f6bae2cc228, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6a766d2633c2445b08cd4f6bae2cc228, type: 3}
@@ -314,6 +335,25 @@ MonoBehaviour:
   accel: 1
   maxAccel: 3
   sceneChangeSpot: -51
+--- !u!95 &276236901
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276236899}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 053f9afeb23764edba004751bcee2e26, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &276236902 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4040507023394082, guid: 6a766d2633c2445b08cd4f6bae2cc228,
@@ -520,6 +560,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2141870246}
     m_Modifications:
+    - target: {fileID: 1336091624841562, guid: cbe7283eb6d8442919efa81672b4508f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4141536751488064, guid: cbe7283eb6d8442919efa81672b4508f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
