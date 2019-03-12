@@ -18,7 +18,7 @@ public class Spawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (GameManager.instance.specialBoxPickedUp) {
+		if (GameManager.instance.specialBoxKilled) {
 			timer += 1 * Time.deltaTime;
 		}
 

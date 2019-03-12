@@ -40,9 +40,10 @@ public class DreamCamera : MonoBehaviour {
 			}
 		}
 
-		if (GameManager.instance.sceneName == "Dream2") {
+		if (GameManager.instance.sceneName == "Dream2" || GameManager.instance.sceneName == "Dream3" || GameManager.instance.sceneName == "Dream4") {
 
-			Vector3 movePosition = new Vector3 (0, transform.position.y, transform.position.z);
+
+            Vector3 movePosition = new Vector3 (0, transform.position.y, transform.position.z);
 
 			if (player.transform.position.y >= transform.position.y + yTopDif) {
 				moving = true;

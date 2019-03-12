@@ -60,9 +60,10 @@ public class MonarchMovement : MonoBehaviour {
 
 		}
 
-		if (GameManager.instance.playerFallen || GameManager.instance.sceneName == "Dream2"){
+		if (GameManager.instance.playerFallen || GameManager.instance.sceneName == "Dream2" || GameManager.instance.sceneName == "Dream3" || GameManager.instance.sceneName == "Dream4"){
 
-			if (GameManager.instance.monarchFlying) {
+
+            if (GameManager.instance.monarchFlying) {
 				if (transform.position.x <= -7f) {
 					right = true; 
 					left = false; 

@@ -108,11 +108,6 @@ public class HookShot : MonoBehaviour
             player.GetComponent<PlayerMovement>().pull = true;
         }
 
-        if (coll.gameObject.tag == "BoxPusher")
-        {
-            Destroy(gameObject);
-        }
-
         if (coll.gameObject.tag == "BoxTop" || coll.gameObject.tag == "Floor" || coll.gameObject.tag == "Box") 
         {
             retract = true;

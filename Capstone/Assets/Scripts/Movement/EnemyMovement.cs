@@ -37,12 +37,18 @@ public class EnemyMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		//Flip the sprite so the enemy is always looking at the player
-		if (transform.position.x > player.transform.position.x) {
-			sprite.flipX = true;
-		} else {
-			sprite.flipX = false;
-		}
+        if (this.gameObject.tag == "Enemy")
+        {
+            //Flip the sprite so the enemy is always looking at the player
+            if (transform.position.x > player.transform.position.x)
+            {
+                sprite.flipX = true;
+            }
+            else
+            {
+                sprite.flipX = false;
+            }
+        }
 
 		if (dir.x > 0) { 
 			if (transform.position.x > player.transform.position.x) {

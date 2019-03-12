@@ -18,6 +18,7 @@ TagManager:
   - BrokenFloor
   - HookShot
   - Floor
+  - SpecialEnemy
   layers:
   - Default
   - TransparentFX

@@ -46,11 +46,14 @@ public class GameManager : MonoBehaviour {
 
 	//Only pertains to scene 5
 
-	public bool specialBoxPickedUp;
+	public bool specialBoxKilled;
 
 	public bool playerFallen;
 
     public bool dreamStarted;
+
+    public bool hookshotUnlocked;
+    public bool wallJumpUnlocked;
 
 	// Use this for initialization
 	void Start () {
@@ -62,7 +65,22 @@ public class GameManager : MonoBehaviour {
 
 		audio = GetComponent<AudioSource> ();
 
-	}
+        //Get the current scene you are on
+        sceneID = SceneManager.GetActiveScene().buildIndex;
+        sceneName = SceneManager.GetActiveScene().name;
+
+        if (sceneName == "Dream3")
+        {
+            hookshotUnlocked = true;
+        }
+
+        if (sceneName == "Dream4")
+        {
+            hookshotUnlocked = true; 
+            wallJumpUnlocked = true;
+        }
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -93,10 +111,6 @@ public class GameManager : MonoBehaviour {
 			StartCoroutine (SceneChange ());
 		}
 
-		//Get the current scene you are on
-		sceneID = SceneManager.GetActiveScene ().buildIndex;
-        sceneName = SceneManager.GetActiveScene().name;
-
 		//Only things done in scene 3
 		if (sceneName == "Dream1") {
 			if (playFlying) {
@@ -106,8 +120,9 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
-		if (sceneName == "Dream2") {
-			if (specialBoxPickedUp) {
+		if (sceneName == "Dream2" || sceneName == "Dream3" || sceneName == "Dream4") {
+
+            if (specialBoxKilled) {
 				monarchFlying = true;
 				playFlying = true;
 				if (playFlying) {

@@ -112,61 +112,61 @@ public class PlayerMovement : MonoBehaviour
             jumpCounter = 0;
         }
 
-        //Pickup objects
-        if (Input.GetButtonDown("Fire2"))
-        {
-            //Box kicking test
-            if (heldObject == null)
-            {
-                if (lastR)
-                {
-                    Vector3 facingDirection = Vector3.right;
-                    RaycastHit2D hit = Physics2D.Raycast(transform.position + (-facingDirection * sprite.bounds.extents.x * .5f) + (Vector3.down * sprite.bounds.extents.y * 0.3f), facingDirection, 1.5f, blockMask);
-                    heldObject = hit.collider.gameObject;
-                    heldObject.SendMessage("PickUp", SendMessageOptions.DontRequireReceiver);
-                }
-                else if (lastL)
-                {
-                    Vector3 facingDirection = Vector3.left;
-                    RaycastHit2D hit = Physics2D.Raycast(transform.position + (-facingDirection * sprite.bounds.extents.x) + (Vector3.down * sprite.bounds.extents.y * 0.3f), facingDirection, 1.5f, blockMask);
-                    heldObject = hit.collider.gameObject;
-                    heldObject.SendMessage("PickUp", SendMessageOptions.DontRequireReceiver);
-                }
-            }
-            else
-            {
-                if (Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.RightArrow))
-                {
-                    heldObject.SendMessage("RightDiagonal", SendMessageOptions.DontRequireReceiver);
-                    heldObject = null;
-                }
-                else if (Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.LeftArrow))
-                {
-                    heldObject.SendMessage("LeftDiagonal", SendMessageOptions.DontRequireReceiver);
-                    heldObject = null;
-                }
-                else if (Input.GetKey(KeyCode.UpArrow))
-                {
-                    heldObject.SendMessage("Up", SendMessageOptions.DontRequireReceiver);
-                    heldObject = null;
-                }
-                else if (Input.GetKey(KeyCode.RightArrow))
-                {
-                    heldObject.SendMessage("Right", SendMessageOptions.DontRequireReceiver);
-                    heldObject = null;
-                }
-                else if (Input.GetKey(KeyCode.LeftArrow))
-                {
-                    heldObject.SendMessage("Left", SendMessageOptions.DontRequireReceiver);
-                    heldObject = null;
-                }
-                else if (Input.GetButtonDown("Fire2"))
-                {
-                    heldObject.SendMessage("Drop", SendMessageOptions.DontRequireReceiver);
-                    heldObject = null;
-                }
-            }
-        }
+        ////Pickup objects
+        //if (Input.GetButtonDown("Fire2"))
+        //{
+        //    //Box kicking test
+        //    if (heldObject == null)
+        //    {
+        //        if (lastR)
+        //        {
+        //            Vector3 facingDirection = Vector3.right;
+        //            RaycastHit2D hit = Physics2D.Raycast(transform.position + (-facingDirection * sprite.bounds.extents.x * .5f) + (Vector3.down * sprite.bounds.extents.y * 0.3f), facingDirection, 1.5f, blockMask);
+        //            heldObject = hit.collider.gameObject;
+        //            heldObject.SendMessage("PickUp", SendMessageOptions.DontRequireReceiver);
+        //        }
+        //        else if (lastL)
+        //        {
+        //            Vector3 facingDirection = Vector3.left;
+        //            RaycastHit2D hit = Physics2D.Raycast(transform.position + (-facingDirection * sprite.bounds.extents.x) + (Vector3.down * sprite.bounds.extents.y * 0.3f), facingDirection, 1.5f, blockMask);
+        //            heldObject = hit.collider.gameObject;
+        //            heldObject.SendMessage("PickUp", SendMessageOptions.DontRequireReceiver);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.RightArrow))
+        //        {
+        //            heldObject.SendMessage("RightDiagonal", SendMessageOptions.DontRequireReceiver);
+        //            heldObject = null;
+        //        }
+        //        else if (Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.LeftArrow))
+        //        {
+        //            heldObject.SendMessage("LeftDiagonal", SendMessageOptions.DontRequireReceiver);
+        //            heldObject = null;
+        //        }
+        //        else if (Input.GetKey(KeyCode.UpArrow))
+        //        {
+        //            heldObject.SendMessage("Up", SendMessageOptions.DontRequireReceiver);
+        //            heldObject = null;
+        //        }
+        //        else if (Input.GetKey(KeyCode.RightArrow))
+        //        {
+        //            heldObject.SendMessage("Right", SendMessageOptions.DontRequireReceiver);
+        //            heldObject = null;
+        //        }
+        //        else if (Input.GetKey(KeyCode.LeftArrow))
+        //        {
+        //            heldObject.SendMessage("Left", SendMessageOptions.DontRequireReceiver);
+        //            heldObject = null;
+        //        }
+        //        else if (Input.GetButtonDown("Fire2"))
+        //        {
+        //            heldObject.SendMessage("Drop", SendMessageOptions.DontRequireReceiver);
+        //            heldObject = null;
+        //        }
+        //    }
+        //}
 
         //Only do this in scene 4
         if (GameManager.instance.sceneName == "BoxCloset")
@@ -181,19 +181,19 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Only do this in scene 5
-        if (GameManager.instance.sceneName == "Dream2")
-        {
-            if (!GameManager.instance.specialBoxPickedUp)
-            {
-                if (heldObject != null)
-                {
-                    if (heldObject.tag == "SpecialBox")
-                    {
-                        GameManager.instance.specialBoxPickedUp = true;
-                    }
-                }
-            }
-        }
+        //if (GameManager.instance.sceneName == "Dream2")
+        //{
+        //    if (!GameManager.instance.specialBoxKilled)
+        //    {
+        //        if (heldObject != null)
+        //        {
+        //            if (heldObject.tag == "SpecialBox")
+        //            {
+        //                GameManager.instance.specialBoxKilled = true;
+        //            }
+        //        }
+        //    }
+        //}
     }
 
     // Update is called once per frame
@@ -297,69 +297,75 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Walljump code
-        if (onWall)
+        if (GameManager.instance.wallJumpUnlocked)
         {
-            slideVel += gravity * wallFriction;
-            vel.y = slideVel;
-            wallJumpTimer -= .1f;
-            if (onWallLeft)
-                vel.x = Mathf.Max(vel.x, 0);
-            if (onWallRight)
-                vel.x = Mathf.Min(vel.x, 0);
-            if (Input.GetButtonDown("Fire1") && wallJumpTimer <= 0f)
+            if (onWall)
             {
-                vel.x += onWallLeft ? wallJumpX : -wallJumpX;
-                vel.y = wallJumpY;
-                onWall = false;
+                slideVel += gravity * wallFriction;
+                vel.y = slideVel;
+                wallJumpTimer -= .1f;
+                if (onWallLeft)
+                    vel.x = Mathf.Max(vel.x, 0);
+                if (onWallRight)
+                    vel.x = Mathf.Min(vel.x, 0);
+                if (Input.GetButtonDown("Fire1") && wallJumpTimer <= 0f)
+                {
+                    vel.x += onWallLeft ? wallJumpX : -wallJumpX;
+                    vel.y = wallJumpY;
+                    onWall = false;
+                }
             }
-        }
 
-        if (!onWall && !grounded)
-        {
-            wallJumpTimer = 1.25f;
+            if (!onWall && !grounded)
+            {
+                wallJumpTimer = 1.25f;
+            }
         }
 
         //Hook Code
         //Hook code will be throwing a projectile and drawing a linerenderer between the player and the projectile
         //Projectile will stop after a certain distance between the player
 
-        GameObject shotHook = GameObject.FindWithTag("HookShot");
-
-        if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetButtonDown("Fire3")) && !shot)
+        if (GameManager.instance.hookshotUnlocked)
         {
-            if (lastR)
+            GameObject shotHook = GameObject.FindWithTag("HookShot");
+
+            if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetButtonDown("Fire3")) && !shot)
             {
-                Instantiate(hookShot, new Vector3(transform.position.x + .25f, transform.position.y + .25f, transform.position.z), Quaternion.Euler(new Vector3(0,0,-45)));
+                if (lastR)
+                {
+                    Instantiate(hookShot, new Vector3(transform.position.x + .25f, transform.position.y + .25f, transform.position.z), Quaternion.Euler(new Vector3(0, 0, -45)));
+                    shot = true;
+                }
+
+                if (lastL)
+                {
+                    Instantiate(hookShot, new Vector3(transform.position.x - .25f, transform.position.y + .25f, transform.position.z), Quaternion.Euler(new Vector3(0, 0, 45)));
+                    shot = true;
+                }
+            }
+
+            if (shotHook != null)
+            {
                 shot = true;
-            }
 
-            if (lastL)
+                if (pull)
+                {
+                    Vector3 dir = (shotHook.transform.position - transform.position).normalized;
+
+                    vel = dir * pullSpeed;
+                }
+
+                if (onWall)
+                {
+                    shotHook.SendMessage("DestroySelf", SendMessageOptions.DontRequireReceiver);
+                    pull = false;
+                }
+            }
+            else
             {
-                Instantiate(hookShot, new Vector3(transform.position.x - .25f, transform.position.y + .25f, transform.position.z), Quaternion.Euler(new Vector3(0,0,45)));
-                shot = true;
+                shot = false;
             }
-        }
-
-        if (shotHook != null)
-        {
-            shot = true;
-
-            if (pull)
-            {
-                Vector3 dir = (shotHook.transform.position - transform.position).normalized;
-
-                vel = dir * pullSpeed;
-            }
-
-            if (onWall)
-            {
-                shotHook.SendMessage("DestroySelf", SendMessageOptions.DontRequireReceiver);
-                pull = false;
-            }
-        }
-        else
-        {
-            shot = false;
         }
 
         if (GameManager.instance.sceneName == "Dream1")
@@ -439,6 +445,23 @@ public class PlayerMovement : MonoBehaviour
                 StartCoroutine(KnockedBack());
                 vel.x = (collidedObject.transform.position.x >= transform.position.x) ? vel.x - knockbackSpeed : vel.x + knockbackSpeed;
                 vel.y = 3f;
+            }
+        }
+
+        if (coll.gameObject.tag == "SpecialEnemy")
+        {
+            GameObject collidedObject = coll.collider.gameObject;
+            if (transform.position.y >= collidedObject.transform.position.y + 1f || pull)
+            {
+                if (GameManager.instance.sceneName == "Dream2" || (GameManager.instance.sceneName == "Dream3") || (GameManager.instance.sceneName == "Dream4"))
+                {
+                    GameManager.instance.specialBoxKilled = true;
+                }
+                collidedObject.SendMessage("Dead", SendMessageOptions.DontRequireReceiver);
+                slideVel = 0;
+                vel.y = boxBoost;
+                shotHook.SendMessage("DestroySelf", SendMessageOptions.DontRequireReceiver);
+                pull = false;
             }
         }
 

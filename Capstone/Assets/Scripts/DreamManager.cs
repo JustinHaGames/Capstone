@@ -73,7 +73,7 @@ public class DreamManager : MonoBehaviour
             timeText.text = dreamTimeHour + ":" + dreamTimeMinTen + Mathf.FloorToInt(dreamTimeMinOne) + " AM";
         }
 
-        if (SceneManager.GetActiveScene().name == "Dream2" && GameManager.instance.specialBoxPickedUp && !stop)
+        if ((SceneManager.GetActiveScene().name == "Dream2" || SceneManager.GetActiveScene().name == "Dream3" || SceneManager.GetActiveScene().name == "Dream4")  && GameManager.instance.specialBoxKilled && !stop)
         {
             dreamTimeMinOne += 1 * Time.deltaTime * timeSpeed;
 
@@ -92,11 +92,11 @@ public class DreamManager : MonoBehaviour
             time = (dreamTimeHour * 100) + (dreamTimeMinTen * 10) + dreamTimeMinOne;
 
             timeText.text = dreamTimeHour + ":" + dreamTimeMinTen + Mathf.FloorToInt(dreamTimeMinOne) + " AM";
+        }
 
-            if (time >= startShowingTime)
-            {
-                timeText.color = Color.Lerp(clearColor, fullColor, Mathf.Pow(1 - ((alarmTime - time) /(alarmTime - startShowingTime)), 3));
-            }
+        if (time >= startShowingTime)
+        {
+            timeText.color = Color.Lerp(clearColor, fullColor, Mathf.Pow(1 - ((alarmTime - time) / (alarmTime - startShowingTime)), 3));
         }
 
         if (time == alarmTime)

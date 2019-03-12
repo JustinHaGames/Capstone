@@ -23,8 +23,8 @@ public class Water : MonoBehaviour {
 		}
 
 		//In Dream2, water shouldn't rise until the box is picked up
-		if (GameManager.instance.sceneName == "Dream2") {
-			if (GameManager.instance.specialBoxPickedUp) {
+		if (GameManager.instance.sceneName == "Dream2" || GameManager.instance.sceneName == "Dream3" || GameManager.instance.sceneName == "Dream4") {
+			if (GameManager.instance.specialBoxKilled) {
 				rising = true; 
 			}
 		}
@@ -32,7 +32,7 @@ public class Water : MonoBehaviour {
         //Training scene
         if (GameManager.instance.sceneName == "DreamTest")
         {
-            if (GameManager.instance.specialBoxPickedUp)
+            if (GameManager.instance.specialBoxKilled)
             {
                 rising = true;
             }
