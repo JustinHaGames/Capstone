@@ -1,5 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!95 &6457311344291806100
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5389989211306379260}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c4c8198f0c33f4bb9befba3260a2ded6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &5389529851903796278
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59,6 +78,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 212821109130836156, guid: 7ab6eb360c70f42948bc4ef118ba433c,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300006, guid: 8703afd94375c4baaaa163940866569c,
+        type: 3}
     - target: {fileID: 114283734012516706, guid: 7ab6eb360c70f42948bc4ef118ba433c,
         type: 3}
       propertyPath: speed
@@ -76,3 +101,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ab6eb360c70f42948bc4ef118ba433c, type: 3}
+--- !u!1 &5389989211306379260 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1797122530485194, guid: 7ab6eb360c70f42948bc4ef118ba433c,
+    type: 3}
+  m_PrefabInstance: {fileID: 5389529851903796278}
+  m_PrefabAsset: {fileID: 0}

@@ -35,7 +35,7 @@ public class StandingMovement : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
 		//Do this in the first scene
 		if (GameManager.instance.sceneName == "Inspiration") {
