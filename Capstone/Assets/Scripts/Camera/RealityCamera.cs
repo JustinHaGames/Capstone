@@ -14,7 +14,7 @@ public class RealityCamera : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (GameObject.FindWithTag("Player") == null)
         {

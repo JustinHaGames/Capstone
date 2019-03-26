@@ -97,6 +97,15 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        if (GameManager.instance.sceneName == "BoxCloset")
+        {
+            boxBoost = 15f;
+        }
+        else
+        {
+            boxBoost = 25f;
+        }
+
         if (canJump || swim)
         {
             if (Input.GetButtonDown("Fire1") && !jump)
@@ -487,6 +496,11 @@ public class PlayerMovement : MonoBehaviour
             falling = true;
         }
 
+        if (coll.gameObject.tag == "Monarch")
+        {
+            Destroy(gameObject);
+        }
+
     }
 
     void OnTriggerEnter2D(Collider2D coll)
@@ -518,18 +532,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    IEnumerator KnockedBack()
-    {
-        inactive = true;
-        for (int f = 0; f < 15; f++)
-        {
-            maxAccel = knockbackSpeed;
-            yield return new WaitForFixedUpdate();
-        }
-        maxAccel = 6f;
-        inactive = false;
-    }
-
     void wallCast()
     {
         Vector2 top = (Vector2)transform.position + box.offset + (Vector2.up * (box.size.y / 2f));
@@ -547,6 +549,18 @@ public class PlayerMovement : MonoBehaviour
     public void Retracted()
     {
         shot = false;
+    }
+
+    IEnumerator KnockedBack()
+    {
+        inactive = true;
+        for (int f = 0; f < 15; f++)
+        {
+            maxAccel = knockbackSpeed;
+            yield return new WaitForFixedUpdate();
+        }
+        maxAccel = 6f;
+        inactive = false;
     }
 
 }

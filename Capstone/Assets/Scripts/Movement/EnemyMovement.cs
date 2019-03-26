@@ -15,14 +15,9 @@ public class EnemyMovement : MonoBehaviour {
 
 	Vector3 vel;
 	Vector3 dir;
-	Vector3 newDir; 
 
-	bool launch; 
+    bool flipVelY;
 
-	public float rightBarrier;
-	public float leftBarrier;
-
-	float timer;
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
@@ -31,11 +26,10 @@ public class EnemyMovement : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag ("Player");
 
 		dir = (player.transform.position - transform.position).normalized;
-		launch = true;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
         if (this.gameObject.tag == "Enemy")
         {
@@ -50,41 +44,28 @@ public class EnemyMovement : MonoBehaviour {
             }
         }
 
-		if (dir.x > 0) { 
-			if (transform.position.x > player.transform.position.x) {
-				launch = false;
-				timer = 0;
-			}
-		} else if (dir.x < 0) {
-			if (transform.position.x < player.transform.position.x) {
-				launch = false;
-				timer = 0;
-			}
-		}
-
-		if (!launch && (transform.position.x >= rightBarrier || transform.position.x <= leftBarrier)) {
-			timer += 1 * Time.deltaTime;
-			newDir = (player.transform.position - transform.position).normalized;
-			if (timer <= 1.5f) {
-				vel.x = 0; 
-				vel.y = 0;
-			} else {
-				vel = newDir * speed;
-				launch = true;
-			} 
-		}
-
 		vel = dir * speed;
 
-		rb.MovePosition (transform.position + vel * Time.deltaTime);
+        if (GameManager.instance.currentSpot >= 8 || transform.position.x <= -20f || transform.position.x >= 20f)
+        {
+            Destroy(gameObject);
+        }
 
+        rb.MovePosition (transform.position + vel * Time.deltaTime);
 	}
 		
 	void OnCollisionEnter2D(Collision2D coll){
-        if (coll.gameObject.tag == "BoxPusher" || coll.gameObject.tag == "BoxTop" || coll.gameObject.tag == "Box") 
+
+        if (coll.gameObject.tag == "BoxPusher" || coll.gameObject.tag == "BoxTop" || coll.gameObject.tag == "Box")
         {
             Dead();
         }
+
+        if (coll.gameObject.tag == "Floor")
+        {
+            dir.y *= -1f;
+        }
+
     }
 
 	public void Dead (){

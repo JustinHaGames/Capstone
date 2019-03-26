@@ -118,7 +118,6 @@ public class StandingMovement : MonoBehaviour {
 					GameManager.instance.playerSwitch = true;
 				}
 			}
-
 		}
 	}
 

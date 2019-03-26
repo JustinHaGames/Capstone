@@ -19,6 +19,10 @@ TagManager:
   - HookShot
   - Floor
   - SpecialEnemy
+  - RealityPlayer
+  - Shelf
+  - Monarch
+  - GreyBox
   layers:
   - Default
   - TransparentFX
@@ -41,7 +45,7 @@ TagManager:
   - BoxPusher
   - Barrier
   - HookShot
-  - 
+  - RealityPlayer
   - 
   - 
   - 

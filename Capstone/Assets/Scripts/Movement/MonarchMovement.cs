@@ -115,4 +115,13 @@ public class MonarchMovement : MonoBehaviour {
             }
 		}
 	}
+
+    private void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.tag == "Player")
+        {
+            GameManager.instance.monarchCaught = true;
+            Destroy(gameObject);
+        }
+    }
 }

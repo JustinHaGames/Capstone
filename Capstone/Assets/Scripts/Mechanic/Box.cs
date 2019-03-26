@@ -31,7 +31,8 @@ public class Box : MonoBehaviour {
 	bool lastL;
 	bool lastR; 
 
-	GameObject player; 
+	GameObject player;
+    GameObject realityPlayer;
 
 	bool thrown; 
 
@@ -50,7 +51,8 @@ public class Box : MonoBehaviour {
 
 		playerTopCollider = transform.GetChild(0).GetComponent<BoxCollider2D>();
 		boxTopCollider = transform.GetChild (1).GetComponent<BoxCollider2D> ();
-	}
+
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -58,7 +60,12 @@ public class Box : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		boxPusher = GameObject.FindGameObjectWithTag ("BoxPusher");
 
-		Grounded (); 
+        if (GameManager.instance.sceneName == "BoxCloset")
+        {
+            realityPlayer = GameObject.FindWithTag("RealityPlayer");
+        }
+
+        Grounded (); 
 
 		if (floating) {
 			vel.y = 1f; 
@@ -86,14 +93,6 @@ public class Box : MonoBehaviour {
 			rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
 		}
 
-		//In scene 4, have these properties
-		if (GameManager.instance.sceneName == "BoxCloset") {
-			if (GameManager.instance.targetHit < 7) {
-				if (transform.position.x <= 0 && grounded && !safe || transform.position.x <= 0 && stacked && !safe) {
-					Destroy (gameObject);
-				}
-			}
-		}
 	}
 
 	void Grounded(){
@@ -144,8 +143,18 @@ public class Box : MonoBehaviour {
 			}
 		}
 
+        if (gameObject.tag == "GreyBox" && GameObject.FindWithTag("Monarch") != null)
+        {
+            Destroy(gameObject);
+        }
 
-	}
+        if (GameManager.instance.monarchCaught)
+        {
+            Destroy(gameObject);
+        }
+
+
+    }
 
 	void OnCollisionEnter2D(Collision2D coll){
 		if (lastL || lastR) {
@@ -167,86 +176,75 @@ public class Box : MonoBehaviour {
 					collidedObject.SendMessage ("Dead", SendMessageOptions.DontRequireReceiver);
 				}
 			}
-
-		if (coll.gameObject.tag == "Target") {
-			if (!safe) {
-				GameObject collidedObject = coll.collider.gameObject; 
-				collidedObject.SendMessage ("Destroy", SendMessageOptions.DontRequireReceiver);
-				safe = true;
-			}
-		}
-	}
-
-	void OnTriggerStay2D(Collider2D coll){
-
-	}
-
-	void OnTriggerExit2D(Collider2D coll){
-
 	}
 
 	public void PickUp() {
 		rb.isKinematic = true; 
-		transform.position =  new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z - 1f ); 
-		transform.parent = player.transform;
+		transform.position =  new Vector3(realityPlayer.transform.position.x, realityPlayer.transform.position.y + .5f, realityPlayer.transform.position.z - 1f ); 
+		transform.parent = realityPlayer.transform;
 		held = true;
 		thrown = false;
 	}
 
-	public void Up () {
-		transform.parent = null;
-		rb.isKinematic = false;
-		vel.y = upThrowVel; 
-		lastL = false;
-		lastR = false; 
-		held = false; 
-		thrown = true; 
-	}
+    public void DestroySelf()
+    {
+        Destroy(gameObject);
+    }
 
-	public void Right () {
-		transform.parent = null;
-		rb.isKinematic = false;
-		vel.x = throwVel; 
-		lastR = true; 
-		held = false; 
-		thrown = true; 
-	}
+    //public void Up () {
+    //	transform.parent = null;
+    //	rb.isKinematic = false;
+    //	vel.y = upThrowVel; 
+    //	lastL = false;
+    //	lastR = false; 
+    //	held = false; 
+    //	thrown = true; 
+    //}
 
-	public void Left () {
-		transform.parent = null;
-		rb.isKinematic = false;
-		vel.x = -throwVel; 
-		lastL = true;
-		held = false; 
-		thrown = true; 
-	}
-		
-	public void RightDiagonal (){
-		transform.parent = null;
-		rb.isKinematic = false;
-		vel.y = upThrowVel; 
-		vel.x = throwVel;
-		lastL = false;
-		lastR = false; 
-		held = false; 
-		thrown = true; 
-	}
+    //public void Right () {
+    //	transform.parent = null;
+    //	rb.isKinematic = false;
+    //	vel.x = throwVel; 
+    //	lastR = true; 
+    //	held = false; 
+    //	thrown = true; 
+    //}
 
-	public void LeftDiagonal () {
-		transform.parent = null;
-		rb.isKinematic = false;
-		vel.y = upThrowVel; 
-		vel.x = -throwVel;
-		lastL = false;
-		lastR = false; 
-		held = false; 
-		thrown = true; 
-	}
+    //public void Left () {
+    //	transform.parent = null;
+    //	rb.isKinematic = false;
+    //	vel.x = -throwVel; 
+    //	lastL = true;
+    //	held = false; 
+    //	thrown = true; 
+    //}
 
-	public void Drop () {
-		transform.parent = null;
-		rb.isKinematic = false;
-		held = false; 
-		thrown = true;
-	}
+    //public void RightDiagonal (){
+    //	transform.parent = null;
+    //	rb.isKinematic = false;
+    //	vel.y = upThrowVel; 
+    //	vel.x = throwVel;
+    //	lastL = false;
+    //	lastR = false; 
+    //	held = false; 
+    //	thrown = true; 
+    //}
+
+    //public void LeftDiagonal () {
+    //	transform.parent = null;
+    //	rb.isKinematic = false;
+    //	vel.y = upThrowVel; 
+    //	vel.x = -throwVel;
+    //	lastL = false;
+    //	lastR = false; 
+    //	held = false; 
+    //	thrown = true; 
+    //}
+
+    //public void Drop () {
+    //	transform.parent = null;
+    //	rb.isKinematic = false;
+    //	held = false; 
+    //	thrown = true;
+    //}
 }
