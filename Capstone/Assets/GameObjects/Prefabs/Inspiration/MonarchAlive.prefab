@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 212147755479267218}
   - component: {fileID: 114806928147182672}
   - component: {fileID: 3559553499784469011}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: MonarchAlive
   m_TagString: Monarch
   m_Icon: {fileID: 0}

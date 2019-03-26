@@ -127,7 +127,7 @@ public class RealityPlayerMovement : MonoBehaviour {
             vel.x = 0;
         }
 
-        if (!spawnedDreamPlayer && GameManager.instance.currentSpot >= 3)
+        if (!spawnedDreamPlayer && GameManager.instance.dreamStarted == true)
         {
             StartCoroutine(DayDream());
             spawnedDreamPlayer = true;
@@ -163,6 +163,6 @@ public class RealityPlayerMovement : MonoBehaviour {
             yield return new WaitForFixedUpdate();
         }
         Instantiate(dreamPlayer, new Vector3(0, 0, -7f), Quaternion.identity);
-        Instantiate(monarch, new Vector3(0, 5f, -7f), Quaternion.identity);
+        Instantiate(monarch, new Vector3(0, 6f, -7f), Quaternion.identity);
     }
 }

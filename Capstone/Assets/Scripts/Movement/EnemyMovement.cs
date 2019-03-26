@@ -44,12 +44,12 @@ public class EnemyMovement : MonoBehaviour {
             }
         }
 
-		vel = dir * speed;
-
-        if (GameManager.instance.currentSpot >= 8 || transform.position.x <= -20f || transform.position.x >= 20f)
+        if (GameManager.instance.monarchCaught == true || transform.position.x <= -20f || transform.position.x >= 20f)
         {
             Destroy(gameObject);
         }
+
+        vel = dir * speed;
 
         rb.MovePosition (transform.position + vel * Time.deltaTime);
 	}

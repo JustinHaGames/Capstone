@@ -30,7 +30,7 @@ public class HorizontalEnemyMovement : MonoBehaviour
 
         vel.x = direction * speed;
 
-        if (GameManager.instance.currentSpot >= 8 || transform.position.x <= -10f || transform.position.x >= 10f)
+        if (GameManager.instance.monarchCaught == true || transform.position.x <= -20f || transform.position.x >= 20f)
         {
             Destroy(gameObject);
         }

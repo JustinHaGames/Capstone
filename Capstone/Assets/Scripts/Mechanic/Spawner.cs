@@ -95,7 +95,7 @@ public class Spawner : MonoBehaviour {
 
             if (horizontalTimer >= horizontaRandomNum)
             {
-                Instantiate(horizontalEnemy, new Vector3(transform.position.x, transform.position.y - 2f, -7f), Quaternion.identity);
+                Instantiate(horizontalEnemy, new Vector3(transform.position.x, transform.position.y - 3f, -7f), Quaternion.identity);
                 horizontalChosen = false;
                 horizontalTimer = 0;
             }

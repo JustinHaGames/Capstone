@@ -169,11 +169,24 @@ public class GameManager : MonoBehaviour
             boxPlaced = false;
         }
 
-        if (currentSpot == 3)
+        switch (currentSpot)
         {
-            fadeIn = false;
-            alphaNum += .5f * Time.deltaTime;
-            dreamStarted = true;
+            case 0:
+                break;
+            case 1:
+                alphaNum = .15f;
+                break;
+            case 2:
+                alphaNum = .3f;
+                break;
+            case 3:
+                alphaNum = .45f;
+                break;
+            case 4:
+                fadeIn = false;
+                alphaNum += .25f * Time.deltaTime;
+                dreamStarted = true;
+                break;
         }
 
         if (monarchCaught)
