@@ -30,6 +30,8 @@ public class RealityPlayerMovement : MonoBehaviour {
 
     bool inactive;
 
+    bool tape;
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
@@ -39,7 +41,12 @@ public class RealityPlayerMovement : MonoBehaviour {
 
         lastL = false;
         lastR = true;
-	}
+
+        if (GameManager.instance.sceneName == "TapeMeasure")
+        {
+            tape = true;
+        }
+    }
 
     private void Update()
     {
@@ -132,6 +139,11 @@ public class RealityPlayerMovement : MonoBehaviour {
             StartCoroutine(DayDream());
             spawnedDreamPlayer = true;
             inactive = true;
+        }
+
+        if (Input.GetButtonDown("Fire3"))
+        {
+
         }
 
         rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);

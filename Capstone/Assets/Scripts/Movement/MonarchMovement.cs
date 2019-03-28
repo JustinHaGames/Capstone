@@ -111,9 +111,8 @@ public class MonarchMovement : MonoBehaviour {
                 {
                     monarchLight.intensity = 8f;
                 }
-
             }
-		}
+        }
 	}
 
     private void OnCollisionEnter2D(Collision2D coll)

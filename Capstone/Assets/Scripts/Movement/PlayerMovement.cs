@@ -177,18 +177,6 @@ public class PlayerMovement : MonoBehaviour
         //    }
         //}
 
-        //Only do this in scene 4
-        if (GameManager.instance.sceneName == "BoxCloset")
-        {
-            if (GameManager.instance.targetHit > 7)
-            {
-                if (heldObject.tag == "SpecialBox")
-                {
-                    GameManager.instance.switchScene = true;
-                }
-            }
-        }
-
         //Only do this in scene 5
         //if (GameManager.instance.sceneName == "Dream2")
         //{
@@ -339,7 +327,7 @@ public class PlayerMovement : MonoBehaviour
         {
             GameObject shotHook = GameObject.FindWithTag("HookShot");
 
-            if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetButtonDown("Fire3")) && !shot)
+            if ((Input.GetButtonDown("Fire3")) && !shot)
             {
                 if (lastR)
                 {

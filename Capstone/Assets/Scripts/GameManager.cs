@@ -29,23 +29,11 @@ public class GameManager : MonoBehaviour
 
     public bool playFlying;
 
-    //only pertains to scene 4
+    //Assign a task before the fade-in with tutorial scenes
 
-    public bool playerImagining;
+   public bool taskRead;
 
-    public GameObject barrier;
-    bool barrierMade;
-
-    public GameObject greyBox;
-
-    public GameObject target;
-
-    public int targetHit;
-
-    float targetXPos;
-    float targetYPos;
-
-    //Only pertains to scene 5
+    //Only pertains to the box closet scene
 
     public bool specialBoxKilled;
 
@@ -63,6 +51,8 @@ public class GameManager : MonoBehaviour
     public bool boxPlaced;
 
     public bool monarchCaught;
+
+
 
     // Use this for initialization
     void Start()
@@ -93,7 +83,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -109,7 +99,23 @@ public class GameManager : MonoBehaviour
         //Always fade in to a new scene
         if (fadeIn && alphaNum > 0f)
         {
-            alphaNum -= .25f * Time.deltaTime;
+            if (sceneName == "BoxCloset" || sceneName == "TapeMeasure")
+            {
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    taskRead = true;
+                }
+
+                if (taskRead)
+                {
+                    alphaNum -= .25f * Time.deltaTime;
+                }
+            }
+            else
+            {
+                alphaNum -= .25f * Time.deltaTime;
+            }
+
         }
         else if (!fadeIn && alphaNum < 1f)
         {
