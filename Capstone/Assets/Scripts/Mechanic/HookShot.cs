@@ -9,7 +9,7 @@ public class HookShot : MonoBehaviour
     Vector3 vel;
 
     float dist;
-   // Vector2 angle;
+    // Vector2 angle;
 
     public float speed;
     public float length;
@@ -31,12 +31,6 @@ public class HookShot : MonoBehaviour
         float xInput = Input.GetAxis("Horizontal");
         float yInput = Input.GetAxis("Vertical");
 
-        //angle = Mathf.Atan2(xInput, yInput) * Mathf.Rad2Deg;
-        //Vector2 ang2vec= new Vector2(
-        // Mathf.Cos(angle*Mathf.Deg2Rad),
-        // Mathf.Sin(angle* Mathf.Deg2Rad),
-        //);
-
         if (xInput == 0 && yInput == 0)
         {
             vel = (transform.position - player.transform.position).normalized;
@@ -48,12 +42,13 @@ public class HookShot : MonoBehaviour
 
         sprite = GetComponent<SpriteRenderer>();
 
-        if(player.transform.position.x > transform.position.x)
+        if (player.transform.position.x > transform.position.x)
         {
             sprite.flipX = true;
-        } else if (player.transform.position.x < transform.position.x)
+        }
+        else if (player.transform.position.x < transform.position.x)
         {
-            sprite.flipX = false; 
+            sprite.flipX = false;
         }
 
         hookLine = GetComponent<LineRenderer>();
@@ -108,7 +103,7 @@ public class HookShot : MonoBehaviour
             player.GetComponent<PlayerMovement>().pull = true;
         }
 
-        if (coll.gameObject.tag == "BoxTop" || coll.gameObject.tag == "Floor" || coll.gameObject.tag == "Box") 
+        if (coll.gameObject.tag == "BoxTop" || coll.gameObject.tag == "Floor" || coll.gameObject.tag == "Box")
         {
             retract = true;
         }

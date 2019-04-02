@@ -91,14 +91,23 @@ public class RealityPlayerMovement : MonoBehaviour {
         if (xInput < 0) {
             if (!holdingBox)
             {
-                anim.Play("RealityPlayerWalk");
+                if (!inactive)
+                {
+                    anim.Play("RealityPlayerWalk");
+                }
             }
             else
             {
-                anim.Play("RealityPlayerBoxWalk");
+                if (!inactive)
+                {
+                    anim.Play("RealityPlayerBoxWalk");
+                }
             }
             vel.x -= accel;
-			sprite.flipX = true;
+            if (!inactive)
+            {
+                sprite.flipX = true;
+            }
             lastL = true;
             lastR = false;
 		}
@@ -107,14 +116,23 @@ public class RealityPlayerMovement : MonoBehaviour {
 		if (xInput > 0) {
             if (!holdingBox)
             {
-                anim.Play("RealityPlayerWalk");
+                if (!inactive)
+                {
+                    anim.Play("RealityPlayerWalk");
+                }
             }
             else
             {
-                anim.Play("RealityPlayerBoxWalk");
+                if (!inactive)
+                {
+                    anim.Play("RealityPlayerBoxWalk");
+                }
             }
             vel.x += accel;
-			sprite.flipX = false;
+            if (!inactive)
+            {
+                sprite.flipX = false;
+            }
             lastL = false;
             lastR = true;
 		}
@@ -141,19 +159,11 @@ public class RealityPlayerMovement : MonoBehaviour {
             inactive = true;
         }
 
-        if (Input.GetButtonDown("Fire3"))
+        if (!inactive)
         {
-
+            rb.MovePosition((Vector2)transform.position + vel * Time.deltaTime);
         }
-
-        rb.MovePosition ((Vector2)transform.position + vel * Time.deltaTime);
-
 	}
-
-    private void OnCollisionEnter2D(Collision2D coll)
-    {
-   
-    }
 
     private void OnTriggerStay2D(Collider2D coll)
     {

@@ -65,5 +65,10 @@ PrefabInstance:
       propertyPath: boxBoost
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114930787554727444, guid: 9dfcfc2392df940a3a578588d8a3cc82,
+        type: 3}
+      propertyPath: pullSpeed
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dfcfc2392df940a3a578588d8a3cc82, type: 3}

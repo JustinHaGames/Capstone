@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
 
     public bool monarchCaught;
 
-
+    public int retractLimit;
 
     // Use this for initialization
     void Start()
@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
         sceneID = SceneManager.GetActiveScene().buildIndex;
         sceneName = SceneManager.GetActiveScene().name;
 
-        if (sceneName == "Dream3")
+        if (sceneName == "Dream3" || sceneName == "TapeMeasure")
         {
             hookshotUnlocked = true;
         }
@@ -194,7 +194,7 @@ public class GameManager : MonoBehaviour
                 dreamStarted = true;
                 break;
         }
-
+        
         if (monarchCaught)
         {
             boxPlaced = true;

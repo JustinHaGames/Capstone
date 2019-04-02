@@ -45,8 +45,6 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask blockMask;
 
     //Knockback variables
-    bool knockedBack;
-    public float knockbackSpeed;
     bool inactive;
 
     //Walljump layermask
@@ -97,6 +95,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        //Set the proper boosts for each scene
         if (GameManager.instance.sceneName == "BoxCloset")
         {
             boxBoost = 15f;
@@ -104,6 +103,17 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             boxBoost = 25f;
+        }
+
+        if (GameManager.instance.sceneName == "TapeMeasure")
+        {
+            boxBoost = 15f;
+            pullSpeed = 15f;
+        }
+        else
+        {
+            boxBoost = 25f;
+            pullSpeed = 20f;
         }
 
         if (canJump || swim)
@@ -439,9 +449,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                StartCoroutine(KnockedBack());
-                vel.x = (collidedObject.transform.position.x >= transform.position.x) ? vel.x - knockbackSpeed : vel.x + knockbackSpeed;
-                vel.y = 3f;
+               
             }
         }
 
@@ -537,18 +545,6 @@ public class PlayerMovement : MonoBehaviour
     public void Retracted()
     {
         shot = false;
-    }
-
-    IEnumerator KnockedBack()
-    {
-        inactive = true;
-        for (int f = 0; f < 15; f++)
-        {
-            maxAccel = knockbackSpeed;
-            yield return new WaitForFixedUpdate();
-        }
-        maxAccel = 6f;
-        inactive = false;
     }
 
 }

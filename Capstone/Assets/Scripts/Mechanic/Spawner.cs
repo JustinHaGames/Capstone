@@ -101,5 +101,26 @@ public class Spawner : MonoBehaviour {
             }
 
         }
+
+        if (GameManager.instance.sceneName == "TapeMeasure")
+        {
+            if (GameManager.instance.currentSpot >= 3)
+            {
+                horizontalTimer += 1 * Time.deltaTime;
+            }
+
+            if (!horizontalChosen)
+            {
+                horizontaRandomNum = Random.Range(10, 20);
+                horizontalChosen = true;
+            }
+
+            if (horizontalTimer >= horizontaRandomNum)
+            {
+                Instantiate(horizontalEnemy, new Vector3(transform.position.x, transform.position.y - 2f, -7f), Quaternion.identity);
+                horizontalChosen = false;
+                horizontalTimer = 0;
+            }
+        }
     }
 }

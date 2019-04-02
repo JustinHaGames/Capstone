@@ -23,6 +23,7 @@ TagManager:
   - Shelf
   - Monarch
   - GreyBox
+  - TapeMeasure
   layers:
   - Default
   - TransparentFX
