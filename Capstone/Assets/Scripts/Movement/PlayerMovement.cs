@@ -508,6 +508,12 @@ public class PlayerMovement : MonoBehaviour
             slideVel = 0;
             swim = true;
         }
+
+        if (coll.gameObject.tag == "SpecialCobweb")
+        {
+            Destroy(coll.gameObject);
+        }
+
     }
 
     void OnTriggerStay2D(Collider2D coll)

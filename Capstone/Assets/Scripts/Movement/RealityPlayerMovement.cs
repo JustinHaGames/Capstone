@@ -32,6 +32,8 @@ public class RealityPlayerMovement : MonoBehaviour {
 
     bool tape;
 
+    bool monarchSpawned;
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
@@ -50,11 +52,21 @@ public class RealityPlayerMovement : MonoBehaviour {
 
     private void Update()
     {
+
+        if (!GameManager.instance.taskRead)
+        {
+            inactive = true;
+        }
+        else
+        {
+            inactive = false;
+        }
+
         //Pickup objects
         if (Input.GetButtonDown("Fire1") && !inactive)
         {
             //Box kicking test
-            if (heldObject == null)
+            if (heldObject == null && GameManager.instance.sceneName == "BoxCloset")
             {
                 if (lastR)
                 {
@@ -159,6 +171,15 @@ public class RealityPlayerMovement : MonoBehaviour {
             inactive = true;
         }
 
+        if (!monarchSpawned && GameManager.instance.sceneName == "Cobweb")
+        {
+            if (GameObject.FindWithTag("SpecialCobweb") == null)
+            {
+                Instantiate(monarch, new Vector3(0, 4f, -7f), Quaternion.identity);
+                monarchSpawned = true;
+            }
+        }
+
         if (!inactive)
         {
             rb.MovePosition((Vector2)transform.position + vel * Time.deltaTime);
@@ -176,15 +197,29 @@ public class RealityPlayerMovement : MonoBehaviour {
                 holdingBox = false;
             }
         }
+
+        if (coll.gameObject.tag == "Cobweb")
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                GameManager.instance.currentSpot += 1;
+                Destroy(coll.gameObject);
+            }
+        }
     }
 
     IEnumerator DayDream()
     {
-        for (int i = 0; i < 75; i++)
+        for (int i = 0; i < 125; i++)
         {
             yield return new WaitForFixedUpdate();
         }
+
         Instantiate(dreamPlayer, new Vector3(0, 0, -7f), Quaternion.identity);
-        Instantiate(monarch, new Vector3(0, 6f, -7f), Quaternion.identity);
+
+        if (GameManager.instance.sceneName != "Cobweb")
+        {
+            Instantiate(monarch, new Vector3(0, 6f, -7f), Quaternion.identity);
+        }
     }
 }

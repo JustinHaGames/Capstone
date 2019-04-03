@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1815234797}
   - component: {fileID: 3450835623630937315}
   - component: {fileID: 1815234796}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: StandingPlayer
   m_TagString: RealityPlayer
   m_Icon: {fileID: 0}
@@ -142,10 +142,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92140f54080e84934bef51edb86355c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accel: 0.3
-  maxAccel: 2.5
+  accel: 2
+  maxAccel: 3
   dreamPlayer: {fileID: 1474913426420956, guid: 9dfcfc2392df940a3a578588d8a3cc82,
     type: 3}
+  monarch: {fileID: 1291110502349556, guid: f166ab1aba3394eefb5770289fa84f5f, type: 3}
+  blockMask:
+    serializedVersion: 2
+    m_Bits: 16384
+  heldObject: {fileID: 0}
 --- !u!95 &1815234796
 Animator:
   serializedVersion: 3
@@ -156,7 +161,7 @@ Animator:
   m_GameObject: {fileID: 1219832569551702}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0c607a2bd8f124699925809cd81ec686, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -80,6 +80,11 @@ public class GameManager : MonoBehaviour
             wallJumpUnlocked = true;
         }
 
+        if (sceneName == "Cobweb")
+        {
+            wallJumpUnlocked = true;
+        }
+
     }
 
     // Update is called once per frame
@@ -99,7 +104,7 @@ public class GameManager : MonoBehaviour
         //Always fade in to a new scene
         if (fadeIn && alphaNum > 0f)
         {
-            if (sceneName == "BoxCloset" || sceneName == "TapeMeasure")
+            if (sceneName == "BoxCloset" || sceneName == "TapeMeasure" || sceneName == "Cobweb")
             {
                 if (Input.GetButtonDown("Fire1"))
                 {

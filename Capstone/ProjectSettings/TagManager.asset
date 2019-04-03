@@ -24,6 +24,8 @@ TagManager:
   - Monarch
   - GreyBox
   - TapeMeasure
+  - Cobweb
+  - SpecialCobweb
   layers:
   - Default
   - TransparentFX
