@@ -103,23 +103,24 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Set the proper boosts for each scene
+
+        if (GameManager.instance.sceneName == "Dream2" || GameManager.instance.sceneName == "Dream3" || GameManager.instance.sceneName == "Dream4")
+        {
+            boxBoost = 25f;
+        }
+
         if (GameManager.instance.sceneName == "BoxCloset")
         {
             boxBoost = 15f;
-        }
-        else
-        {
-            boxBoost = 25f;
         }
 
         if (GameManager.instance.sceneName == "TapeMeasure")
         {
             boxBoost = 15f;
-            pullSpeed = 15f;
+            pullSpeed = 17f;
         }
         else
         {
-            boxBoost = 25f;
             pullSpeed = 20f;
         }
 
@@ -352,7 +353,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (!onWall && !grounded)
             {
-                wallJumpTimer = 1.25f;
+                wallJumpTimer = 1.15f;
             }
         }
 
@@ -364,7 +365,7 @@ public class PlayerMovement : MonoBehaviour
         {
             GameObject shotHook = GameObject.FindWithTag("HookShot");
 
-            if ((Input.GetButtonDown("Fire3")) && !shot)
+            if ((Input.GetButtonDown("Fire2")) && !shot)
             {
                 if (lastR)
                 {

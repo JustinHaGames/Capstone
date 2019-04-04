@@ -11,7 +11,9 @@ public class RealityPlayerMovement : MonoBehaviour {
 
     Animator anim;
 
-	public float accel;
+    public Sprite colorRealityPlayer;
+
+    public float accel;
 	public float maxAccel;
 
     public GameObject dreamPlayer;
@@ -48,18 +50,27 @@ public class RealityPlayerMovement : MonoBehaviour {
         {
             tape = true;
         }
+
     }
 
     private void Update()
     {
 
-        if (!GameManager.instance.taskRead)
+        if (GameManager.instance.sceneName == "Inspiration")
         {
-            inactive = true;
+            sprite.sprite = colorRealityPlayer;
         }
-        else
+
+        if (GameManager.instance.sceneName != "Inspiration")
         {
-            inactive = false;
+            if (!GameManager.instance.taskRead)
+            {
+                inactive = true;
+            }
+            else if (GameManager.instance.taskRead && !GameManager.instance.dreamStarted)
+            {
+                inactive = false;
+            }
         }
 
         //Pickup objects

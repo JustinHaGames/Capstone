@@ -13,9 +13,10 @@ public class BedScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		if (player.transform.position.x <= -6.5f) {
 			Instantiate (inBed, transform.position, Quaternion.identity);
+            GameManager.instance.switchScene = true;
 			Destroy (gameObject);
 		}
 	}
