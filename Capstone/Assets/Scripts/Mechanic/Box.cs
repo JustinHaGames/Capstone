@@ -219,16 +219,12 @@ public class Box : MonoBehaviour {
     //	thrown = true; 
     //}
 
-    //public void RightDiagonal (){
-    //	transform.parent = null;
-    //	rb.isKinematic = false;
-    //	vel.y = upThrowVel; 
-    //	vel.x = throwVel;
-    //	lastL = false;
-    //	lastR = false; 
-    //	held = false; 
-    //	thrown = true; 
-    //}
+    public void PopUp (){
+    	transform.parent = null;
+    	rb.isKinematic = false;
+    	vel.y = upThrowVel; 
+    	vel.x = throwVel;
+    }
 
     //public void LeftDiagonal () {
     //	transform.parent = null;

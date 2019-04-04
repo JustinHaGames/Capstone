@@ -155,7 +155,6 @@ MonoBehaviour:
   blockMask:
     serializedVersion: 2
     m_Bits: 16384
-  knockbackSpeed: 25
   wallMask:
     serializedVersion: 2
     m_Bits: 65536
@@ -167,6 +166,8 @@ MonoBehaviour:
     type: 3}
   pullSpeed: 20
   pull: 0
+  latchedBoxes: []
+  mashLimit: 6
 --- !u!95 &95109508893084588
 Animator:
   serializedVersion: 3

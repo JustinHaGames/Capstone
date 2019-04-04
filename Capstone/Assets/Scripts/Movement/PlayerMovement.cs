@@ -63,6 +63,13 @@ public class PlayerMovement : MonoBehaviour
 
     float wallJumpTimer;
 
+    //Code for mashing out of latche boxes
+    public List<GameObject> latchedBoxes = new List<GameObject>();
+
+    public int mashLimit;
+    int mashNumber;
+    int numberMashed;
+
     // Use this for initialization
     void Start()
     {
@@ -259,6 +266,26 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Jump and check if the button is still being held to vary jumps
+
+        if (mashNumber > 0)
+        {
+            canJump = false;
+
+            if (Input.GetButtonDown("Fire1"))
+            {
+                numberMashed += 1;
+            }
+
+            if (numberMashed >= mashLimit && latchedBoxes[0] != null)
+            {
+                latchedBoxes[0].SendMessage("BrokeFree", SendMessageOptions.DontRequireReceiver);
+                latchedBoxes.RemoveAt(0);
+                latchedBoxes.TrimExcess();
+                mashNumber -= numberMashed;
+                numberMashed = 0;
+            }
+        }
+
         if (jump)
         {
             anim.Play("Jump");
@@ -449,7 +476,9 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-               
+                collidedObject.SendMessage("Latch", SendMessageOptions.DontRequireReceiver);
+                latchedBoxes.Add(collidedObject);
+                mashNumber += mashLimit;
             }
         }
 

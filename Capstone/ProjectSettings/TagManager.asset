@@ -26,6 +26,7 @@ TagManager:
   - TapeMeasure
   - Cobweb
   - SpecialCobweb
+  - Latch
   layers:
   - Default
   - TransparentFX
@@ -50,7 +51,7 @@ TagManager:
   - HookShot
   - RealityPlayer
   - Monarch
-  - 
+  - Latch
   - 
   - 
   - 

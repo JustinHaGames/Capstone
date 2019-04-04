@@ -17,11 +17,23 @@ public class HorizontalEnemyMovement : MonoBehaviour
 
     Vector3 vel;
 
+    BoxCollider2D hitBox;
+
+    bool latch;
+
+    float randomPos;
+
+    GameObject specialSpawn;
+
     // Use this for initialization
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
+        hitBox = GetComponent<BoxCollider2D>();
+        player = GameObject.FindGameObjectWithTag("Player");
+
+        randomPos = Random.Range(-.5f, .5f);
     }
 
     // Update is called once per frame
@@ -35,7 +47,18 @@ public class HorizontalEnemyMovement : MonoBehaviour
             Destroy(gameObject);
         }
 
-        rb.MovePosition(transform.position + vel * Time.deltaTime);
+        if (latch)
+        {
+            rb.isKinematic = true;
+            gameObject.layer = 23;
+            gameObject.tag = "Latch";
+            transform.position = new Vector3(player.transform.position.x + randomPos, player.transform.position.y + randomPos, player.transform.position.z + randomPos);
+        }
+
+        if (!latch)
+        {
+            rb.MovePosition(transform.position + vel * Time.deltaTime);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D coll)
@@ -51,6 +74,18 @@ public class HorizontalEnemyMovement : MonoBehaviour
     public void Dead()
     {
         Instantiate(box, transform.position, Quaternion.identity);
+        Destroy(gameObject);
+    }
+
+    public void Latch()
+    {
+        latch = true;
+    }
+
+    public void BrokeFree()
+    {
+        specialSpawn = Instantiate(box, transform.position, Quaternion.identity);
+        specialSpawn.SendMessage("PopUp", SendMessageOptions.DontRequireReceiver);
         Destroy(gameObject);
     }
 }

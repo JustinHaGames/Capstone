@@ -216,7 +216,6 @@ public class RealityPlayerMovement : MonoBehaviour {
         }
 
         Instantiate(dreamPlayer, new Vector3(0, 0, -7f), Quaternion.identity);
-
         if (GameManager.instance.sceneName != "Cobweb")
         {
             Instantiate(monarch, new Vector3(0, 6f, -7f), Quaternion.identity);
