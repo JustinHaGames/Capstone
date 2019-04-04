@@ -44,11 +44,7 @@ public class InspirationPlayerMovement : MonoBehaviour
             StartCoroutine(Transformation());
         }
 
-        if (GameManager.instance.sceneName == "GoingToSleep")
-        {
-            leave = true;
-            transformed = true;
-        }
+
 
     }
 
@@ -60,6 +56,13 @@ public class InspirationPlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
+        if (GameManager.instance.sceneName == "GoingToSleep")
+        {
+            inactive = false;
+            leave = true;
+            transformed = true;
+        }
 
         float xInput = Input.GetAxis("Horizontal");
 

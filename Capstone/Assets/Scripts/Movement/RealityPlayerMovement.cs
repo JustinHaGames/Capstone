@@ -36,6 +36,9 @@ public class RealityPlayerMovement : MonoBehaviour {
 
     bool monarchSpawned;
 
+    public GameObject buttonA;
+    public GameObject buttonX;
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
@@ -70,6 +73,15 @@ public class RealityPlayerMovement : MonoBehaviour {
             else if (GameManager.instance.taskRead && !GameManager.instance.dreamStarted)
             {
                 inactive = false;
+            }
+        }
+
+        //Start of tutorial button code
+        if (GameManager.instance.sceneName == "BoxCloset" && !GameManager.instance.dreamStarted)
+        {
+            if (transform.position.x >= 4.8f || transform.position.x <= - 3.2f && heldObject != null)
+            {
+
             }
         }
 
