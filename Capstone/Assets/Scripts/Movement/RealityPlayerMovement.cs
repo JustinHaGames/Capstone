@@ -44,7 +44,11 @@ public class RealityPlayerMovement : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D>();
 		sprite = GetComponent<SpriteRenderer> ();
         anim = GetComponent<Animator>();
-		sprite.flipX = true;
+
+        if (GameManager.instance.sceneName != "Weekend")
+        {
+            sprite.flipX = true;
+        }
 
         lastL = false;
         lastR = true;
@@ -126,14 +130,17 @@ public class RealityPlayerMovement : MonoBehaviour {
         if (xInput < 0) {
             if (!holdingBox)
             {
-                if (!inactive)
+                if (!inactive && GameManager.instance.sceneName != "Weekend")
                 {
                     anim.Play("RealityPlayerWalk");
+                } else if (!inactive && GameManager.instance.sceneName == "Weekend")
+                {
+                    anim.Play("CasualWalk");
                 }
             }
             else
             {
-                if (!inactive)
+                if (!inactive && GameManager.instance.sceneName != "Weekend")
                 {
                     anim.Play("RealityPlayerBoxWalk");
                 }
@@ -151,14 +158,17 @@ public class RealityPlayerMovement : MonoBehaviour {
 		if (xInput > 0) {
             if (!holdingBox)
             {
-                if (!inactive)
+                if (!inactive && GameManager.instance.sceneName != "Weekend")
                 {
                     anim.Play("RealityPlayerWalk");
+                } else if (!inactive && GameManager.instance.sceneName == "Weekend")
+                {
+                    anim.Play("CasualWalk");
                 }
             }
             else
             {
-                if (!inactive)
+                if (!inactive && GameManager.instance.sceneName != "Weekend")
                 {
                     anim.Play("RealityPlayerBoxWalk");
                 }
@@ -177,12 +187,15 @@ public class RealityPlayerMovement : MonoBehaviour {
         //If you don't move right or left, then don't move
         if (Mathf.Abs(xInput) < 0.1f)
         {
-            if (!holdingBox)
+            if (!holdingBox && GameManager.instance.sceneName != "Weekend")
             {
                 anim.Play("RealityPlayerIdle");
-            } else
+            } else if (holdingBox && GameManager.instance.sceneName != "Weekend")
             {
                 anim.Play("RealityPlayerBoxIdle");
+            } else if (GameManager.instance.sceneName == "Weekend")
+            {
+                anim.Play("CasualIdle");
             }
             vel.x = 0;
         }

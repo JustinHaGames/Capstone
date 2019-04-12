@@ -30,9 +30,9 @@ public class InspirationManager : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
-		if (Input.GetKeyDown (KeyCode.Space)) {
+		if (Input.GetButtonDown("Fire1")) {
 			activateScene = true; 
 		}
 

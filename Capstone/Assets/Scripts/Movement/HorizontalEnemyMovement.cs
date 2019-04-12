@@ -11,13 +11,9 @@ public class HorizontalEnemyMovement : MonoBehaviour
 
     public float speed;
 
-    SpriteRenderer sprite;
-
     public float direction;
 
     Vector3 vel;
-
-    BoxCollider2D hitBox;
 
     bool latch;
 
@@ -29,8 +25,6 @@ public class HorizontalEnemyMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        sprite = GetComponent<SpriteRenderer>();
-        hitBox = GetComponent<BoxCollider2D>();
         player = GameObject.FindGameObjectWithTag("Player");
 
         randomPos = Random.Range(-.5f, .5f);

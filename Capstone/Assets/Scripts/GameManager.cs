@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
         //Always fade in to a new scene
         if (fadeIn && alphaNum > 0f)
         {
-            if (sceneName == "BoxCloset" || sceneName == "TapeMeasure" || sceneName == "Cobweb")
+            if (sceneName == "BoxCloset" || sceneName == "TapeMeasure" || sceneName == "Cobweb" || sceneName == "Weekend")
             {
                 if (Input.GetButtonDown("Fire1"))
                 {
