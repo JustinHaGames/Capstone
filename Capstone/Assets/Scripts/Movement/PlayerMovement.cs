@@ -262,6 +262,9 @@ public class PlayerMovement : MonoBehaviour
             if (grounded)
             {
                 anim.Play("Idle");
+            } else
+            {
+                anim.Play("Jump");
             }
             vel.x = 0;
         }

@@ -1254,7 +1254,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Task: Put boxes on the shelf.'
+  m_Text: 'Wednesday
+
+
+    Put boxes on the shelf.'
 --- !u!222 &1232516518
 CanvasRenderer:
   m_ObjectHideFlags: 0

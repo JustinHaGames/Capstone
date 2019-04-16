@@ -1576,7 +1576,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Task: Measure the closet.'
+  m_Text: 'Thursday
+
+
+    Measure the closet'
 --- !u!222 &1611143384
 CanvasRenderer:
   m_ObjectHideFlags: 0

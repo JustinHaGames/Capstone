@@ -40,6 +40,10 @@ public class TaskManager : MonoBehaviour
             txt.text += c;
             SFX.pitch = Random.Range(0.975f, 1.2f);
             SFX.PlayOneShot(SFX.clip,1);
+            if (txt.text.Length == story.Length)
+            {
+                GameManager.instance.readText = true;
+            }
             yield return new WaitForSeconds(0.125f);
         }
     }

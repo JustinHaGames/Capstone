@@ -41,6 +41,9 @@ public class Box : MonoBehaviour {
 
 	GameObject boxPusher;
 
+    bool boxTouched;
+    bool parented;
+
 	//Only applicable in 4th scene
 	bool safe;
 
@@ -140,6 +143,7 @@ public class Box : MonoBehaviour {
 				grounded = false;
 			} else {
 				transform.parent = this.transform;
+                parented = true;
 			}
 		}
 
@@ -156,29 +160,23 @@ public class Box : MonoBehaviour {
 
     }
 
-	void OnCollisionEnter2D(Collision2D coll){
-		if (lastL || lastR) {
-			if (coll.gameObject.tag == "Box") {
-				lastL = false; 
-				lastR = false; 
-				vel.x = 0; 
-			}
-			if (coll.gameObject.tag == "Wall") {
-				lastL = false; 
-				lastR = false; 
-				vel.x = 0; 
-			}
-		}
-			
-			if (coll.gameObject.tag == "Enemy") {
-				if (thrown) {
-					GameObject collidedObject = coll.collider.gameObject;
-					collidedObject.SendMessage ("Dead", SendMessageOptions.DontRequireReceiver);
-				}
-			}
-	}
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.tag == "Box")
+        {
+            if (!parented)
+            {
+                transform.parent = coll.transform.parent;
+                if (grounded)
+                {
+                    parented = true;
+                    rb.isKinematic = true;
+                }
+            }
+        }
+    }
 
-	public void PickUp() {
+    public void PickUp() {
 		rb.isKinematic = true; 
 		transform.position =  new Vector3(realityPlayer.transform.position.x, realityPlayer.transform.position.y + .5f, realityPlayer.transform.position.z - 1f ); 
 		transform.parent = realityPlayer.transform;

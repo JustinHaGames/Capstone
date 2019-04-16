@@ -54,14 +54,18 @@ public class GameManager : MonoBehaviour
 
     public int retractLimit;
 
+    public bool readText;
+
     // Use this for initialization
     void Start()
     {
         Cursor.visible = false;
 
+        Time.timeScale = 1;
         alphaNum = 1f;
         fadeIn = true;
         instance = this;
+        readText = false;
 
         audio = GetComponent<AudioSource>();
 
@@ -106,7 +110,7 @@ public class GameManager : MonoBehaviour
         {
             if (sceneName == "BoxCloset" || sceneName == "TapeMeasure" || sceneName == "Cobweb" || sceneName == "Weekend")
             {
-                if (Input.GetButtonDown("Fire1"))
+                if (Input.GetButtonDown("Fire1") && readText)
                 {
                     taskRead = true;
                 }

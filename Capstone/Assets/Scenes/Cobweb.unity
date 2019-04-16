@@ -1732,7 +1732,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Task: Get rid of the cobwebs.'
+  m_Text: 'Friday
+
+
+    Get rid of the cobwebs'
 --- !u!222 &1611143384
 CanvasRenderer:
   m_ObjectHideFlags: 0

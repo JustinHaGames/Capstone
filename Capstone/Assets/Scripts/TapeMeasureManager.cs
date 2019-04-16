@@ -30,12 +30,12 @@ public class TapeMeasureManager : MonoBehaviour
 
         tapeMeasureTip = GameObject.FindWithTag("TapeMeasure");
 
-        if (RealityPlayer.transform.position.x <= -7f && Input.GetButtonDown("Fire2"))
+        if (RealityPlayer.transform.position.x <= -7f && Input.GetButtonDown("Fire2") && tapeMeasureTip == null)
         {
             Instantiate(tapeMeasure, new Vector3(-7.85f, RealityPlayer.transform.position.y, transform.position.z), Quaternion.identity);
         }
 
-        if (RealityPlayer.transform.position.x >= 7f && Input.GetButtonDown("Fire2"))
+        if (RealityPlayer.transform.position.x >= 7f && Input.GetButtonDown("Fire2") && tapeMeasureTip == null)
         {
             Instantiate(tapeMeasure, new Vector3(7.85f, RealityPlayer.transform.position.y, transform.position.z), Quaternion.identity);
         }
