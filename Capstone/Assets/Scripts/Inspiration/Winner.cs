@@ -14,13 +14,16 @@ public class Winner : MonoBehaviour {
 	bool moving;
 
 	float timer;
+
+    Animator anim;
 	// Use this for initialization
 	void Start () {
 		sprite = GetComponent<SpriteRenderer> ();
+        anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
 		if (InspirationManager.gotTrophy == true && !moving){
 			timer += Time.deltaTime;
@@ -34,6 +37,7 @@ public class Winner : MonoBehaviour {
 		if (walkRight) {
 			transform.Translate (Vector3.right * 2f * Time.deltaTime);
 			sprite.flipX = false;
+            anim.Play("WinnerWalk");
 			if (transform.position.x >= 10f) {
 				transform.position = new Vector3 (transform.position.x,-3.41f,transform.position.z);
 				walkLeft = true;
@@ -44,10 +48,16 @@ public class Winner : MonoBehaviour {
 		if (walkLeft) {
 			transform.Translate (Vector3.left * 2f * Time.deltaTime);
 			sprite.flipX = true;
+            anim.Play("WinnerWalk");
 			if (transform.position.x <= 2f) {
 				InspirationManager.moveCrowd = true;
 				walkLeft = false;
 			}
 		}
+
+        if (!walkLeft && !walkRight)
+        {
+            anim.Play("WinnerIdle");
+        }
 	}
 }

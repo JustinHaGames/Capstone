@@ -117,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
         if (GameManager.instance.sceneName == "TapeMeasure")
         {
             boxBoost = 15f;
-            pullSpeed = 17f;
+            pullSpeed = 18f;
         }
         else
         {
@@ -356,7 +356,7 @@ public class PlayerMovement : MonoBehaviour
 
             if (!onWall && !grounded)
             {
-                wallJumpTimer = 1.15f;
+                wallJumpTimer = 1f;
             }
         }
 

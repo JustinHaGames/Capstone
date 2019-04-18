@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/Cafe.unity
-    guid: 2af30b23c6e4a44c6aac6be4caf14f61
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/Scenes/WallJump.unity
-    guid: a75dec42991564381b680cc42944c1b9
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/Inspiration.unity
     guid: 18ac6eca840d44cc482f99857d7a57a6
@@ -41,6 +41,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Dream4.unity
     guid: 363e5be9eae204faab46b91e4af352fe
+  - enabled: 1
+    path: Assets/Scenes/Weekend.unity
+    guid: 4424691cc6cc44c6398a76f28d23d05a
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000

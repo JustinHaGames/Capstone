@@ -111,7 +111,7 @@ public class Spawner : MonoBehaviour {
 
             if (!horizontalChosen)
             {
-                horizontaRandomNum = Random.Range(10, 20);
+                horizontaRandomNum = Random.Range(5, 15);
                 horizontalChosen = true;
             }
 
