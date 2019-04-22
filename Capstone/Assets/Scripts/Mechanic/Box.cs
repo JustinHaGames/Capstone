@@ -141,10 +141,11 @@ public class Box : MonoBehaviour {
 			if (!held) {
 				transform.parent = boxPusher.transform;
 				grounded = false;
-			} else {
-				transform.parent = this.transform;
-                parented = true;
-			}
+			} 
+   //         else {
+			//	transform.parent = this.transform;
+   //             parented = true;
+			//}
 		}
 
         if (gameObject.tag == "GreyBox" && GameObject.FindWithTag("Monarch") != null)

@@ -27,6 +27,7 @@ TagManager:
   - Cobweb
   - SpecialCobweb
   - Latch
+  - CasualWinner
   layers:
   - Default
   - TransparentFX
@@ -52,7 +53,7 @@ TagManager:
   - RealityPlayer
   - Monarch
   - Latch
-  - 
+  - CasualWinner
   - 
   - 
   - 

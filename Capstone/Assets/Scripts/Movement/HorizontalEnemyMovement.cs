@@ -60,15 +60,16 @@ public class HorizontalEnemyMovement : MonoBehaviour
 
         if (coll.gameObject.tag == "BoxPusher" || coll.gameObject.tag == "BoxTop" || coll.gameObject.tag == "Box")
         {
-            Dead();
+            StartCoroutine(Dead());
         }
 
     }
 
-    public void Dead()
+    IEnumerator Dead()
     {
         Instantiate(box, transform.position, Quaternion.identity);
         Destroy(gameObject);
+        yield return null;
     }
 
     public void Latch()

@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
 
     float wallJumpTimer;
 
-    //Code for mashing out of latche boxes
+    //Code for mashing out of latched boxes
     public List<GameObject> latchedBoxes = new List<GameObject>();
 
     public int mashLimit;
@@ -117,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
         if (GameManager.instance.sceneName == "TapeMeasure")
         {
             boxBoost = 15f;
-            pullSpeed = 18f;
+            pullSpeed = 20f;
         }
         else
         {
@@ -275,7 +275,7 @@ public class PlayerMovement : MonoBehaviour
         {
             canJump = false;
 
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2"))
             {
                 numberMashed += 1;
             }
@@ -337,7 +337,7 @@ public class PlayerMovement : MonoBehaviour
         //Walljump code
         if (GameManager.instance.wallJumpUnlocked)
         {
-            if (onWall)
+            if (onWall && mashNumber <= 0)
             {
                 slideVel += gravity * wallFriction;
                 vel.y = slideVel;
@@ -368,7 +368,7 @@ public class PlayerMovement : MonoBehaviour
         {
             GameObject shotHook = GameObject.FindWithTag("HookShot");
 
-            if ((Input.GetButtonDown("Fire2")) && !shot)
+            if ((Input.GetButtonDown("Fire2")) && !shot && mashNumber <= 0)
             {
                 if (lastR)
                 {

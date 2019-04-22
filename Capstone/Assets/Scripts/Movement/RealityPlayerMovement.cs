@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RealityPlayerMovement : MonoBehaviour {
+public class RealityPlayerMovement : MonoBehaviour
+{
 
-	Vector2 vel; 
+    Vector2 vel;
 
-	Rigidbody2D rb; 
-	SpriteRenderer sprite;
+    Rigidbody2D rb;
+    SpriteRenderer sprite;
 
     Animator anim;
 
     public Sprite colorRealityPlayer;
 
     public float accel;
-	public float maxAccel;
+    public float maxAccel;
 
     public GameObject dreamPlayer;
     public GameObject monarch;
@@ -32,17 +33,22 @@ public class RealityPlayerMovement : MonoBehaviour {
 
     bool inactive;
 
-    bool tape;
-
     bool monarchSpawned;
+
+    bool waitingCasualWinner;
+    bool watchingCasualWinner;
+    bool casualWinnerGone;
+
+    GameObject casualWinner;
 
     public GameObject buttonA;
     public GameObject buttonX;
 
-	// Use this for initialization
-	void Start () {
-		rb = GetComponent<Rigidbody2D>();
-		sprite = GetComponent<SpriteRenderer> ();
+    // Use this for initialization
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
 
         if (GameManager.instance.sceneName != "Weekend")
@@ -52,11 +58,6 @@ public class RealityPlayerMovement : MonoBehaviour {
 
         lastL = false;
         lastR = true;
-
-        if (GameManager.instance.sceneName == "TapeMeasure")
-        {
-            tape = true;
-        }
 
     }
 
@@ -68,7 +69,7 @@ public class RealityPlayerMovement : MonoBehaviour {
             sprite.sprite = colorRealityPlayer;
         }
 
-        if (GameManager.instance.sceneName != "Inspiration")
+        if (GameManager.instance.sceneName != "Inspiration" && GameManager.instance.sceneName != "Weekend")
         {
             if (!GameManager.instance.taskRead)
             {
@@ -78,12 +79,24 @@ public class RealityPlayerMovement : MonoBehaviour {
             {
                 inactive = false;
             }
+
+        }
+
+        if (GameManager.instance.sceneName == "Weekend")
+        {
+            if (!GameManager.instance.taskRead)
+            {
+                inactive = true;
+            } else if (GameManager.instance.taskRead && !waitingCasualWinner && !watchingCasualWinner && !casualWinnerGone)
+            {
+                inactive = false;
+            }
         }
 
         //Start of tutorial button code
         if (GameManager.instance.sceneName == "BoxCloset" && !GameManager.instance.dreamStarted)
         {
-            if (transform.position.x >= 4.8f || transform.position.x <= - 3.2f && heldObject != null)
+            if (transform.position.x >= 4.8f || transform.position.x <= -3.2f && heldObject != null)
             {
 
             }
@@ -112,7 +125,8 @@ public class RealityPlayerMovement : MonoBehaviour {
             }
         }
 
-        if (heldObject != null){
+        if (heldObject != null)
+        {
             holdingBox = true;
         }
         else
@@ -122,84 +136,87 @@ public class RealityPlayerMovement : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void FixedUpdate () {
-    
+    void FixedUpdate()
+    {
+
         float xInput = Input.GetAxis("Horizontal");
 
         //Move Left
-        if (xInput < 0) {
+        if (xInput < 0 && !inactive)
+        {
             if (!holdingBox)
             {
-                if (!inactive && GameManager.instance.sceneName != "Weekend")
+                if (GameManager.instance.sceneName != "Weekend")
                 {
                     anim.Play("RealityPlayerWalk");
-                } else if (!inactive && GameManager.instance.sceneName == "Weekend")
+                }
+                else if ( GameManager.instance.sceneName == "Weekend")
                 {
                     anim.Play("CasualWalk");
                 }
             }
             else
             {
-                if (!inactive && GameManager.instance.sceneName != "Weekend")
+                if (GameManager.instance.sceneName != "Weekend")
                 {
                     anim.Play("RealityPlayerBoxWalk");
                 }
             }
             vel.x -= accel;
-            if (!inactive)
-            {
-                sprite.flipX = true;
-            }
+            sprite.flipX = true;
             lastL = true;
             lastR = false;
-		}
+        }
 
         //Move Right
-		if (xInput > 0) {
+        if (xInput > 0 && !inactive)
+        {
             if (!holdingBox)
             {
-                if (!inactive && GameManager.instance.sceneName != "Weekend")
+                if (GameManager.instance.sceneName != "Weekend")
                 {
                     anim.Play("RealityPlayerWalk");
-                } else if (!inactive && GameManager.instance.sceneName == "Weekend")
+                }
+                else if (GameManager.instance.sceneName == "Weekend")
                 {
                     anim.Play("CasualWalk");
                 }
             }
             else
             {
-                if (!inactive && GameManager.instance.sceneName != "Weekend")
+                if (GameManager.instance.sceneName != "Weekend")
                 {
                     anim.Play("RealityPlayerBoxWalk");
                 }
             }
             vel.x += accel;
-            if (!inactive)
-            {
-                sprite.flipX = false;
-            }
+            sprite.flipX = false;
             lastL = false;
             lastR = true;
-		}
+        }
 
-		//Limit the player's max velocity
-        vel.x = Mathf.Max (Mathf.Min (vel.x, maxAccel), -maxAccel);
+        //Limit the player's max velocity
+        vel.x = Mathf.Max(Mathf.Min(vel.x, maxAccel), -maxAccel);
+
         //If you don't move right or left, then don't move
-        if (Mathf.Abs(xInput) <= 0f)
+        if (Mathf.Abs(xInput) <= 0f && !inactive)
         {
             if (!holdingBox && GameManager.instance.sceneName != "Weekend")
             {
                 anim.Play("RealityPlayerIdle");
-            } else if (holdingBox && GameManager.instance.sceneName != "Weekend")
+            }
+            else if (holdingBox && GameManager.instance.sceneName != "Weekend")
             {
                 anim.Play("RealityPlayerBoxIdle");
-            } else if (GameManager.instance.sceneName == "Weekend")
+            }
+            else if (GameManager.instance.sceneName == "Weekend")
             {
                 anim.Play("CasualIdle");
             }
             vel.x = 0;
         }
 
+        //When day dream starts, spawn a dream player and the monarch
         if (!spawnedDreamPlayer && GameManager.instance.dreamStarted == true)
         {
             StartCoroutine(DayDream());
@@ -216,11 +233,49 @@ public class RealityPlayerMovement : MonoBehaviour {
             }
         }
 
-        if (!inactive)
+        if (GameManager.instance.sceneName == "Weekend")
         {
-            rb.MovePosition((Vector2)transform.position + vel * Time.deltaTime);
+            if (transform.position.x >= 55f && transform.position.x < 60.5f)
+            {
+                anim.Play("CasualWalk");
+                waitingCasualWinner = true;
+                inactive = true;
+                vel.x += accel;
+            }
+
+            if (transform.position.x >= 60.5f)
+            {
+                vel.x = 0;
+                waitingCasualWinner = false;
+                watchingCasualWinner = true;
+                anim.Play("CasualIdle");
+            }
+
+            if (watchingCasualWinner)
+            {
+                casualWinner = GameObject.FindWithTag("CasualWinner");
+                if (casualWinner.transform.position.x < transform.position.x)
+                {
+                    sprite.flipX = true;
+                }
+                else
+                {
+                    sprite.flipX = false;
+                }
+                if (casualWinner.transform.position.x >= 71f && !spawnedDreamPlayer)
+                {
+                    watchingCasualWinner = false;
+                    casualWinnerGone = true;
+                    //StartCoroutine(DayDream());
+                    //spawnedDreamPlayer = true;
+                    inactive = true;
+                }
+            }
+
         }
-	}
+
+        rb.MovePosition((Vector2)transform.position + vel * Time.deltaTime);
+    }
 
     private void OnTriggerStay2D(Collider2D coll)
     {
@@ -251,10 +306,18 @@ public class RealityPlayerMovement : MonoBehaviour {
             yield return new WaitForFixedUpdate();
         }
 
-        Instantiate(dreamPlayer, new Vector3(0, 0, -7f), Quaternion.identity);
-        if (GameManager.instance.sceneName != "Cobweb")
+        if (GameManager.instance.sceneName != "Weekend")
         {
-            Instantiate(monarch, new Vector3(0, 6f, -7f), Quaternion.identity);
+            Instantiate(dreamPlayer, new Vector3(0, 0, -7f), Quaternion.identity);
+            if (GameManager.instance.sceneName != "Cobweb")
+            {
+                Instantiate(monarch, new Vector3(0, 6f, -7f), Quaternion.identity);
+            }
+        }
+
+        if (GameManager.instance.sceneName == "Weekend")
+        {
+            Instantiate(dreamPlayer, transform.position, Quaternion.identity);
         }
     }
 }
