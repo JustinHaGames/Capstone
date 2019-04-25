@@ -18,6 +18,7 @@ public class RealityPlayerMovement : MonoBehaviour
     public float maxAccel;
 
     public GameObject dreamPlayer;
+    public GameObject unlitDreamPlayer;
     public GameObject monarch;
 
     bool holdingBox;
@@ -35,14 +36,12 @@ public class RealityPlayerMovement : MonoBehaviour
 
     bool monarchSpawned;
 
-    bool waitingCasualWinner;
     bool watchingCasualWinner;
-    bool casualWinnerGone;
+
+    bool poolDreamStart;
+    bool touchingPool;
 
     GameObject casualWinner;
-
-    public GameObject buttonA;
-    public GameObject buttonX;
 
     // Use this for initialization
     void Start()
@@ -75,7 +74,7 @@ public class RealityPlayerMovement : MonoBehaviour
             {
                 inactive = true;
             }
-            else if (GameManager.instance.taskRead && !GameManager.instance.dreamStarted)
+            else if (GameManager.instance.taskRead && !GameManager.instance.dreamStarted && !watchingCasualWinner)
             {
                 inactive = false;
             }
@@ -87,7 +86,7 @@ public class RealityPlayerMovement : MonoBehaviour
             if (!GameManager.instance.taskRead)
             {
                 inactive = true;
-            } else if (GameManager.instance.taskRead && !waitingCasualWinner && !watchingCasualWinner && !casualWinnerGone)
+            } else if (GameManager.instance.taskRead && !WeekendManager.instance.poolDreamStarted)
             {
                 inactive = false;
             }
@@ -150,7 +149,7 @@ public class RealityPlayerMovement : MonoBehaviour
                 {
                     anim.Play("RealityPlayerWalk");
                 }
-                else if ( GameManager.instance.sceneName == "Weekend")
+                else if ( GameManager.instance.sceneName == "Weekend" && !touchingPool)
                 {
                     anim.Play("CasualWalk");
                 }
@@ -177,7 +176,7 @@ public class RealityPlayerMovement : MonoBehaviour
                 {
                     anim.Play("RealityPlayerWalk");
                 }
-                else if (GameManager.instance.sceneName == "Weekend")
+                else if (GameManager.instance.sceneName == "Weekend" && !touchingPool)
                 {
                     anim.Play("CasualWalk");
                 }
@@ -199,7 +198,7 @@ public class RealityPlayerMovement : MonoBehaviour
         vel.x = Mathf.Max(Mathf.Min(vel.x, maxAccel), -maxAccel);
 
         //If you don't move right or left, then don't move
-        if (Mathf.Abs(xInput) <= 0f && !inactive)
+        if (Mathf.Abs(xInput) <= 0f && !inactive && !touchingPool)
         {
             if (!holdingBox && GameManager.instance.sceneName != "Weekend")
             {
@@ -235,23 +234,22 @@ public class RealityPlayerMovement : MonoBehaviour
 
         if (GameManager.instance.sceneName == "Weekend")
         {
-            if (transform.position.x >= 55f && transform.position.x < 60.5f)
+            if (transform.position.x >= 55f && transform.position.x < 60.5f && !WeekendManager.instance.winnerStopped)
             {
+                WeekendManager.instance.poolDreamStarted = true;
                 anim.Play("CasualWalk");
-                waitingCasualWinner = true;
                 inactive = true;
                 vel.x += accel;
             }
 
-            if (transform.position.x >= 60.5f)
+            if (transform.position.x >= 60.5f && WeekendManager.instance.poolDreamStarted)
             {
                 vel.x = 0;
-                waitingCasualWinner = false;
                 watchingCasualWinner = true;
                 anim.Play("CasualIdle");
             }
 
-            if (watchingCasualWinner)
+            if (watchingCasualWinner && WeekendManager.instance.poolDreamStarted)
             {
                 casualWinner = GameObject.FindWithTag("CasualWinner");
                 if (casualWinner.transform.position.x < transform.position.x)
@@ -265,9 +263,8 @@ public class RealityPlayerMovement : MonoBehaviour
                 if (casualWinner.transform.position.x >= 71f && !spawnedDreamPlayer)
                 {
                     watchingCasualWinner = false;
-                    casualWinnerGone = true;
-                    //StartCoroutine(DayDream());
-                    //spawnedDreamPlayer = true;
+                    StartCoroutine(playerPoolDayDream());
+                    spawnedDreamPlayer = true;
                     inactive = true;
                 }
             }
@@ -275,6 +272,15 @@ public class RealityPlayerMovement : MonoBehaviour
         }
 
         rb.MovePosition((Vector2)transform.position + vel * Time.deltaTime);
+    }
+
+    private void OnCollisionStay2D(Collision2D coll)
+    {
+        if (coll.gameObject.tag == "PlayerPool")
+        {
+            touchingPool = true;
+            anim.Play("CasualFallen");
+        }
     }
 
     private void OnTriggerStay2D(Collider2D coll)
@@ -319,5 +325,35 @@ public class RealityPlayerMovement : MonoBehaviour
         {
             Instantiate(dreamPlayer, transform.position, Quaternion.identity);
         }
+    }
+
+    IEnumerator playerPoolDayDream()
+    {
+        for (int i = 0; i < 125; i++)
+        {
+            yield return new WaitForFixedUpdate();
+        }
+        Instantiate(unlitDreamPlayer, new Vector3(transform.position.x + 3f, transform.position.y + 2f, transform.position.z), Quaternion.identity);
+        for (int i = 0; i < 125; i++)
+        {
+            yield return new WaitForFixedUpdate();
+        }
+        Instantiate(unlitDreamPlayer, new Vector3(transform.position.x - 3f, transform.position.y + 2f, transform.position.z), Quaternion.identity);
+        for (int i = 0; i < 90; i++)
+        {
+            yield return new WaitForFixedUpdate();
+        }
+        Instantiate(unlitDreamPlayer, new Vector3(transform.position.x + 1f, transform.position.y + 2f, transform.position.z), Quaternion.identity);
+        for (int i = 0; i < 40; i++)
+        {
+            yield return new WaitForFixedUpdate();
+        }
+        Instantiate(unlitDreamPlayer, new Vector3(transform.position.x - 2f, transform.position.y + 2f, transform.position.z), Quaternion.identity);
+        for (int i = 0; i < 20; i++)
+        {
+            yield return new WaitForFixedUpdate();
+        }
+        WeekendManager.instance.spawnPlayerPool = true;
+        WeekendManager.instance.poolDreamStarted = false;
     }
 }

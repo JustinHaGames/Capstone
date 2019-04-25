@@ -42,6 +42,7 @@ public class CasualWinner : MonoBehaviour
         {
             left = false;
             right = false;
+            WeekendManager.instance.winnerStopped = true;
             anim.Play("CasualWinnerIdle");
         }
 

@@ -100,7 +100,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.1999998, y: 3.1999998}
+    oldSize: {x: 3.2, y: 3.2}
     newSize: {x: 3.1999998, y: 3.1999998}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -147,13 +147,15 @@ MonoBehaviour:
   maxAccel: 3
   dreamPlayer: {fileID: 1474913426420956, guid: 9dfcfc2392df940a3a578588d8a3cc82,
     type: 3}
+  unlitDreamPlayer: {fileID: 3371317940938054521, guid: cbfcc52295a9c4bbfbc4a2eefb220613,
+    type: 3}
   monarch: {fileID: 1291110502349556, guid: f166ab1aba3394eefb5770289fa84f5f, type: 3}
   blockMask:
     serializedVersion: 2
     m_Bits: 16384
   heldObject: {fileID: 0}
-  buttonA: {fileID: 0}
-  buttonX: {fileID: 0}
+  gravity: 0.5
+  maxGravity: 80
 --- !u!95 &1815234796
 Animator:
   serializedVersion: 3

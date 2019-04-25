@@ -8,6 +8,8 @@ public class WeekendCamera : MonoBehaviour
 
     GameObject dreamPlayer;
 
+    bool dreamMode;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +19,7 @@ public class WeekendCamera : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!GameManager.instance.dreamStarted)
+        if (!dreamMode)
         {
             realPlayer = GameObject.FindWithTag("RealityPlayer");
 
@@ -28,9 +30,25 @@ public class WeekendCamera : MonoBehaviour
                 transform.position = new Vector3(0, transform.position.y, transform.position.z);
             } else if (transform.position.x >= 60.5f)
             {
+                dreamMode = true;
                 transform.position = new Vector3(60.5f, transform.position.y, transform.position.z);
             }
+        } 
 
+        if (dreamMode)
+        {
+            realPlayer = GameObject.FindWithTag("RealityPlayer");
+
+            transform.position = new Vector3(60.5f, realPlayer.transform.position.y, transform.position.z);
+
+            if (transform.position.y <= 0)
+            {
+                transform.position = new Vector3(60.5f, 0, transform.position.z);
+            } else
+            {
+                transform.position = new Vector3(60.5f, realPlayer.transform.position.y, transform.position.z);
+            }
         }
+
     }
 }
