@@ -25,16 +25,12 @@ public class Box : MonoBehaviour {
 	public float gravity; 
 	public float maxGravity;
 
-	bool floating; 
-
 	//Was last action left or right throw?
 	bool lastL;
 	bool lastR; 
 
 	GameObject player;
     GameObject realityPlayer;
-
-	bool thrown; 
 
 	BoxCollider2D playerTopCollider; 
 	BoxCollider2D boxTopCollider;
@@ -69,10 +65,6 @@ public class Box : MonoBehaviour {
         }
 
         Grounded (); 
-
-		if (floating) {
-			vel.y = 1f; 
-		}
 			
 		if (player != null) {
 			if (player.transform.position.y >= transform.position.y + 1.1f) {
@@ -114,7 +106,6 @@ public class Box : MonoBehaviour {
 			vel.y = 0; 
 			lastL = false;
 			lastR = false; 
-			thrown = false;
 		} else {
 			//If you threw the box and the last throw was not thrown left or right
 			if (!held && !lastL && !lastR && !stacked) {
@@ -134,7 +125,6 @@ public class Box : MonoBehaviour {
 			vel.y = 0; 
 			lastL = false;
 			lastR = false;
-			thrown = false;
 		}
 
 		if (boxPushing) {
@@ -182,7 +172,6 @@ public class Box : MonoBehaviour {
 		transform.position =  new Vector3(realityPlayer.transform.position.x, realityPlayer.transform.position.y + .5f, realityPlayer.transform.position.z - 1f ); 
 		transform.parent = realityPlayer.transform;
 		held = true;
-		thrown = false;
 	}
 
     public void DestroySelf()

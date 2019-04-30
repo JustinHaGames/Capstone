@@ -105,6 +105,7 @@ Material:
     - _OcclusionStrength: 1
     - _Offset: 0
     - _Parallax: 0.02
+    - _PixelateValue: 0
     - _Refraction: 0
     - _Silver: 0.01
     - _SmoothnessTextureChannel: 0
@@ -113,7 +114,7 @@ Material:
     - _Transparency: 0.875
     - _UVSec: 0
     - _ZWrite: 1
-    - __dirty: 1
+    - __dirty: 0
     m_Colors:
     - _BottomC: {r: 0.6102941, g: 0.7097362, b: 1, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
