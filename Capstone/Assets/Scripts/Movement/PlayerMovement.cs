@@ -70,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
     int mashNumber;
     int numberMashed;
 
+
     // Use this for initialization
     void Start()
     {
@@ -214,6 +215,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
         //run Grounded function to see if you're grounded every frame
         Grounded();
         //run wallCast function to see if you're touching a wall

@@ -23,6 +23,8 @@ public class MonarchMovement : MonoBehaviour
 
     SpriteRenderer sprite;
 
+    float titleTimer;
+
     // Use this for initialization
     void Start()
     {
@@ -39,15 +41,24 @@ public class MonarchMovement : MonoBehaviour
 
         if (GameManager.instance.sceneName == "Title")
         {
-            if (transform.position.x <= -7f)
+
+            titleTimer += 1 * Time.deltaTime;
+
+            if (titleTimer <= 1.2f)
             {
                 right = true;
                 left = false;
             }
-            else if (transform.position.x >= 7f)
+
+            if (titleTimer > 1.2f && titleTimer <= 2.4f)
             {
                 left = true;
                 right = false;
+            }
+
+            if (titleTimer > 2.4f)
+            {
+                titleTimer = 0;
             }
 
             if (right)
@@ -60,6 +71,8 @@ public class MonarchMovement : MonoBehaviour
                 sprite.flipX = true;
                 transform.Translate(Vector3.left * Time.deltaTime * 3f);
             }
+
+            transform.position = new Vector3(transform.position.x, Mathf.PingPong(Time.time,1), transform.position.z);
 
         }
 

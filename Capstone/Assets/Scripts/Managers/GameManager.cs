@@ -117,18 +117,18 @@ public class GameManager : MonoBehaviour
 
                 if (taskRead)
                 {
-                    alphaNum -= .25f * Time.deltaTime;
+                    alphaNum -= .4f * Time.deltaTime;
                 }
             }
             else
             {
-                alphaNum -= .25f * Time.deltaTime;
+                alphaNum -= .5f * Time.deltaTime;
             }
 
         }
         else if (!fadeIn && alphaNum < 1f)
         {
-            alphaNum += .25f * Time.deltaTime;
+            alphaNum += .4f * Time.deltaTime;
         }
 
         if (alphaNum >= 1f)

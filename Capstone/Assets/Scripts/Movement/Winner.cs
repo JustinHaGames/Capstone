@@ -57,7 +57,13 @@ public class Winner : MonoBehaviour {
 
         if (!walkLeft && !walkRight)
         {
-            anim.Play("WinnerIdle");
+            if (InspirationManager.gotTrophy)
+            {
+                anim.Play("WinnerIdle");
+            } else
+            {
+                anim.Play("WinnerGreyIdle");
+            }
         }
 	}
 }
