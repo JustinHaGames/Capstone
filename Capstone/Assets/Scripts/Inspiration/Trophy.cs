@@ -24,7 +24,7 @@ public class Trophy : MonoBehaviour {
 				transform.Translate ((Vector2.down * Time.deltaTime) * 1.75f);
 			} 
 
-			if (transform.position.y <= -.8f) {
+			if (transform.position.y <= .2f) {
 				InspirationManager.gotTrophy = true; 
 				descend = false; 
 				if (!effectPlayed) {

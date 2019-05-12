@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public bool fadeIn;
 
     public bool switchScene;
+    bool changingScene;
 
     public bool playerSwitch;
 
@@ -23,7 +24,7 @@ public class GameManager : MonoBehaviour
     public int sceneID;
     public string sceneName;
 
-    AudioSource audio;
+    private AudioSource audioSource;
 
     public AudioClip flying;
 
@@ -56,7 +57,24 @@ public class GameManager : MonoBehaviour
 
     public bool readText;
 
+    int pauseCounter;
+
+    public bool paused;
+
+    int pauseOptionCounter;
+    public GameObject resume;
+    public GameObject returnToTitle;
+
+    public Color selectedColor;
+    public Color unselectedColor;
+
     // Use this for initialization
+
+    private void Awake()
+    {
+        instance = this;
+
+    }
     void Start()
     {
         Cursor.visible = false;
@@ -64,10 +82,11 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         alphaNum = 1f;
         fadeIn = true;
-        instance = this;
+        changingScene = false;
+
         readText = false;
 
-        audio = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
 
         //Get the current scene you are on
         sceneID = SceneManager.GetActiveScene().buildIndex;
@@ -91,14 +110,101 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        if (Input.GetButtonDown("Pause")  && GameManager.instance.sceneName != "Title")
+        {
+            pauseCounter += 1;
+        }
+
+        switch (pauseCounter)
+        {
+            case 0:
+                paused = false;
+                break;
+            case 1:
+                paused = true;
+                alphaNum = .85f;
+                Time.timeScale = 0f;
+                break;
+            case 2:
+                alphaNum = 0;
+                Time.timeScale = 1;
+                pauseCounter = 0;
+                break;
+        }
+
+        float yInput = Input.GetAxisRaw("Vertical");
+
+        if (yInput > 0)
+        {
+            pauseOptionCounter = 0;
+        }
+
+        if (yInput < 0)
+        {
+            pauseOptionCounter = 1;
+        }
+
+        if (Mathf.Abs(yInput) < 0.1f)
+        {
+            yInput = 0;
+        }
+
+        if (!paused)
+        {
+            resume.GetComponent<SpriteRenderer>().color = new Color(0,0,0,0);
+            returnToTitle.GetComponent<SpriteRenderer>().color = new Color(0,0,0,0);
+            pauseOptionCounter = 0;
+        }
+        else
+        {
+            if (pauseOptionCounter == 0)
+            {
+                resume.GetComponent<SpriteRenderer>().color = selectedColor;
+                returnToTitle.GetComponent<SpriteRenderer>().color = unselectedColor;
+
+                if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.KeypadEnter))
+                {
+                    pauseCounter = 2;
+                }
+            }
+
+            if (pauseOptionCounter == 1)
+            {
+                resume.GetComponent<SpriteRenderer>().color = unselectedColor;
+                returnToTitle.GetComponent<SpriteRenderer>().color = selectedColor;
+
+                if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.KeypadEnter))
+                {
+                    SceneManager.LoadScene("Title");
+                    pauseCounter = 2;
+                }
+
+            }
+        }
+
+        if (paused)
+        {
+            if (audioSource.isPlaying)
+            {
+                audioSource.Pause();
+            }
+
+        }
+        else
+        {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.UnPause();
+            }
+        }
+
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene(0);
-        }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -143,7 +249,11 @@ public class GameManager : MonoBehaviour
         //Call the scene change coroutine when switchScene is called
         if (switchScene)
         {
-            StartCoroutine(SceneChange());
+            if (!changingScene)
+            {
+                StartCoroutine(SceneChange());
+                changingScene = true;
+            }
         }
 
         //Only things done in scene 3
@@ -151,9 +261,9 @@ public class GameManager : MonoBehaviour
         {
             if (playFlying)
             {
-                if (!audio.isPlaying)
+                if (!audioSource.isPlaying)
                 {
-                    audio.Play();
+                    audioSource.Play();
                 }
             }
         }
@@ -167,9 +277,9 @@ public class GameManager : MonoBehaviour
                 playFlying = true;
                 if (playFlying)
                 {
-                    if (!audio.isPlaying)
+                    if (!audioSource.isPlaying)
                     {
-                        audio.Play();
+                        audioSource.Play();
                     }
                 }
             }
@@ -218,7 +328,7 @@ public class GameManager : MonoBehaviour
     //After a short delay, change to a different scene
     IEnumerator SceneChange()
     {
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 200; i++)
         {
             yield return new WaitForFixedUpdate();
         }

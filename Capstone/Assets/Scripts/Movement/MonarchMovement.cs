@@ -72,7 +72,7 @@ public class MonarchMovement : MonoBehaviour
                 transform.Translate(Vector3.left * Time.deltaTime * 3f);
             }
 
-            transform.position = new Vector3(transform.position.x, Mathf.PingPong(Time.time,1), transform.position.z);
+            transform.position = new Vector3(transform.position.x, Mathf.PingPong(Time.time ,1f) + -.5f, transform.position.z);
 
         }
 

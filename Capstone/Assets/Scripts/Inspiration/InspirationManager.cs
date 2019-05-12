@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InspirationManager : MonoBehaviour {
 
-	AudioSource audio; 
+	private AudioSource audio; 
 
 	public AudioClip winner; 
 
@@ -28,9 +28,24 @@ public class InspirationManager : MonoBehaviour {
 		playAudio = true; 
 		clapped = false; 
 	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+    private void Update()
+    {
+        if (GameManager.instance.paused)
+        {
+            if (audio.isPlaying)
+                audio.Pause();
+
+        }
+        else
+        {
+            if (!audio.isPlaying)
+                audio.UnPause();
+        }
+    }
+
+    // Update is called once per frame
+    void FixedUpdate () {
 
 		if (Input.GetButtonDown("Fire1")) {
 			activateScene = true; 

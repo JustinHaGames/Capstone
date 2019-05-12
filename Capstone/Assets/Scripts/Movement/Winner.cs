@@ -39,7 +39,7 @@ public class Winner : MonoBehaviour {
 			sprite.flipX = false;
             anim.Play("WinnerWalk");
 			if (transform.position.x >= 10f) {
-				transform.position = new Vector3 (transform.position.x,-3.41f,transform.position.z);
+				transform.position = new Vector3 (transform.position.x,-2.47f,transform.position.z);
 				walkLeft = true;
 				walkRight = false;
 			}

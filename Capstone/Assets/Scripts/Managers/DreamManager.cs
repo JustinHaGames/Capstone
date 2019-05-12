@@ -52,7 +52,7 @@ public class DreamManager : MonoBehaviour
     void FixedUpdate()
     {
 
-        if (SceneManager.GetActiveScene().name == "Dream1" && !stop)
+        if (SceneManager.GetActiveScene().name == "Dream1" && !stop && GameManager.instance.playFlying)
         {
             dreamTimeMinOne += 1 * Time.deltaTime * timeSpeed;
 

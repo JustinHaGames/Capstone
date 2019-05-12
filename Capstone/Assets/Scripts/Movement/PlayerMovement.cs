@@ -410,6 +410,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (GameManager.instance.sceneName == "Dream1")
         {
+
+
             if (GameManager.instance.monarchComeAlive == true)
             {
                 inactive = true;
@@ -418,14 +420,6 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 inactive = false;
-            }
-        }
-
-        if (GameManager.instance.sceneName == "WallJump")
-        {
-            if (transform.position.y >= 12f)
-            {
-                GameManager.instance.switchScene = true;
             }
         }
 

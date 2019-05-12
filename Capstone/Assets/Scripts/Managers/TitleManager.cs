@@ -13,9 +13,32 @@ public class TitleManager : MonoBehaviour
     public Color selectedColor;
     public Color unselectedColor;
 
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
+        //Reset all variables when game resets
+        GameManager.instance.monarchComeAlive = false;
+        GameManager.instance.monarchFlying = false;
+        GameManager.instance.playFlying = false;
+    }
+
+    private void Update()
+    {
+        if (GameManager.instance.paused)
+        {
+            if (audioSource.isPlaying)
+                audioSource.Pause();
+
+        }
+        else
+        {
+            if (!audioSource.isPlaying)
+                audioSource.UnPause();
+        }
 
     }
 
