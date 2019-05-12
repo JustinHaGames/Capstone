@@ -16,7 +16,8 @@ public class BedScript : MonoBehaviour {
 	void FixedUpdate () {
 		if (player.transform.position.x <= -6.5f) {
 			Instantiate (inBed, transform.position, Quaternion.identity);
-            GameManager.instance.switchScene = true;
+            SleepingManager.instance.closeEyes = true;
+            GameManager.instance.fadeIn = false;
 			Destroy (gameObject);
 		}
 	}

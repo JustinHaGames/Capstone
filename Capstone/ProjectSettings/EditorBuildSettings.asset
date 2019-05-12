@@ -30,11 +30,23 @@ EditorBuildSettings:
     path: Assets/Scenes/BoxCloset.unity
     guid: 6dc8101c04b524519b61b6d8916767f8
   - enabled: 1
+    path: Assets/Scenes/GoingToSleep 1.unity
+    guid: 66b719848b85f4b448037617f88a0fda
+  - enabled: 1
+    path: Assets/Scenes/FallingIntoDream 1.unity
+    guid: cc888933b8e81408ca1960dea40c6c14
+  - enabled: 1
     path: Assets/Scenes/Dream2.unity
     guid: 490c1376ce0794220a7c38a654648045
   - enabled: 1
     path: Assets/Scenes/TapeMeasure.unity
     guid: 7254f9f09fee74bbbb66fa5a86454708
+  - enabled: 1
+    path: Assets/Scenes/GoingToSleep 2.unity
+    guid: 6fb875aab70254c5ca4cd54621493d3a
+  - enabled: 1
+    path: Assets/Scenes/FallingIntoDream 2.unity
+    guid: b1e1de1e923974540a331d59d3829c2f
   - enabled: 1
     path: Assets/Scenes/Dream3.unity
     guid: 7c7ab4b7c4e8d4b679e2ab43e18f3c8d
