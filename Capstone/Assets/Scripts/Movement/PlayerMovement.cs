@@ -118,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
         if (GameManager.instance.sceneName == "TapeMeasure")
         {
             boxBoost = 15f;
-            pullSpeed = 20f;
+            pullSpeed = 18f;
         }
         else
         {

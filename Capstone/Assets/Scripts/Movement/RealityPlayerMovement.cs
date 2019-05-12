@@ -196,8 +196,26 @@ public class RealityPlayerMovement : MonoBehaviour
         //Limit the player's max velocity
         vel.x = Mathf.Max(Mathf.Min(vel.x, maxAccel), -maxAccel);
 
+        if (inactive && !touchingPool)
+        {
+            xInput = 0;
+            vel.x = 0;
+            if (!holdingBox && GameManager.instance.sceneName != "Weekend")
+            {
+                anim.Play("RealityPlayerIdle");
+            }
+            else if (holdingBox && GameManager.instance.sceneName != "Weekend")
+            {
+                anim.Play("RealityPlayerBoxIdle");
+            }
+            else if (GameManager.instance.sceneName == "Weekend")
+            {
+                anim.Play("CasualIdle");
+            }
+        }
+
         //If you don't move right or left, then don't move
-        if (Mathf.Abs(xInput) <= 0f && !inactive && !touchingPool)
+        if (Mathf.Abs(xInput) <= 0f)
         {
             if (!holdingBox && GameManager.instance.sceneName != "Weekend")
             {

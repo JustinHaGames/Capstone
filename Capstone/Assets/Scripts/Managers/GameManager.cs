@@ -214,7 +214,7 @@ public class GameManager : MonoBehaviour
         //Always fade in to a new scene
         if (fadeIn && alphaNum > 0f)
         {
-
+            alphaNum -= .4f * Time.deltaTime;
         }
         else if (!fadeIn && alphaNum < 1f)
         {
@@ -223,19 +223,21 @@ public class GameManager : MonoBehaviour
 
         if (sceneName == "BoxCloset" || sceneName == "TapeMeasure" || sceneName == "Cobweb" || sceneName == "Weekend")
         {
+
             if (Input.GetButtonDown("Fire1") && readText)
             {
                 taskRead = true;
+            }
+
+            if (!taskRead)
+            {
+                alphaNum = 1;
             }
 
             if (taskRead)
             {
                 alphaNum -= .4f * Time.deltaTime;
             }
-        }
-        else
-        {
-            alphaNum -= .5f * Time.deltaTime;
         }
 
         if (alphaNum >= 1f)

@@ -68,7 +68,7 @@ public class Spawner : MonoBehaviour {
         if (GameManager.instance.sceneName == "BoxCloset")
         {
 
-            if (GameManager.instance.currentSpot >= 3)
+            if (GameManager.instance.currentSpot >= 4)
             {
                 timer += 1 * Time.deltaTime;
                 horizontalTimer += 1 * Time.deltaTime;
@@ -104,7 +104,7 @@ public class Spawner : MonoBehaviour {
 
         if (GameManager.instance.sceneName == "TapeMeasure")
         {
-            if (GameManager.instance.currentSpot >= 3)
+            if (GameManager.instance.currentSpot >= 4)
             {
                 horizontalTimer += 1 * Time.deltaTime;
             }
