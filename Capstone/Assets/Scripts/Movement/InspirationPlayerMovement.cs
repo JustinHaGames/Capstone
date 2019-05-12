@@ -57,7 +57,7 @@ public class InspirationPlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
 
-        if (GameManager.instance.sceneName == "GoingToSleep")
+        if (GameManager.instance.sceneName == "GoingToSleep" || GameManager.instance.sceneName == "GoingToSleep 1" || GameManager.instance.sceneName == "GoingToSleep 2" || GameManager.instance.sceneName == "GoingToSleep 3")
         {
             inactive = false;
             leave = true;
@@ -106,7 +106,7 @@ public class InspirationPlayerMovement : MonoBehaviour
             GameManager.instance.fadeIn = false;
         }
 
-        if (transform.position.x <= -6.5f &&  GameManager.instance.sceneName == "GoingToSleep")
+        if (transform.position.x <= -6.5f && (GameManager.instance.sceneName == "GoingToSleep" || GameManager.instance.sceneName == "GoingToSleep 1" || GameManager.instance.sceneName == "GoingToSleep 2" || GameManager.instance.sceneName == "GoingToSleep 3"))
         {
             Destroy(gameObject);
         }

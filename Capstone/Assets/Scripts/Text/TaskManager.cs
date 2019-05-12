@@ -12,6 +12,8 @@ public class TaskManager : MonoBehaviour
 
     AudioSource SFX;
 
+    public Color clear;
+
     void Awake()
     {
         txt = GetComponent<Text>();
@@ -24,8 +26,17 @@ public class TaskManager : MonoBehaviour
         StartCoroutine("PlayText");
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
+
+        if (GameManager.instance.paused)
+        {
+            txt.color = clear;
+        }
+        else
+        {
+            txt.color = Color.white;
+        }
 
         if (GameManager.instance.taskRead)
         {

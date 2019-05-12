@@ -22,7 +22,7 @@ public class CutsceneBlock : MonoBehaviour
         dist = Mathf.Abs(Vector3.Distance(originalPos, transform.position));
 
 
-        if (GameManager.instance.sceneName == "GoingToSleep")
+        if (GameManager.instance.sceneName == "GoingToSleep" || GameManager.instance.sceneName == "GoingToSleep 1" || GameManager.instance.sceneName == "GoingToSleep 2" || GameManager.instance.sceneName == "GoingToSleep 3")
         {
             if (dist < maxDist && SleepingManager.instance.closeEyes)
             {

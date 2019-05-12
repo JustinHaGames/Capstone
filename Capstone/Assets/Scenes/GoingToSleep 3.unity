@@ -516,18 +516,8 @@ PrefabInstance:
         type: 3}
       propertyPath: RealityPlayer
       value: 
-      objectReference: {fileID: 21300000, guid: 6a156ba26ee5c4eadadd74d4ce4d86d0,
+      objectReference: {fileID: 21300000, guid: e32baa25f8aa74a2eb385b275a9e7fa7,
         type: 3}
-    - target: {fileID: 6371137706989169919, guid: e4c9e0013ad2348918f0450e816556bc,
-        type: 3}
-      propertyPath: accel
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6371137706989169919, guid: e4c9e0013ad2348918f0450e816556bc,
-        type: 3}
-      propertyPath: maxAccel
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4c9e0013ad2348918f0450e816556bc, type: 3}
 --- !u!4 &1504114857 stripped

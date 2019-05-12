@@ -62,7 +62,6 @@ public class RealityPlayerMovement : MonoBehaviour
 
     private void Update()
     {
-
         if (GameManager.instance.sceneName == "Inspiration")
         {
             sprite.sprite = colorRealityPlayer;
@@ -213,7 +212,7 @@ public class RealityPlayerMovement : MonoBehaviour
                 anim.Play("CasualIdle");
             }
             vel.x = 0;
-        }
+        } 
 
         //When day dream starts, spawn a dream player and the monarch
         if (!spawnedDreamPlayer && GameManager.instance.dreamStarted == true)

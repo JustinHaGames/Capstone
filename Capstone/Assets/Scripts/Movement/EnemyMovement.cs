@@ -26,6 +26,8 @@ public class EnemyMovement : MonoBehaviour {
 
     GameObject specialSpawn;
 
+    bool spawnedBox;
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
@@ -95,8 +97,12 @@ public class EnemyMovement : MonoBehaviour {
     }
 
 	IEnumerator Dead (){
-		Instantiate (box, transform.position, Quaternion.identity);
-		Destroy (gameObject);
+        if (!spawnedBox)
+        {
+            Instantiate(box, transform.position, Quaternion.identity);
+            spawnedBox = true;
+            Destroy(gameObject);
+        }
         yield return null;
 	}
 

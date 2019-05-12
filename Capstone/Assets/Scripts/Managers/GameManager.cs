@@ -214,27 +214,28 @@ public class GameManager : MonoBehaviour
         //Always fade in to a new scene
         if (fadeIn && alphaNum > 0f)
         {
-            if (sceneName == "BoxCloset" || sceneName == "TapeMeasure" || sceneName == "Cobweb" || sceneName == "Weekend")
-            {
-                if (Input.GetButtonDown("Fire1") && readText)
-                {
-                    taskRead = true;
-                }
-
-                if (taskRead)
-                {
-                    alphaNum -= .4f * Time.deltaTime;
-                }
-            }
-            else
-            {
-                alphaNum -= .5f * Time.deltaTime;
-            }
 
         }
         else if (!fadeIn && alphaNum < 1f)
         {
             alphaNum += .4f * Time.deltaTime;
+        }
+
+        if (sceneName == "BoxCloset" || sceneName == "TapeMeasure" || sceneName == "Cobweb" || sceneName == "Weekend")
+        {
+            if (Input.GetButtonDown("Fire1") && readText)
+            {
+                taskRead = true;
+            }
+
+            if (taskRead)
+            {
+                alphaNum -= .4f * Time.deltaTime;
+            }
+        }
+        else
+        {
+            alphaNum -= .5f * Time.deltaTime;
         }
 
         if (alphaNum >= 1f)
@@ -245,6 +246,7 @@ public class GameManager : MonoBehaviour
         {
             alphaNum = 0f;
         }
+
 
         //Call the scene change coroutine when switchScene is called
         if (switchScene)
